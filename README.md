@@ -2,6 +2,8 @@
 
 Convert number and monetary amount to written text. Also helpful for writing cheques (checks).
 
+Currently this repo is still in contruction. Please stay tuned.
+
 # Planned Usage (Not implement yet!)
 
 `numbo` can be installed via npm or run in browser directly.

@@ -1,0 +1,35 @@
+{
+  "name": "numbo",
+  "version": "1.0.0",
+  "description": "Convert number and monetary amount to written text. Also helpful for writing cheques (checks).",
+  "main": "./lib/numbo.js",
+  "scripts": {
+    "test": "coffee -o ./lib/ -c ./src/*.coffee; coffee -o ./docs/ -c ./src/*.coffee; coffee -o ./test/ -c ./src/test/*; for f in test/*; do echo \"$f\"; node \"$f\"; done; echo '===done==='; exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Edditoria/numbo.git"
+  },
+  "keywords": [
+    "convert",
+    "number",
+    "cheque",
+    "amount",
+    "English"
+  ],
+  "author": "Edditoria <edditoria@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Edditoria/numbo/issues"
+  },
+  "homepage": "https://edditoria.github.io/numbo",
+  "devDependencies": {
+    "coffee-script": "^1.11.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "directories": {
+    "lib": "./lib",
+    "test": "./test"
+  }
+}
