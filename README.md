@@ -2,9 +2,19 @@
 
 Convert number and monetary amount to written text. Also helpful for writing cheques (checks).
 
-Currently this repo is still in contruction. Please stay tuned.
+# Features
 
-# Planned Usage (Not implement yet!)
+This repo is still in contruction. Please stay tuned. Currently, you can convert number to text.
+
+Planned features:
+
+- [x] convert number to written text
+- [x] provide basic tools for plugin development
+- [ ] check before convert
+- [ ] convert monetary amount to written text
+- [ ] add Chinese via plugin
+
+# Usage
 
 `numbo` can be installed via npm or run in browser directly.
 
