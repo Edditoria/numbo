@@ -1,0 +1,32 @@
+{
+  "name": "numbo",
+  "description": "Convert number and monetary amount to written text. Also helpful for writing cheques (checks).",
+  "main": "./lib/numbo.js",
+  "authors": [
+    "Edditoria <edditoria@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "convert",
+    "number",
+    "cheque",
+    "amount",
+    "English"
+  ],
+  "homepage": "https://edditoria.github.io/numbo",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "docs",
+    "src",
+    "test",
+    "tests",
+    ".gitignore",
+    ".npmignore",
+    "bower.json",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ]
+}

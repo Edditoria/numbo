@@ -1,3 +1,4 @@
-docs/*
+docs
 src
-test/*
+test
+bower.json

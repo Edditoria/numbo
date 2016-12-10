@@ -10,6 +10,17 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
 class Numbo
 
 
+  #
+  #   #####              ##
+  #     #                 #
+  #     #     ##    ##    #     ###
+  #     #    #  #  #  #   #    #
+  #     #    #  #  #  #   #     ##
+  #     #    #  #  #  #   #       #
+  #     #     ##    ##   ###   ###
+  #
+  #
+
   tools =
     trimWhitespace: (str) ->
       str.replace(/^\s+|\s+$/g,'')
@@ -21,7 +32,7 @@ class Numbo
       # `arr10`: unit [10, 20, 30,...90] in a language
       #   e.g. ['Ten', 'Twenty',...'Ninety']
       # output example: ['One', 'Two',...'Ninty-nine']
-      # `separator`: usually a space ' ' (default), a dash '-', or an empty string ''
+      # `separator`: usually a space ' ' (default), a hyphen '-', or an empty string ''
       lenArr1 = arr1.length
       for num in [0..99]
         if num < lenArr1
@@ -30,6 +41,20 @@ class Numbo
           arr10[Math.floor(num/10)]
         else
           arr10[Math.floor(num/10)] + separator + arr1[num % 10].toLowerCase()
+    parseCents: (str, option = 'ceil') ->
+      # slice first 3 characters, round it, then return 2-digit number
+      # e.g. '015' becomes '02' (2 cents), '5' becomes '50' (50 cents)
+      # `option` supports 'ceil', 'round', 'floor'
+      str3dp = (str + '000').slice(0,3)
+      mathOption =
+        switch option
+          when 'round' then 'round'
+          when 'floor' then 'floor'
+          when 'ceil' then 'ceil'
+          else
+            console.log 'Error: option in parseCents() is invalid. Use the default option (Math.ceil)'
+            'ceil'
+      Math[mathOption](parseInt(str3dp, 10) / 10)
     check: (input, characters = '') ->
       # check if there are only:
       # - contains numbers and comma
@@ -46,6 +71,7 @@ class Numbo
       # - remove leading and tailing zero
       # - remove any ',' before '.'
       # - add '0' if the input starts by '.' e.g. '.5'
+      # remove '.' if no decimal place
       # accepts additional characters as 2nd argument #todo
       if typeof input isnt 'string' then input = input.toString() # for safety
       regexHead = /,|^[$|\-]*(0|,)*(?!\.)/g # e.g. '-$0,001,000' matches '$0,00'
@@ -61,7 +87,8 @@ class Numbo
       # if output is an empty string or begins with '.', add a '0'
       if output.indexOf('.') is 0 then output = '0' + output
       if output is '' then output = '0'
-      output
+      # if output is end with '.', remove the '.'
+      output.replace(/\.$/, '')
     splitNum: (input) ->
       # `input` should be a string or number of positive number (integer or float), e.g. 'nnnnnnnn.dddd'
       # return an array ['nnnnnnnn', 'dddd']
@@ -88,6 +115,8 @@ class Numbo
   tools:
     trimWhitespace: tools.trimWhitespace
     parse99: tools.parse99
+    parseCent: tools.parseCents
+    parseCents: tools.parseCents
     #todo check: tools.check
     normalize: tools.normalize
     normalise: tools.normalize
@@ -95,7 +124,18 @@ class Numbo
     splitInt: tools.splitInt
 
 
-  convert_enUS = (input) ->
+  #
+  #                #  #   ##
+  #                #  #  #  #
+  #     ##   ###   #  #  #
+  #    #  #  #  #  #  #   ##
+  #    ####  #  #  #  #     #
+  #    #     #  #  #  #  #  #
+  #     ##   #  #   ##    ##
+  #
+  #
+
+  convert_enUS = (input, options = 'default') ->
     # input floating `input` e.g. nnnnnnn.dddd
     # return string e.g. one hundred point two three
 
@@ -119,8 +159,8 @@ class Numbo
       'Sixty', 'Seventy', 'Eighty', 'Ninety'
     ]
     n1000 = [
-      '', 'Thousand', 'Million', 'Billion', 'Trillion', 'Quadrillion', 'Quintillion'
-    'Sextillion', 'Septillion', 'Octillion'
+      '', 'Thousand', 'Million', 'Billion', 'Trillion'
+      'Quadrillion', 'Quintillion', 'Sextillion', 'Septillion', 'Octillion'
       'Nonillion', 'Decillion', 'Undecillion', 'Duodecillion', 'Tredecillion'
       'Quattuordecillion', 'Quindecillion', 'Sexdecillion', 'Septendecillion', 'Octodecillion'
       'Novemdecillion', 'Vigintillion'
@@ -139,7 +179,7 @@ class Numbo
         hundred = if addAnd then ' Hundred and ' else ' Hundred '
         output = n1[d100] + hundred + n99[num % 100]
 
-    speakInt = (numArr) ->
+    speakInt = (numArr, addAnd = true) ->
       # expect `numArr` is an array
       output = []
       times = numArr.length
@@ -147,7 +187,7 @@ class Numbo
         times--
         if item isnt '000'
           unit = ' ' + n1000[times]
-          item = speak999 parseInt(item, 10)
+          item = speak999(parseInt(item, 10), addAnd)
           output.push item + unit
       output.join(' ').replace(/^\s+|\s+$/g,'') # trim whitespace
 
@@ -159,29 +199,116 @@ class Numbo
           n1withZero[parseInt item, 10]
         ' point ' + strArr.join(' ')
 
+    #
+    #    #  #         #
+    #    ####
+    #    ####   ###  ##    ###
+    #    #  #  #  #   #    #  #
+    #    #  #  #  #   #    #  #
+    #    #  #  # ##   #    #  #
+    #    #  #   # #  ###   #  #
+    #
+    #
+
     speakNum = (str) ->
+      # convert number `str` to written text
       if str is '0' then 'zero'
-      else if str is '1' then 'one'
+      else if str is '1' then 'one' # faster
       else
         strSplited = tools.splitNum(str)
         intArr = tools.splitInt(strSplited[0])
         int = speakInt(intArr)
         if int is '' then int = 'zero'
         dec = speakDec(strSplited[1])
-        int + dec
+        (int + dec).toLowerCase()
 
-    if input is '' then null
-    else if input is '1e+100' then 'Ding! One Google... Oops... One Googol!!'
-    else
-      if typeof input isnt 'string' then input = input.toString()
-      #todo: if tools.check(input) is false .....
-      input = tools.normalize(input)
-      speakNum(input).toLowerCase()
+    speakAmt = (str, options = 'amount') ->
+      # convert amount `str` to written text
+      # accept options as 'amount' or 'cheque'
+      # - amount: some dollars and some cents
+      # - cheque: Some Dollars and Some Cents Only
+      if str is '0' then output = 'Null'
+      else
+        dollarUnit = ['Dollar', 'Dollars']
+        centUnit = ['Cent', 'Cents']
+        # parse the `str`
+        strSplited = tools.splitNum(str)
+        # parse dollars
+        intArr = tools.splitInt(strSplited[0])
+        int = speakInt(intArr, false) # no 'and'
+        dollars =
+          if int is '' then ''
+          else if int is 'One' then ' ' + dollarUnit[0]
+          else ' ' + dollarUnit[1]
+        # parse cents
+        dec = n99[tools.parseCents(strSplited[1])] # remark: n99[0] returns ''
+        cents =
+          if dec is '' and int is '' then 'Null'
+          else if dec is '' then 'No Cent'
+          else if dec is 'One' then ' Cent'
+          else ' Cents'
+        # put together
+        andWord =
+          if dollars is '' then ''
+          else ' and '
+        output = int + dollars + andWord + dec + cents
+      # adjust the output according to `options`
+      output =
+        if options is 'cheque'
+          if output is 'Null'
+            'Null'
+          else
+            output + ' Only'
+        else if options is 'amount'
+          output
+            .replace(' and No Cent', '')
+            .toLowerCase()
+        else
+          console.log 'Error: option in speakAmt is invalid.'
+          output = null
+      output
+
+    main = (input, options) ->
+      # `input` is a string or number
+      # `options` should be a string
+      if input is '' then null
+      else if input is '1e+100' then 'Ding! One Google... Oops... One Googol!!'
+      else
+        #todo: if tools.check(input) is false .....
+        input = tools.normalize(input) # input must become a string
+        #todo: if typeof options is 'string'
+        switch options
+          when 'default', 'number' then speakNum(input)
+          when 'cheque', 'check' then speakAmt(input, 'cheque')
+          when 'amount', 'amt' then speakAmt(input, 'amount')
+          else
+            console.log 'option in enUS is not valid'
+            null
+    main(input, options)
 
   enUS: convert_enUS
 
-  convert: (num, options = 'enUS') ->
-    @[options](num)
+
+  convert: (num, options = 'default') ->
+    # `num` can be string or number
+    # `options` can be 'number', 'amount' or 'cheque'
+    if options is 'default'
+      convert_enUS(num) # faster
+    else if typeof options is 'string'
+      # One single option is provded
+      # e.g. 'zhTW', 'amount', 'cheque', etc.
+      if @[options]?
+        # accept language plugin e.g. 'zhTW' refers to convert_zhTW
+        @[options](num)
+      else
+        # not a lang, and refer to options in enUS, e.g. 'cheque', 'amount'
+        convert_enUS(num, options)
+    else if Object.prototype.toString.call(options) is '[object Object]'
+      console.log 'Error: Invalid option. Option does not supports object yet. Returns null' #todo
+      null
+    else
+      console.log 'Error: Invalid option. Option should be a string or an object. Returns null'
+      null
 
 
 numbo = new Numbo()
