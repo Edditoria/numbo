@@ -68,8 +68,8 @@ console.log(numbo.convert('123.45')); // "one hundred and twenty-three point fou
 
 - `input` is the string or number you want to convert.
     1. Have to be a valid number, e.g. 123 (number), '123' (string), '$123,456'.
-    2. You must use a string if the input is more than 21 characters.
-    3. Currently it supports up to 66 characters only, or will make an unexpected error.
+    2. You must use a string if the input is more than 16 characters.
+    3. Currently it supports up to 66 characters only, i.e. one hundred vigintillion.
 - `option` is the format of output you want. It accepts:
     1. `'number'` (default)
     2. `'amount'` (or `'amt'`)
@@ -98,10 +98,10 @@ This repo is just new. To make it some-how complete, need more works on these:
 
 - [x] convert number to written text
 - [x] provide basic tools for plugin development
-- [ ] check before convert
 - [x] convert monetary amount to written text
-- [ ] write test and readme for `numbo.tools`
-- [ ] add Chinese via plugin
-- [ ] more options, e.g. no hyphen, output as array
+- [ ] check before convert (v1.1)
+- [ ] write test and readme for `numbo.tools` (v2)
+- [ ] add Chinese via plugin (v3)
+- [ ] more options, e.g. no hyphen, output as array (v4)
 
 Please kindly wait for more releases.
