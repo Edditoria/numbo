@@ -1,4 +1,4 @@
-# About This Repo
+# About `Numbo`
 
 Convert number and monetary amount to written text. Also helpful for writing cheques (checks).
 
@@ -21,9 +21,32 @@ var numbo = require('numbo');
 console.log(numbo.convert('123.45')); // "one hundred and twenty-three point four five"
 ```
 
-## For Browsers
+## Bower
 
-Download the file `numbo.js` and refer it in your html file:
+You can download and easily update `numbo` via [Bower package manager](https://bower.io/).
+
+```shell
+bower install numbo
+```
+
+And it is ready to serve in front-end environment:
+
+```html
+<html>
+    <head>
+        <script src='bower_components/numbo/lib/numbo.js'></script>
+    </head>
+</html>
+
+```
+
+```js
+console.log(numbo.convert('123.45')); // "one hundred and twenty-three point four five"
+```
+
+## Direct Download
+
+Nothing can stop you. Download the file `numbo.js` and refer it in your html file:
 
 ```html
 <html>
@@ -44,14 +67,15 @@ console.log(numbo.convert('123.45')); // "one hundred and twenty-three point fou
 ## `numbo.convert(input, option)`
 
 - `input` is the string or number you want to convert.
-    1. You must use a string if the input is more than 21 characters.
-    2. Currently it supports up to 66 characters only, or will make an unexpected error
+    1. Have to be a valid number, e.g. 123 (number), '123' (string), '$123,456'.
+    2. You must use a string if the input is more than 21 characters.
+    3. Currently it supports up to 66 characters only, or will make an unexpected error.
 - `option` is the format of output you want. It accepts:
     1. `'number'` (default)
     2. `'amount'` (or `'amt'`)
     3. `'check'` (or `'cheque'`)
 
-```javascript
+```js
 // 1.
 numbo.convert(123.4567)
 // no option implies to use 'number'
