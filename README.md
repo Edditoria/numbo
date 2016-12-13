@@ -34,7 +34,7 @@ And it is ready to serve in front-end environment:
 ```html
 <html>
     <head>
-        <script src='bower_components/numbo/lib/numbo.js'></script>
+        <script src='bower_components/numbo/dist/numbo.js'></script>
     </head>
 </html>
 

@@ -1,7 +1,7 @@
 {
   "name": "numbo",
   "description": "Convert number and monetary amount to written text. Also helpful for writing cheques (checks).",
-  "main": "./lib/numbo.js",
+  "main": "./dist/numbo.js",
   "authors": [
     "Edditoria <edditoria@gmail.com>"
   ],
@@ -19,12 +19,12 @@
     "node_modules",
     "bower_components",
     "docs",
+    "lib",
     "src",
     "test",
     "tests",
     ".gitignore",
     ".npmignore",
-    "bower.json",
     "LICENSE",
     "package.json",
     "README.md"
