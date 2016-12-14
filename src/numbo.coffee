@@ -63,7 +63,14 @@ class Numbo
       # - no ',' after dot
       # accepts additional characters as 2nd argument #todo
       # returns true or false
-      #todo
+      result = false
+      inputStr = input.toString()
+      acceptRegex = /^[\+\-\$]*[\d\.\,]*|[\d\.\,]*/g
+      illegalStr = inputStr.replace(acceptRegex, '')
+      dotCount = (inputStr.match(/\./g) or []).length # count string occurrence in string
+      commaAfterDot = inputStr.indexOf(',', inputStr.indexOf('.')) > 0
+      if illegalStr is '' and dotCount < 2 and !commaAfterDot then result = true
+      result
     normalize: (input, characters = '') ->
       # expect `input` is a string of integer or floating
       # features:
@@ -117,7 +124,8 @@ class Numbo
     parse99: tools.parse99
     parseCent: tools.parseCents
     parseCents: tools.parseCents
-    #todo check: tools.check
+    check: tools.check
+    validate: tools.check
     normalize: tools.normalize
     normalise: tools.normalize
     splitNum: tools.splitNum
