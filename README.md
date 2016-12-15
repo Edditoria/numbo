@@ -99,7 +99,7 @@ This repo is just new. To make it some-how complete, need more works on these:
 - [x] convert number to written text
 - [x] provide basic tools for plugin development
 - [x] convert monetary amount to written text
-- [ ] check before convert (v1.1)
+- [x] check before convert (v1.1)
 - [ ] write test and readme for `numbo.tools` (v2)
 - [ ] add Chinese via plugin (v3)
 - [ ] more options, e.g. no hyphen, output as array (v4)

@@ -144,6 +144,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
       parseCent: tools.parseCents,
       parseCents: tools.parseCents,
       check: tools.check,
+      validate: tools.check,
       normalize: tools.normalize,
       normalise: tools.normalize,
       splitNum: tools.splitNum,
@@ -255,20 +256,25 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
         } else if (input === '1e+100') {
           return 'Ding! One Google... Oops... One Googol!!';
         } else {
-          input = tools.normalize(input);
-          switch (options) {
-            case 'default':
-            case 'number':
-              return speakNum(input);
-            case 'cheque':
-            case 'check':
-              return speakAmt(input, 'cheque');
-            case 'amount':
-            case 'amt':
-              return speakAmt(input, 'amount');
-            default:
-              console.log('option in enUS is not valid');
-              return null;
+          if (tools.check(input) === false) {
+            console.log('Error: Invalid input value. Return null');
+            return null;
+          } else {
+            input = tools.normalize(input);
+            switch (options) {
+              case 'default':
+              case 'number':
+                return speakNum(input);
+              case 'cheque':
+              case 'check':
+                return speakAmt(input, 'cheque');
+              case 'amount':
+              case 'amt':
+                return speakAmt(input, 'amount');
+              default:
+                console.log('option in enUS is not valid');
+                return null;
+            }
           }
         }
       };

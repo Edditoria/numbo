@@ -282,16 +282,19 @@ class Numbo
       if input is '' then null
       else if input is '1e+100' then 'Ding! One Google... Oops... One Googol!!'
       else
-        #todo: if tools.check(input) is false .....
-        input = tools.normalize(input) # input must become a string
-        #todo: if typeof options is 'string'
-        switch options
-          when 'default', 'number' then speakNum(input)
-          when 'cheque', 'check' then speakAmt(input, 'cheque')
-          when 'amount', 'amt' then speakAmt(input, 'amount')
-          else
-            console.log 'option in enUS is not valid'
-            null
+        if tools.check(input) is false
+          console.log 'Error: Invalid input value. Return null'
+          null
+        else
+          input = tools.normalize(input) # input must become a string
+          #todo: if typeof options is 'string'
+          switch options
+            when 'default', 'number' then speakNum(input)
+            when 'cheque', 'check' then speakAmt(input, 'cheque')
+            when 'amount', 'amt' then speakAmt(input, 'amount')
+            else
+              console.log 'option in enUS is not valid'
+              null
     main(input, options)
 
   enUS: convert_enUS
