@@ -63,7 +63,14 @@ class Numbo
       # - no ',' after dot
       # accepts additional characters as 2nd argument #todo
       # returns true or false
-      #todo
+      result = false
+      inputStr = input.toString()
+      acceptRegex = /^[\+\-\$]*[\d\.\,]*|[\d\.\,]*/g
+      illegalStr = inputStr.replace(acceptRegex, '')
+      dotCount = (inputStr.match(/\./g) or []).length # count string occurrence in string
+      commaAfterDot = inputStr.indexOf(',', inputStr.indexOf('.')) > 0
+      if illegalStr is '' and dotCount < 2 and !commaAfterDot then result = true
+      result
     normalize: (input, characters = '') ->
       # expect `input` is a string of integer or floating
       # features:
@@ -117,7 +124,8 @@ class Numbo
     parse99: tools.parse99
     parseCent: tools.parseCents
     parseCents: tools.parseCents
-    #todo check: tools.check
+    check: tools.check
+    validate: tools.check
     normalize: tools.normalize
     normalise: tools.normalize
     splitNum: tools.splitNum
@@ -274,16 +282,19 @@ class Numbo
       if input is '' then null
       else if input is '1e+100' then 'Ding! One Google... Oops... One Googol!!'
       else
-        #todo: if tools.check(input) is false .....
-        input = tools.normalize(input) # input must become a string
-        #todo: if typeof options is 'string'
-        switch options
-          when 'default', 'number' then speakNum(input)
-          when 'cheque', 'check' then speakAmt(input, 'cheque')
-          when 'amount', 'amt' then speakAmt(input, 'amount')
-          else
-            console.log 'option in enUS is not valid'
-            null
+        if tools.check(input) is false
+          console.log 'Error: Invalid input value. Return null'
+          null
+        else
+          input = tools.normalize(input) # input must become a string
+          #todo: if typeof options is 'string'
+          switch options
+            when 'default', 'number' then speakNum(input)
+            when 'cheque', 'check' then speakAmt(input, 'cheque')
+            when 'amount', 'amt' then speakAmt(input, 'amount')
+            else
+              console.log 'option in enUS is not valid'
+              null
     main(input, options)
 
   enUS: convert_enUS
