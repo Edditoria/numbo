@@ -54,7 +54,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
     } else if (testInput > 9 && testInput < 20) {
       isSimple = options === 'cheque' ? false : true;
       input = parseInt(input, 10).toString();
-      return speak9999(input, isSimple).replace(/^\一|\零/g, '');
+      return speak9999(input, isSimple).replace(/^[\一\壹]|\零/g, '');
     } else if (testInput <= 9999) {
       isSimple = options === 'cheque' ? false : true;
       input = parseInt(input, 10).toString();

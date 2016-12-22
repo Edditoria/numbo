@@ -62,7 +62,7 @@ zhTW = (input, options = 'default') ->
       if options is 'cheque' then false
       else true
     input = parseInt(input, 10).toString()
-    speak9999(input, isSimple).replace(/^\一|\零/g, '')
+    speak9999(input, isSimple).replace(/^[\一\壹]|\零/g, '')
   else if testInput <= 9999
     isSimple =
       if options is 'cheque' then false
