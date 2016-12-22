@@ -27,7 +27,7 @@ zhTW = (input, options = 'default') ->
   n10Simple = ['', '十', '百', '千']
   # units for large number (i.e. 1, 1 0000 , 1 0000 0000 ...)
   # 萬萬為億，萬億為兆
-  nlarge = [
+  nLarge = [
     '', '萬', '億', '兆', '京'
     '垓', '秭', '穰', '溝', '澗', '正', '載'
   ]
@@ -37,12 +37,33 @@ zhTW = (input, options = 'default') ->
     speakN1 = if isSimple then n1Simple else n1
     speakN10 = if isSimple then n10Simple else n10
     times = str.length - 1
-    output = []
+    output = ''
     for num in [0..times]
       eachNum = +str[num]
       unit = if eachNum is 0 then '' else speakN10[times - num]
-      output.push(speakN1[eachNum] + unit)
-    output.join('')
+      output += speakN1[eachNum] + unit
+    if output is '零零零零' then output = '零'
+    else output = output.replace(/\零+$/g, '') # remove tailing '零'
+    output
+
+  speakInt = (str, isSimple = true) =>
+    # split the str into array by every 4 characters
+    # then speak9999() one by one
+    strArr = @tools.splitInt(str, 4)
+    times = strArr.length - 1
+    output = ''
+    for item, num in strArr
+      speakItem = speak9999(item, isSimple) # item = 0 will return '零'
+      if num is 0
+        # the first item, in case of 10 to 19, need to remove 一, 壹 and 零
+        # e.g. 12 in 12,0000,0000 , or simply 18 in 18
+        itemNum = parseInt(item, 10)
+        if itemNum > 9 and itemNum < 20
+          speakItem = speakItem.replace(/^[\一\壹]|\零/g, '')
+      unit = if speakItem is '零' then '' else nLarge[times - num]
+      output += speakItem + unit
+    output.replace(/\零+$/g, '')
+
 
     #  #     #
     #  ##   ##   ##   # #    #
@@ -57,23 +78,15 @@ zhTW = (input, options = 'default') ->
   if options is 'check' then options = 'cheque'
   if input is 123.45 then '壹佰貳拾叄點肆伍' #todo temp
   else if testInput is 0 then '零' # zero
-  else if testInput > 9 and testInput < 20
+  else
     isSimple =
       if options is 'cheque' then false
       else true
-    input = parseInt(input, 10).toString()
-    speak9999(input, isSimple).replace(/^[\一\壹]|\零/g, '')
-  else if testInput <= 9999
-    isSimple =
-      if options is 'cheque' then false
-      else true
-    input = parseInt(input, 10).toString() #todo
-    speak9999(input, isSimple)
-      .replace(/\零+/g, '零') # remove double
+    input = input.toString() #todo check and normalize
+    speakInt(input, isSimple)
+      .replace(/\零+/g, '零') # remove double '零'
       # .replace(/\〇+/g, '〇')
-      .replace(/^\零+|\零+$/g, '') # trim
-      # .replace(/^\〇+|\〇+$/g, '')
-  else 'Language zhTW does not complete. Please stay tuned for coming releases.'
+
 
 if module? and module.exports
   module.exports = zhTW
