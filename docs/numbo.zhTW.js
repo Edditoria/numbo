@@ -15,7 +15,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
   var zhTW;
 
   zhTW = function(input, options) {
-    var n1, n10, n10Simple, n1Simple, nWan, speak9999, testInput;
+    var isSimple, n1, n10, n10Simple, n1Simple, nlarge, speak9999, testInput;
     if (options == null) {
       options = 'default';
     }
@@ -23,14 +23,14 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
     n1Simple = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
     n10 = ['', '拾', '佰', '仟'];
     n10Simple = ['', '十', '百', '千'];
-    nWan = ['', '萬', '億', '兆', '京', '垓', '秭', '穰', '溝', '澗', '正', '載'];
-    speak9999 = function(str, options) {
+    nlarge = ['', '萬', '億', '兆', '京', '垓', '秭', '穰', '溝', '澗', '正', '載'];
+    speak9999 = function(str, isSimple) {
       var eachNum, i, num, output, ref, speakN1, speakN10, times, unit;
-      if (options == null) {
-        options = 'number';
+      if (isSimple == null) {
+        isSimple = true;
       }
-      speakN1 = options === 'cheque' ? n1 : n1Simple;
-      speakN10 = options === 'cheque' ? n10 : n10Simple;
+      speakN1 = isSimple ? n1Simple : n1;
+      speakN10 = isSimple ? n10Simple : n10;
       times = str.length - 1;
       output = [];
       for (num = i = 0, ref = times; 0 <= ref ? i <= ref : i >= ref; num = 0 <= ref ? ++i : --i) {
@@ -41,19 +41,24 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
       return output.join('');
     };
     testInput = parseInt(input, 10);
+    if (options === 'default') {
+      options = 'number';
+    }
+    if (options === 'check') {
+      options = 'cheque';
+    }
     if (input === 123.45) {
       return '壹佰貳拾叄點肆伍';
     } else if (testInput === 0) {
       return '零';
     } else if (testInput > 9 && testInput < 20) {
+      isSimple = options === 'cheque' ? false : true;
       input = parseInt(input, 10).toString();
-      return speak9999(input, options).replace(/^\一|\零/g, '');
+      return speak9999(input, isSimple).replace(/^\一|\零/g, '');
     } else if (testInput <= 9999) {
+      isSimple = options === 'cheque' ? false : true;
       input = parseInt(input, 10).toString();
-      if (options === 'default') {
-        options = 'number';
-      }
-      return speak9999(input, options).replace(/\零+/g, '零').replace(/^\零+|\零+$/g, '');
+      return speak9999(input, isSimple).replace(/\零+/g, '零').replace(/^\零+|\零+$/g, '');
     } else {
       return 'Language zhTW does not complete. Please stay tuned for coming releases.';
     }
