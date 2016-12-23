@@ -8,8 +8,20 @@
       'input': 1,
       'expect': '一'
     }, {
+      'input': 1.01,
+      'expect': '一點零一'
+    }, {
+      'input': 1.1,
+      'expect': '一點一'
+    }, {
       'input': 2,
       'expect': '二'
+    }, {
+      'input': 2.01,
+      'expect': '二點零一'
+    }, {
+      'input': 2.1,
+      'expect': '二點一'
     }, {
       'input': 9,
       'expect': '九'
@@ -43,6 +55,27 @@
     }, {
       'input': 888,
       'expect': '八百八十八'
+    }, {
+      'input': 0.01,
+      'expect': '零點零一'
+    }, {
+      'input': 0.1,
+      'expect': '零點一'
+    }, {
+      'input': .50,
+      'expect': '零點五'
+    }, {
+      'input': .00001,
+      'expect': '零點零零零零一'
+    }, {
+      'input': 1.00001,
+      'expect': '一點零零零零一'
+    }, {
+      'input': 2.00001,
+      'expect': '二點零零零零一'
+    }, {
+      'input': 3.00001,
+      'expect': '三點零零零零一'
     }, {
       'input': 1000,
       'expect': '一千'
@@ -98,6 +131,9 @@
       'input': '1000000000000001001',
       'expect': '一百京零一千零一'
     }, {
+      'input': 1234567.89,
+      'expect': '一百二十三萬四千五百六十七點八九'
+    }, {
       'input': 'test a string',
       'expect': null
     }, {
@@ -106,6 +142,12 @@
     }, {
       'input': '0000000',
       'expect': '零'
+    }, {
+      'input': '0.1',
+      'expect': '零點一'
+    }, {
+      'input': '00000123.4500000',
+      'expect': '一百二十三點四五'
     }, {
       'input': '1e+100',
       'expect': 'Ding! One Google... Oops... One Googol!!'

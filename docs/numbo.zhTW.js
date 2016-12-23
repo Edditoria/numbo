@@ -15,7 +15,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
   var zhTW;
 
   zhTW = function(input, options) {
-    var check, main, n1, n10, n10Simple, n1Simple, nLarge, normalize, speak9999, speakInt;
+    var check, main, n1, n10, n10Simple, n1Simple, nLarge, normalize, speak9999, speakByDigit, speakInt, speakNum, splitNum;
     if (options == null) {
       options = 'default';
     }
@@ -73,8 +73,34 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
         }
       };
     })(this);
+    speakByDigit = function(str, n1, separator) {
+      var i, item, len, output;
+      if (separator == null) {
+        separator = ' ';
+      }
+      if (typeof str === 'string' && str.search(/\D/g) < 0) {
+        output = '';
+        for (i = 0, len = str.length; i < len; i++) {
+          item = str[i];
+          output += n1[+item];
+        }
+        return output;
+      } else {
+        console.log('Error: invalid argument of speakByDigit()');
+        return null;
+      }
+    };
     check = this.tools.check;
     normalize = this.tools.normalize;
+    splitNum = this.tools.splitNum;
+    speakNum = function(str) {
+      var dec, dot, int, strSplited;
+      strSplited = splitNum(str);
+      int = strSplited[0];
+      dec = strSplited[1];
+      dot = dec === '' ? '' : '點';
+      return speakInt(int, true) + dot + speakByDigit(dec, n1Simple, ' ');
+    };
     main = function(input, options) {
       if (options == null) {
         options = 'default';
@@ -94,7 +120,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
             case 'default':
             case 'number':
             case 'num':
-              return speakInt(input, true);
+              return speakNum(input);
             case 'cheque':
             case 'check':
             case 'chk':
@@ -103,7 +129,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
             case 'amt':
               return speakInt(input, true);
             default:
-              console.log('option in zhTW is not valid');
+              console.log('Error: Option in zhTW is not valid');
               return null;
           }
         }

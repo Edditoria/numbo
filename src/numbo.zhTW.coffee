@@ -68,6 +68,18 @@ zhTW = (input, options = 'default') ->
         .replace(/\零+$/g, '') # remove tailing zero '零'
         .replace(/\零+/g, '零') # remove double '零'
 
+  speakByDigit = (str, n1, separator = ' ') ->
+    # match every characters of `str` to `n1[str]` one-by-one
+    # the 1st arg should a string contains numbers only (e.g. '000123')
+    # return a string (e.g. 'zero zero zero one two three')
+    if typeof str is 'string' and str.search(/\D/g) < 0
+      output = ''
+      for item in str
+        output += n1[+item]
+      output
+    else
+      console.log 'Error: invalid argument of speakByDigit()'
+      null
 
   #  #     #
   #  ##   ##   ##   # #    #
@@ -80,6 +92,14 @@ zhTW = (input, options = 'default') ->
   # import the tools from `numbo`
   check = @tools.check
   normalize = @tools.normalize
+  splitNum = @tools.splitNum
+
+  speakNum = (str) ->
+    strSplited = splitNum(str)
+    int = strSplited[0]
+    dec = strSplited[1]
+    dot = if dec is '' then '' else '點'
+    speakInt(int, true) + dot + speakByDigit(dec, n1Simple, ' ')
 
   main = (input, options = 'default') ->
     # input is a string or a number
@@ -94,11 +114,11 @@ zhTW = (input, options = 'default') ->
         input = normalize(input) # input becomes a string
         input
         switch options
-          when 'default', 'number', 'num' then speakInt(input, true)
+          when 'default', 'number', 'num' then speakNum(input)
           when 'cheque', 'check', 'chk' then speakInt(input, false)
           when 'amount', 'amt' then speakInt(input, true)
           else
-            console.log 'option in zhTW is not valid'
+            console.log 'Error: Option in zhTW is not valid'
             null
   main(input, options)
 
