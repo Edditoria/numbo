@@ -98,8 +98,17 @@
       'input': '1000000000000001001',
       'expect': '一百京零一千零一'
     }, {
+      'input': 'test a string',
+      'expect': null
+    }, {
+      'input': '',
+      'expect': null
+    }, {
       'input': '0000000',
       'expect': '零'
+    }, {
+      'input': '1e+100',
+      'expect': 'Ding! One Google... Oops... One Googol!!'
     }
   ];
 

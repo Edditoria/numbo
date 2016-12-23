@@ -15,7 +15,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
   var zhTW;
 
   zhTW = function(input, options) {
-    var isSimple, n1, n10, n10Simple, n1Simple, nLarge, speak9999, speakInt, testInput;
+    var check, main, n1, n10, n10Simple, n1Simple, nLarge, normalize, speak9999, speakInt;
     if (options == null) {
       options = 'default';
     }
@@ -51,40 +51,65 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
         if (isSimple == null) {
           isSimple = true;
         }
-        strArr = _this.tools.splitInt(str, 4);
-        times = strArr.length - 1;
-        output = '';
-        for (num = i = 0, len = strArr.length; i < len; num = ++i) {
-          item = strArr[num];
-          speakItem = speak9999(item, isSimple);
-          if (num === 0) {
-            itemNum = parseInt(item, 10);
-            if (itemNum > 9 && itemNum < 20) {
-              speakItem = speakItem.replace(/^[\一\壹]|\零/g, '');
+        if (str === '0') {
+          return '零';
+        } else {
+          strArr = _this.tools.splitInt(str, 4);
+          times = strArr.length - 1;
+          output = '';
+          for (num = i = 0, len = strArr.length; i < len; num = ++i) {
+            item = strArr[num];
+            speakItem = speak9999(item, isSimple);
+            if (num === 0) {
+              itemNum = parseInt(item, 10);
+              if (itemNum > 9 && itemNum < 20) {
+                speakItem = speakItem.replace(/^[\一\壹]|\零/g, '');
+              }
             }
+            unit = speakItem === '零' ? '' : nLarge[times - num];
+            output += speakItem + unit;
           }
-          unit = speakItem === '零' ? '' : nLarge[times - num];
-          output += speakItem + unit;
+          return output.replace(/\零+$/g, '').replace(/\零+/g, '零');
         }
-        return output.replace(/\零+$/g, '');
       };
     })(this);
-    testInput = parseInt(input, 10);
-    if (options === 'default') {
-      options = 'number';
-    }
-    if (options === 'check') {
-      options = 'cheque';
-    }
-    if (input === 123.45) {
-      return '壹佰貳拾叄點肆伍';
-    } else if (testInput === 0) {
-      return '零';
-    } else {
-      isSimple = options === 'cheque' ? false : true;
-      input = input.toString();
-      return speakInt(input, isSimple).replace(/\零+/g, '零');
-    }
+    check = this.tools.check;
+    normalize = this.tools.normalize;
+    main = function(input, options) {
+      if (options == null) {
+        options = 'default';
+      }
+      if (input === '') {
+        return null;
+      } else if (input === '1e+100') {
+        return 'Ding! One Google... Oops... One Googol!!';
+      } else {
+        if (check(input) === false) {
+          console.log('Error: Invalid input value. Return null');
+          return null;
+        } else {
+          input = normalize(input);
+          input;
+          switch (options) {
+            case 'default':
+            case 'number':
+            case 'num':
+              return speakInt(input, true);
+            case 'cheque':
+            case 'check':
+            case 'chk':
+              return speakInt(input, false);
+            case 'amount':
+            case 'amt':
+              return speakInt(input, true);
+            default:
+              console.log('option in zhTW is not valid');
+              return null;
+          }
+        }
+      }
+    };
+    return main(input, options);
   };
 
   if ((typeof module !== "undefined" && module !== null) && module.exports) {

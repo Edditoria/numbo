@@ -49,43 +49,58 @@ zhTW = (input, options = 'default') ->
   speakInt = (str, isSimple = true) =>
     # split the str into array by every 4 characters
     # then speak9999() one by one
-    strArr = @tools.splitInt(str, 4)
-    times = strArr.length - 1
-    output = ''
-    for item, num in strArr
-      speakItem = speak9999(item, isSimple) # item = 0 will return '零'
-      if num is 0
-        # the first item, in case of 10 to 19, need to remove 一, 壹 and 零
-        # e.g. 12 in 12,0000,0000 , or simply 18 in 18
-        itemNum = parseInt(item, 10)
-        if itemNum > 9 and itemNum < 20
-          speakItem = speakItem.replace(/^[\一\壹]|\零/g, '')
-      unit = if speakItem is '零' then '' else nLarge[times - num]
-      output += speakItem + unit
-    output.replace(/\零+$/g, '')
+    if str is '0' then '零'
+    else
+      strArr = @tools.splitInt(str, 4)
+      times = strArr.length - 1
+      output = ''
+      for item, num in strArr
+        speakItem = speak9999(item, isSimple) # item = 0 will return '零'
+        if num is 0
+          # the first item, in case of 10 to 19, need to remove 一, 壹 and 零
+          # e.g. 12 in 12,0000,0000 , or simply 18 in 18
+          itemNum = parseInt(item, 10)
+          if itemNum > 9 and itemNum < 20
+            speakItem = speakItem.replace(/^[\一\壹]|\零/g, '')
+        unit = if speakItem is '零' then '' else nLarge[times - num]
+        output += speakItem + unit
+      output
+        .replace(/\零+$/g, '') # remove tailing zero '零'
+        .replace(/\零+/g, '零') # remove double '零'
 
 
-    #  #     #
-    #  ##   ##   ##   # #    #
-    #  # # # #  #  #  # ##   #
-    #  #  #  # #    # # # #  #
-    #  #     # ###### # #  # #
-    #  #     # #    # # #   ##
-    #  #     # #    # # #    #
+  #  #     #
+  #  ##   ##   ##   # #    #
+  #  # # # #  #  #  # ##   #
+  #  #  #  # #    # # # #  #
+  #  #     # ###### # #  # #
+  #  #     # #    # # #   ##
+  #  #     # #    # # #    #
 
-  testInput = parseInt(input, 10) #todo temp
-  if options is 'default' then options = 'number'
-  if options is 'check' then options = 'cheque'
-  if input is 123.45 then '壹佰貳拾叄點肆伍' #todo temp
-  else if testInput is 0 then '零' # zero
-  else
-    isSimple =
-      if options is 'cheque' then false
-      else true
-    input = input.toString() #todo check and normalize
-    speakInt(input, isSimple)
-      .replace(/\零+/g, '零') # remove double '零'
-      # .replace(/\〇+/g, '〇')
+  # import the tools from `numbo`
+  check = @tools.check
+  normalize = @tools.normalize
+
+  main = (input, options = 'default') ->
+    # input is a string or a number
+    # options should be a string
+    if input is '' then null
+    else if input is '1e+100' then 'Ding! One Google... Oops... One Googol!!'
+    else
+      if check(input) is false
+        console.log 'Error: Invalid input value. Return null'
+        null
+      else
+        input = normalize(input) # input becomes a string
+        input
+        switch options
+          when 'default', 'number', 'num' then speakInt(input, true)
+          when 'cheque', 'check', 'chk' then speakInt(input, false)
+          when 'amount', 'amt' then speakInt(input, true)
+          else
+            console.log 'option in zhTW is not valid'
+            null
+  main(input, options)
 
 
 if module? and module.exports

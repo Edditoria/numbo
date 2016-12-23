@@ -43,10 +43,10 @@ module.exports = [
   {'input': 1000000000001001, 'expect': '一千兆零一千零一'}
   {'input': '1000000000000001001', 'expect': '一百京零一千零一'}
   # {'input': 1234567.89, 'expect': 'one million two hundred and thirty-four thousand five hundred and sixty-seven point eight nine'}
-  # {'input': 'test a string', 'expect': null}
-  # {'input': '', 'expect': null}
+  {'input': 'test a string', 'expect': null}
+  {'input': '', 'expect': null}
   {'input': '0000000', 'expect': '零'}
   # {'input': '0.1', 'expect': 'zero point one'}
   # {'input': '00000123.4500000', 'expect': 'one hundred and twenty-three point four five'}
-  # {'input': '1e+100', 'expect': 'Ding! One Google... Oops... One Googol!!'}
+  {'input': '1e+100', 'expect': 'Ding! One Google... Oops... One Googol!!'}
 ]
