@@ -73,10 +73,9 @@ zhTW = (input, options = 'default') ->
     # the 1st arg should a string contains numbers only (e.g. '000123')
     # return a string (e.g. 'zero zero zero one two three')
     if typeof str is 'string' and str.search(/\D/g) < 0
-      output = ''
-      for item in str
-        output += n1[+item]
-      output
+      output = []
+      output.push(n1[+item]) for item in str
+      output.join(separator)
     else
       console.log 'Error: invalid argument of speakByDigit()'
       null
@@ -99,7 +98,7 @@ zhTW = (input, options = 'default') ->
     int = strSplited[0]
     dec = strSplited[1]
     dot = if dec is '' then '' else '點'
-    speakInt(int, true) + dot + speakByDigit(dec, n1Simple, ' ')
+    speakInt(int, true) + dot + speakByDigit(dec, n1Simple, '')
 
   main = (input, options = 'default') ->
     # input is a string or a number
