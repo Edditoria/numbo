@@ -105,10 +105,10 @@ zhTW = (input, options = 'default') ->
     strSplited = splitNum(str)
     int = strSplited[0] # remark: zero will return '0' (string)
     dec = parseCents(strSplited[1]) # return a number
-    isSimple = if options is 'cheque' then false else true
-    if isSimple and int is '0' and dec is 0
+    if int is '0' and dec is 0
       '零元'
     else
+      isSimple = if options is 'cheque' then false else true
       dollar =
         if int is '0' then ''
         else if int is '2' and options isnt 'cheque' then '兩元'

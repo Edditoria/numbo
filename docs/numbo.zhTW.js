@@ -110,10 +110,10 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
       strSplited = splitNum(str);
       int = strSplited[0];
       dec = parseCents(strSplited[1]);
-      isSimple = options === 'cheque' ? false : true;
-      if (isSimple && int === '0' && dec === 0) {
+      if (int === '0' && dec === 0) {
         return '零元';
       } else {
+        isSimple = options === 'cheque' ? false : true;
         dollar = int === '0' ? '' : int === '2' && options !== 'cheque' ? '兩元' : speakInt(int, isSimple) + '元';
         cent = dec === 0 ? options === 'cheque' ? '正' : '' : (speakN1 = isSimple ? n1Simple : n1, dp1 = Math.floor(dec / 10), dp2 = dec % 10, cent1 = dp1 === 0 ? '' : dp1 === 2 && options !== 'cheque' ? '兩角' : speakN1[dp1] + '角', cent2 = dp2 === 0 ? '' : dp2 === 2 && options !== 'cheque' ? '兩分' : speakN1[dp2] + '分', cent = cent1 + cent2);
         return dollar + cent;

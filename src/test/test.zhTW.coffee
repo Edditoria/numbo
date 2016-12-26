@@ -2,7 +2,7 @@ numbo = require './../lib/numbo.js'
 numbo.zhTW = require './../lib/numbo.zhTW.js'
 testNum = require './testNum.zhTW.js'
 testAmount = require './testAmount.zhTW.js'
-# testCheque = require './testCheque.zhTW.js'
+testCheque = require './testCheque.zhTW.js'
 
 doTest = (testObj, option, job) ->
   # result is an array contains `true` or `false`
@@ -48,7 +48,7 @@ doTest = (testObj, option, job) ->
 
 testNumResult = doTest testNum, 'number', 'Converting Number'
 testAmountResult = doTest testAmount, 'amount', 'Converting Amount'
-# testChequeResult = doTest testCheque, 'cheque', 'Converting Cheque'
+testChequeResult = doTest testCheque, 'cheque', 'Converting Cheque'
 
 
 console.log """
@@ -57,6 +57,7 @@ console.log """
 Test Summary in test.js:
 #{testNumResult.report}
 #{testAmountResult.report}
+#{testChequeResult.report}
 =======
 """
 
