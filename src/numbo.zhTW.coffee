@@ -77,7 +77,7 @@ zhTW = (input, options = 'default') ->
       output.push(n1[+item]) for item in str
       output.join(separator)
     else
-      console.log 'Error: invalid argument of speakByDigit()'
+      console.log 'Error: Invalid argument of speakByDigit()'
       null
 
   #  #     #
@@ -145,7 +145,7 @@ zhTW = (input, options = 'default') ->
         input
         switch options
           when 'default', 'number', 'num' then speakNum(input)
-          when 'cheque', 'check', 'chk' then speakAmt(input, 'cheque')
+          when 'cheque', 'check', 'chk', 'chq' then speakAmt(input, 'cheque')
           when 'amount', 'amt' then speakAmt(input, 'amount')
           else
             console.log 'Error: Option in zhTW is not valid'

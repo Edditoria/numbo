@@ -86,7 +86,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
         }
         return output.join(separator);
       } else {
-        console.log('Error: invalid argument of speakByDigit()');
+        console.log('Error: Invalid argument of speakByDigit()');
         return null;
       }
     };
@@ -142,6 +142,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
             case 'cheque':
             case 'check':
             case 'chk':
+            case 'chq':
               return speakAmt(input, 'cheque');
             case 'amount':
             case 'amt':

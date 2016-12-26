@@ -11,7 +11,10 @@
     "number",
     "cheque",
     "amount",
-    "English"
+    "English",
+    "Chinese",
+    "number to text",
+    "speak number"
   ],
   "homepage": "https://edditoria.github.io/numbo",
   "ignore": [

@@ -52,7 +52,7 @@ class Numbo
           when 'floor' then 'floor'
           when 'ceil' then 'ceil'
           else
-            console.log 'Error: option in parseCents() is invalid. Use the default option (Math.ceil)'
+            console.log 'Error: Option in parseCents() is invalid. Use the default option (Math.ceil)'
             'ceil'
       Math[mathOption](parseInt(str3dp, 10) / 10)
     check: (input, characters = '') ->
@@ -272,11 +272,11 @@ class Numbo
             .replace(' and No Cent', '')
             .toLowerCase()
         else
-          console.log 'Error: option in speakAmt is invalid.'
+          console.log 'Error: Option in speakAmt() is invalid.'
           output = null
       output
 
-    main = (input, options) ->
+    main = (input, options = 'default') ->
       # `input` is a string or number
       # `options` should be a string
       if input is '' then null
@@ -289,11 +289,11 @@ class Numbo
           input = tools.normalize(input) # input must become a string
           #todo: if typeof options is 'string'
           switch options
-            when 'default', 'number' then speakNum(input)
-            when 'cheque', 'check' then speakAmt(input, 'cheque')
+            when 'default', 'number', 'num' then speakNum(input)
+            when 'cheque', 'check', 'chk', 'chq' then speakAmt(input, 'cheque')
             when 'amount', 'amt' then speakAmt(input, 'amount')
             else
-              console.log 'option in enUS is not valid'
+              console.log 'Error: Option in enUS is not valid'
               null
     main(input, options)
 
@@ -315,7 +315,7 @@ class Numbo
         # not a lang, and refer to options in enUS, e.g. 'cheque', 'amount'
         convert_enUS(num, options)
     else if Object.prototype.toString.call(options) is '[object Object]'
-      console.log 'Error: Invalid option. Option does not supports object yet. Returns null' #todo
+      console.log 'Error: Invalid option. Option does not support object yet. Returns null' #todo
       null
     else
       console.log 'Error: Invalid option. Option should be a string or an object. Returns null'

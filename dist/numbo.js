@@ -53,7 +53,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
             case 'ceil':
               return 'ceil';
             default:
-              console.log('Error: option in parseCents() is invalid. Use the default option (Math.ceil)');
+              console.log('Error: Option in parseCents() is invalid. Use the default option (Math.ceil)');
               return 'ceil';
           }
         })();
@@ -247,10 +247,13 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
           andWord = dollars === '' ? '' : ' and ';
           output = int + dollars + andWord + dec + cents;
         }
-        output = options === 'cheque' ? output === 'Null' ? 'Null' : output + ' Only' : options === 'amount' ? output.replace(' and No Cent', '').toLowerCase() : (console.log('Error: option in speakAmt is invalid.'), output = null);
+        output = options === 'cheque' ? output === 'Null' ? 'Null' : output + ' Only' : options === 'amount' ? output.replace(' and No Cent', '').toLowerCase() : (console.log('Error: Option in speakAmt() is invalid.'), output = null);
         return output;
       };
       main = function(input, options) {
+        if (options == null) {
+          options = 'default';
+        }
         if (input === '') {
           return null;
         } else if (input === '1e+100') {
@@ -264,15 +267,18 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
             switch (options) {
               case 'default':
               case 'number':
+              case 'num':
                 return speakNum(input);
               case 'cheque':
               case 'check':
+              case 'chk':
+              case 'chq':
                 return speakAmt(input, 'cheque');
               case 'amount':
               case 'amt':
                 return speakAmt(input, 'amount');
               default:
-                console.log('option in enUS is not valid');
+                console.log('Error: Option in enUS is not valid');
                 return null;
             }
           }
@@ -296,7 +302,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
           return convert_enUS(num, options);
         }
       } else if (Object.prototype.toString.call(options) === '[object Object]') {
-        console.log('Error: Invalid option. Option does not supports object yet. Returns null');
+        console.log('Error: Invalid option. Option does not support object yet. Returns null');
         return null;
       } else {
         console.log('Error: Invalid option. Option should be a string or an object. Returns null');
