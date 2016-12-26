@@ -1,7 +1,7 @@
 numbo = require './../lib/numbo.js'
 numbo.zhTW = require './../lib/numbo.zhTW.js'
 testNum = require './testNum.zhTW.js'
-# testAmount = require './testAmount.zhTW.js'
+testAmount = require './testAmount.zhTW.js'
 # testCheque = require './testCheque.zhTW.js'
 
 doTest = (testObj, option, job) ->
@@ -13,7 +13,7 @@ doTest = (testObj, option, job) ->
   """
   results = for obj in testObj
     input = obj['input']
-    output = numbo.convert input, option
+    output = numbo.zhTW input, option
     expect = obj['expect']
     result = output is expect
     console.log "
@@ -46,8 +46,8 @@ doTest = (testObj, option, job) ->
     """
   summary
 
-testNumResult = doTest testNum, 'zhTW', 'Converting Number'
-# testAmountResult = doTest testAmount, 'amount', 'Converting Amount'
+testNumResult = doTest testNum, 'number', 'Converting Number'
+testAmountResult = doTest testAmount, 'amount', 'Converting Amount'
 # testChequeResult = doTest testCheque, 'cheque', 'Converting Cheque'
 
 
@@ -56,6 +56,7 @@ console.log """
 =======
 Test Summary in test.js:
 #{testNumResult.report}
+#{testAmountResult.report}
 =======
 """
 

@@ -92,6 +92,7 @@ zhTW = (input, options = 'default') ->
   check = @tools.check
   normalize = @tools.normalize
   splitNum = @tools.splitNum
+  parseCents = @tools.parseCents
 
   speakNum = (str) ->
     strSplited = splitNum(str)
@@ -99,6 +100,36 @@ zhTW = (input, options = 'default') ->
     dec = strSplited[1]
     dot = if dec is '' then '' else '點'
     speakInt(int, true) + dot + speakByDigit(dec, n1Simple, '')
+
+  speakAmt = (str, options = 'cheque') ->
+    strSplited = splitNum(str)
+    int = strSplited[0] # remark: zero will return '0' (string)
+    dec = parseCents(strSplited[1]) # return a number
+    isSimple = if options is 'cheque' then false else true
+    if isSimple and int is '0' and dec is 0
+      '零元'
+    else
+      dollar =
+        if int is '0' then ''
+        else if int is '2' and options isnt 'cheque' then '兩元'
+        else speakInt(int, isSimple) + '元'
+      cent =
+        if dec is 0 # remark: zero will return ''
+          if options is 'cheque' then '正' else ''
+        else
+          speakN1 = if isSimple then n1Simple else n1
+          dp1 = Math.floor(dec/10)
+          dp2 = dec % 10
+          cent1 =
+            if dp1 is 0 then ''
+            else if dp1 is 2 and options isnt 'cheque' then '兩角'
+            else speakN1[dp1] + '角'
+          cent2 =
+            if dp2 is 0 then ''
+            else if dp2 is 2 and options isnt 'cheque' then '兩分'
+            else speakN1[dp2] + '分'
+          cent = cent1 + cent2
+      dollar + cent
 
   main = (input, options = 'default') ->
     # input is a string or a number
@@ -114,8 +145,8 @@ zhTW = (input, options = 'default') ->
         input
         switch options
           when 'default', 'number', 'num' then speakNum(input)
-          when 'cheque', 'check', 'chk' then speakInt(input, false)
-          when 'amount', 'amt' then speakInt(input, true)
+          when 'cheque', 'check', 'chk' then speakAmt(input, 'cheque')
+          when 'amount', 'amt' then speakAmt(input, 'amount')
           else
             console.log 'Error: Option in zhTW is not valid'
             null

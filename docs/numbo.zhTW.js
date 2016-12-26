@@ -15,7 +15,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
   var zhTW;
 
   zhTW = function(input, options) {
-    var check, main, n1, n10, n10Simple, n1Simple, nLarge, normalize, speak9999, speakByDigit, speakInt, speakNum, splitNum;
+    var check, main, n1, n10, n10Simple, n1Simple, nLarge, normalize, parseCents, speak9999, speakAmt, speakByDigit, speakInt, speakNum, splitNum;
     if (options == null) {
       options = 'default';
     }
@@ -93,6 +93,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
     check = this.tools.check;
     normalize = this.tools.normalize;
     splitNum = this.tools.splitNum;
+    parseCents = this.tools.parseCents;
     speakNum = function(str) {
       var dec, dot, int, strSplited;
       strSplited = splitNum(str);
@@ -100,6 +101,23 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
       dec = strSplited[1];
       dot = dec === '' ? '' : '點';
       return speakInt(int, true) + dot + speakByDigit(dec, n1Simple, '');
+    };
+    speakAmt = function(str, options) {
+      var cent, cent1, cent2, dec, dollar, dp1, dp2, int, isSimple, speakN1, strSplited;
+      if (options == null) {
+        options = 'cheque';
+      }
+      strSplited = splitNum(str);
+      int = strSplited[0];
+      dec = parseCents(strSplited[1]);
+      isSimple = options === 'cheque' ? false : true;
+      if (isSimple && int === '0' && dec === 0) {
+        return '零元';
+      } else {
+        dollar = int === '0' ? '' : int === '2' && options !== 'cheque' ? '兩元' : speakInt(int, isSimple) + '元';
+        cent = dec === 0 ? options === 'cheque' ? '正' : '' : (speakN1 = isSimple ? n1Simple : n1, dp1 = Math.floor(dec / 10), dp2 = dec % 10, cent1 = dp1 === 0 ? '' : dp1 === 2 && options !== 'cheque' ? '兩角' : speakN1[dp1] + '角', cent2 = dp2 === 0 ? '' : dp2 === 2 && options !== 'cheque' ? '兩分' : speakN1[dp2] + '分', cent = cent1 + cent2);
+        return dollar + cent;
+      }
     };
     main = function(input, options) {
       if (options == null) {
@@ -124,10 +142,10 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
             case 'cheque':
             case 'check':
             case 'chk':
-              return speakInt(input, false);
+              return speakAmt(input, 'cheque');
             case 'amount':
             case 'amt':
-              return speakInt(input, true);
+              return speakAmt(input, 'amount');
             default:
               console.log('Error: Option in zhTW is not valid');
               return null;
