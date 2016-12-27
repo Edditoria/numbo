@@ -300,26 +300,57 @@ class Numbo
   enUS: convert_enUS
 
 
-  convert: (num, options = 'default') ->
-    # `num` can be string or number
-    # `options` can be 'number', 'amount' or 'cheque'
-    if options is 'default'
-      convert_enUS(num) # faster
-    else if typeof options is 'string'
-      # One single option is provded
-      # e.g. 'zhTW', 'amount', 'cheque', etc.
-      if @[options]?
-        # accept language plugin e.g. 'zhTW' refers to convert_zhTW
-        @[options](num)
-      else
-        # not a lang, and refer to options in enUS, e.g. 'cheque', 'amount'
-        convert_enUS(num, options)
-    else if Object.prototype.toString.call(options) is '[object Object]'
-      console.log 'Error: Invalid option. Option does not support object yet. Returns null' #todo
-      null
+  #   #####
+  #  #     #  ####  #    # #    # ###### #####  #####
+  #  #       #    # ##   # #    # #      #    #   #
+  #  #       #    # # #  # #    # #####  #    #   #
+  #  #       #    # #  # # #    # #      #####    #
+  #  #     # #    # #   ##  #  #  #      #   #    #
+  #   #####   ####  #    #   ##   ###### #    #   #
+
+
+  convert: (input, options...) ->
+    # `input` can be string or number
+    # `options` can be language ('zhTW') and style ('number', 'amount' or 'cheque')
+    if options.length is 0 # not provide any option
+      convert_enUS(input)
     else
-      console.log 'Error: Invalid option. Option should be a string or an object. Returns null'
-      null
+      plugin = '' # set as empty first
+      template = '' # set as empty first
+      otherOptions = []
+      error = false
+      # parse each item
+      for item in options
+        if typeof item is 'string'
+          if @[item]? # the item is a language/plugin
+            if plugin is '' then plugin = item
+            else
+              console.log 'Error: Invalid option. You have selected more than one language/plugin. Returns null'
+              error = true
+          else if template is ''
+            switch item
+              when 'default' then template = 'default'
+              when 'number', 'num' then template = 'number'
+              when 'check', 'cheque', 'chk', 'chq' then template = 'cheque'
+              when 'amount', 'amt' then template = 'amount'
+              else
+                otherOptions.push(item)
+          else
+            otherOptions.push(item)
+        else # item isnt 'string'
+          console.log 'Error: Invalid option. Each option has to be a string.'
+          error = true
+      # Skip and return null if any error occurs
+      if error is true then null
+      # Currently, otherOptions is not allowed yet.
+      else if otherOptions.length > 0
+        console.log 'Error: Invalid option. Possibly more than one template is selected. Or, some option(s) are parsed into [otherOptions], but it is not allowed in current version yet.'
+        null
+      else
+        # execute convert() according to options provided
+        if template is '' then template = 'default'
+        if plugin is '' then plugin = 'enUS'
+        @[plugin](input, template)
 
 
 numbo = new Numbo()

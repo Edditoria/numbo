@@ -2,16 +2,18 @@
 
 Convert number and monetary amount to written text. Also helpful for writing cheques (checks). It supports English and Traditional Chinese.
 
-Quick example:
+Quick examples:
 
 ```js
-numbo.convert(100) // "one hundred"
-
-numbo.convert(100, 'amount') // "one hundred dollars"
-
+// converting a number, monetary amount or check(cheque) writing
+numbo.convert(3.14) // "three point one four"
+numbo.convert(0.5, 'amount') // "fifty cents"
 numbo.convert(100, 'check') // "One Hundred Dollars and No Cent Only"
 
-numbo.zhTW(100, 'check') // "壹佰元正" (Traditional Chinese)
+// Traditional Chinese (Taiwan), optional as a plugin
+numbo.convert(3.14, 'zhTW') // "三點一四"
+numbo.convert(0.5, 'zhTW', 'amount') // "五角"
+numbo.convert(100, 'zhTW', 'check') // "壹佰元正"
 ```
 
 # Install and Usage
@@ -30,7 +32,7 @@ For node.js
 var numbo = require('numbo');
 numbo.zhTW = require('numbo/lib/numbo.zhTW'); // add this line if you want to convert Traditional Chinese
 console.log(numbo.convert('123.45')); // "one hundred and twenty-three point four five"
-console.log(numbo.zhTW('123.45')); // "一百二十三點四五" (require numbo.zhTW)
+console.log(numbo.convert('123.45', 'zhTW')); // "一百二十三點四五" (require numbo.zhTW)
 ```
 
 ## Bower
@@ -80,21 +82,19 @@ console.log(numbo.convert('123.45')); // "one hundred and twenty-three point fou
 
 # Features
 
-## `numbo.convert(input, option)`
+## Basic Usage: `numbo.convert(input, option)`
 
 - `input` is the string or number you want to convert.
-    1. Have to be a valid number, e.g. 123 (number), '123' (string), '$123,456'.
-    2. You must use a string if the input is more than 16 characters.
-    3. Currently it supports up to 66 characters only, i.e. one hundred vigintillion.
-- `option` is the format of output you want. It accepts:
-    1. `'number'` (`'default'`, or `'num'`)
-    2. `'amount'` (or `'amt'`)
-    3. `'check'` (or `'cheque'`, `'chk'`, `'chq'`)
+- `option` is the format of output you want to get. It can be:
+    1. `'number'`
+    2. `'amount'`
+    3. `'check'`
+- If no option is provided, numbo will convert in form of number.
 
 ```js
 // 1.
 numbo.convert(123.4567)
-// no option implies using 'number'
+// no option implies using 'default', and 'default' is 'number'
 // return "one hundred and twenty-three point four five six seven"
 
 // 2.
@@ -104,33 +104,97 @@ numbo.convert(123.4567, 'amount')
 
 // 3.
 numbo.convert(123.4567, 'check')
-// 'check' will round to ceiling at 2 decimal place
+// 'check' will round up (ceiling) to 2 decimal place
 // return "One Hundred Twenty-three Dollars and Forty-six Cents Only"
 ```
 
-## `numbo.zhTW(input, option)`
+## Multiple Options: `numbo.convert(input, option, option...)`
 
-In v2.x, you can convert number to Tradtional Chinese. The options are same as `numbo.convert`.
+In v2.x, you can convert number to Tradtional Chinese. The options are same as previous versions. You can do it via multiple options (now maximum of two).
+
+1. Language/plugin: `'enUS'` or `'zhTW'`
+2. Format: `'number'`, `'amount'` or `'check'`
 
 ```js
-numbo.zhTW(123.4567) // "一百二十三點四五六七"
+numbo.convert(123.4567, 'zhTW') // "一百二十三點四五六七"
 
-numbo.zhTW(123.4567, 'amt') // "一百二十三元四角六分"
+numbo.convert(123.4567, 'amount', 'zhTW') // "一百二十三元四角六分"
 
-numbo.zhTW(123.4567, 'chk') // "壹佰貳拾叁元肆角陸分"
+numbo.convert(123.4567, 'zhTW', 'check') // "壹佰貳拾叁元肆角陸分"
 ```
 
-# Planned Features
+More format will be provided in future releases, e.g. no hyphen, no "and" word, etc. For any request, please [hit me an issue](https://github.com/Edditoria/numbo/issues).
+
+## Format of `input`
+
+- Accepts number or string, e.g. '30624700'.
+- You must use a string if the input is more than 16 characters.
+- Limitations:
+    - English plugin supports up to 66 digits, i.e. one hundred vigintillion.
+    - Traditional Chinese plugin supports up to 48 digits, i.e. 一千載.
+
+## Format of `options`
+
+You can write in short form:
+
+- `'num'` is equivalent to  `'number'`
+- `'amt'` is equivalent to `'amount'`
+- `'chk'`, `'chq'` and `'cheque'` is equivalent to `'check'`
+
+```js
+numbo.convert(100, 'amt', 'zhTW')
+```
+
+## Parsing and Catching Errors (Work-In-Progress)
+
+`numbo` will try to do some checking and normalize the input. Let say:
+
+```js
+cutFromNews = '$1,000,000.00';
+robot.speak += numbo.convert(cutFromNews, 'amt'); // one million dollars
+
+cutFromEmail = '.5';
+robot.speak += numbo.convert(cutFromEmail); // zero point five
+
+readScore = '0050.50';
+robot.speak += numbo.convert(readScore); // fifty point five
+
+```
+
+In current status `numbo` is quite stupid. Anything it cannot convert. Will `console.log` a message then return `null`.
+
+```js
+numbo.convert('knock knock') // Error: Invalid input value. Return null
+numbo.convert('HKD$689') // Error: Invalid input value. Return null
+numbo.convert('689', 'zhTW', 'enUS') // Error: Invalid option. You have selected more than one language/plugin. Returns null
+
+numbo.convert('369', 'spellError')
+numbo.convert('369', 'amt', 'num')
+// Error: Invalid option. Possibly more than one template is selected. Or, some option(s) are parsed into [otherOptions], but it is not allowed in current version yet.
+```
+
+# Planning
 
 This repo is quite new. To make it some-how complete, need more works on these:
 
 - [x] convert number to written text
 - [x] provide basic tools for plugin development
 - [x] convert monetary amount to written text
-- [x] check before convert (v1.1)
-- [x] add Chinese via plugin (v2)
-- [ ] unify options for different languages (v2.1)
-- [ ] write test and readme for `numbo.tools` (v3)
-- [ ] more options, e.g. no hyphen, output as array (v4)
+- [x] check before convert
+- [x] add Chinese via plugin
+- [x] unify options for different languages
+- [ ] write test and readme for `numbo.tools`
+- [ ] more options, e.g. no hyphen, output in array
+- [ ] more languages
+- [ ] better docs and instructions for plugin development
 
 Please kindly wait for more releases.
+
+# Contribution
+
+If you want to commit a pull request, please **create a new branch**:
+
+- `hotfix\xxx-xxx` to fix a bug or
+- `feature\xxx-xxx` to create awesome features.
+
+Thank you so much :)

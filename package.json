@@ -1,6 +1,6 @@
 {
   "name": "numbo",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Convert number and monetary amount to written text. Also helpful for writing cheques (checks).",
   "main": "./lib/numbo.js",
   "scripts": {

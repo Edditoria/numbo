@@ -9,7 +9,8 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
  */
 
 (function() {
-  var Numbo, numbo;
+  var Numbo, numbo,
+    slice = [].slice;
 
   Numbo = (function() {
     var convert_enUS, tools;
@@ -289,24 +290,70 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
 
     Numbo.prototype.enUS = convert_enUS;
 
-    Numbo.prototype.convert = function(num, options) {
-      if (options == null) {
-        options = 'default';
-      }
-      if (options === 'default') {
-        return convert_enUS(num);
-      } else if (typeof options === 'string') {
-        if (this[options] != null) {
-          return this[options](num);
-        } else {
-          return convert_enUS(num, options);
-        }
-      } else if (Object.prototype.toString.call(options) === '[object Object]') {
-        console.log('Error: Invalid option. Option does not support object yet. Returns null');
-        return null;
+    Numbo.prototype.convert = function() {
+      var error, i, input, item, len1, options, otherOptions, plugin, template;
+      input = arguments[0], options = 2 <= arguments.length ? slice.call(arguments, 1) : [];
+      if (options.length === 0) {
+        return convert_enUS(input);
       } else {
-        console.log('Error: Invalid option. Option should be a string or an object. Returns null');
-        return null;
+        plugin = '';
+        template = '';
+        otherOptions = [];
+        error = false;
+        for (i = 0, len1 = options.length; i < len1; i++) {
+          item = options[i];
+          if (typeof item === 'string') {
+            if (this[item] != null) {
+              if (plugin === '') {
+                plugin = item;
+              } else {
+                console.log('Error: Invalid option. You have selected more than one language/plugin. Returns null');
+                error = true;
+              }
+            } else if (template === '') {
+              switch (item) {
+                case 'default':
+                  template = 'default';
+                  break;
+                case 'number':
+                case 'num':
+                  template = 'number';
+                  break;
+                case 'check':
+                case 'cheque':
+                case 'chk':
+                case 'chq':
+                  template = 'cheque';
+                  break;
+                case 'amount':
+                case 'amt':
+                  template = 'amount';
+                  break;
+                default:
+                  otherOptions.push(item);
+              }
+            } else {
+              otherOptions.push(item);
+            }
+          } else {
+            console.log('Error: Invalid option. Each option has to be a string.');
+            error = true;
+          }
+        }
+        if (error === true) {
+          return null;
+        } else if (otherOptions.length > 0) {
+          console.log('Error: Invalid option. Possibly more than one template is selected. Or, some option(s) are parsed into [otherOptions], but it is not allowed in current version yet.');
+          return null;
+        } else {
+          if (template === '') {
+            template = 'default';
+          }
+          if (plugin === '') {
+            plugin = 'enUS';
+          }
+          return this[plugin](input, template);
+        }
       }
     };
 
