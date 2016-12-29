@@ -47,11 +47,11 @@ And it is ready to serve in front-end environment:
 
 ```html
 <html>
-    <head>
-        <script src='bower_components/numbo/dist/numbo.js'></script>
-        <!-- add below line for additional languages/plugins -->
-        <script src='bower_components/numbo/dist/numbo.zhTW.js'></script> <!-- Traditional Chinese -->
-    </head>
+  <head>
+    <script src='bower_components/numbo/dist/numbo.js'></script>
+    <!-- add below line for additional languages/plugins -->
+    <script src='bower_components/numbo/dist/numbo.zhTW.js'></script> <!-- Traditional Chinese -->
+  </head>
 </html>
 
 ```
@@ -66,11 +66,11 @@ Nothing can stop you. Download the file `numbo.js` and refer it in your html fil
 
 ```html
 <html>
-    <head>
-        <script src='numbo.js'></script>
-        <!-- add below line for additional languages/plugins -->
-        <script src='numbo.zhTW.js'></script> <!-- Traditional Chinese -->
-    </head>
+  <head>
+    <script src='numbo.js'></script>
+    <!-- add below line for additional languages/plugins -->
+    <script src='numbo.zhTW.js'></script> <!-- Traditional Chinese -->
+  </head>
 </html>
 ```
 
@@ -86,9 +86,9 @@ console.log(numbo.convert('123.45')); // "one hundred and twenty-three point fou
 
 - `input` is the string or number you want to convert.
 - `option` is the format of output you want to get. It can be:
-    1. `'number'`
-    2. `'amount'`
-    3. `'check'`
+  1. `'number'`
+  2. `'amount'`
+  3. `'check'`
 - If no option is provided, numbo will convert in form of number.
 
 ```js
@@ -130,8 +130,8 @@ More format will be provided in future releases, e.g. no hyphen, no "and" word, 
 - Accepts number or string, e.g. '30624700'.
 - You must use a string if the input is more than 16 characters.
 - Limitations:
-    - English plugin supports up to 66 digits, i.e. one hundred vigintillion.
-    - Traditional Chinese plugin supports up to 48 digits, i.e. 一千載.
+  - English plugin supports up to 66 digits, i.e. one hundred vigintillion.
+  - Traditional Chinese plugin supports up to 48 digits, i.e. 一千載.
 
 ## Format of `options`
 
@@ -192,9 +192,8 @@ Please kindly wait for more releases.
 
 # Contribution
 
-If you want to commit a pull request, please **create a new branch**:
+*tl;tr* For pull request, please do check **Allow edits from maintainers**, and merge from **your new branch** into **master branch**.
 
-- `hotfix\xxx-xxx` to fix a bug or
-- `feature\xxx-xxx` to create awesome features.
+For details, please kindly read [CONTRIBUTING.md](CONTRIBUTING.md)
 
-Thank you so much :)
+:beer: Thank you so much! :pray:
