@@ -19,16 +19,16 @@
   "homepage": "https://edditoria.github.io/numbo",
   "ignore": [
     "**/.*",
-    "node_modules",
     "bower_components",
     "docs",
     "lib",
+    "node_modules",
     "src",
     "test",
     "tests",
     ".gitignore",
     ".npmignore",
-    "LICENSE",
+    "CONTRIBUTING.md",
     "package.json",
     "README.md"
   ]
