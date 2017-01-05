@@ -4,7 +4,7 @@
   "description": "Convert number and monetary amount to written text. Also helpful for writing cheques (checks).",
   "main": "./lib/numbo.js",
   "scripts": {
-    "test": "coffee -o ./lib/ -c ./src/*.coffee; coffee -o ./dist/ -c ./src/*.coffee; coffee -o ./docs/ -c ./src/*.coffee; coffee -o ./test/ -c ./src/test/*; for f in test/*; do echo \"$f\"; node \"$f\"; done; echo '=== npm-test Script Done ==='; exit 0"
+    "test": "coffee -o ./lib/ -c ./src/*.coffee; coffee -o ./dist/ -c ./src/*.coffee; coffee -o ./docs/assets/js -c ./src/*.coffee; coffee -o ./test/ -c ./src/test/*; for f in test/*; do echo \"$f\"; node \"$f\"; done; echo '=== npm-test Script Done ==='; exit 0"
   },
   "repository": {
     "type": "git",
