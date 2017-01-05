@@ -1,0 +1,5 @@
+# frozen_string_literal: true
+source "https://rubygems.org"
+
+gem 'github-pages', '109', group: :jekyell_plugins
+gem 'jekyll-theme-hacker', '~> 0.0.3'
