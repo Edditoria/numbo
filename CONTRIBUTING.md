@@ -1,6 +1,6 @@
 # Contribution Guildlines
 
-> *tl;tr* For pull request, please do check **Allow edits from maintainers**, and merge from **your new branch** into **master branch**.
+> *tl;tr* For pull request, please do check **Allow edits from maintainers**, and merge from **your new branch** into **my master branch**.
 
 ## Fork and Pull Model
 
@@ -11,12 +11,12 @@ If you are going to create a new feature or fix a bug, please follow the "fork a
   2. In Terminal / Command Prompt, `git clone https://github.com/{your.username}/numbo.git`
   3. `git remote add upstream https://github.com/Edditoria/numbo.git` for fetch and merge in future
 1. Create a new branch:
-  - `git checkout -b hotfix\{fix-a-bug} {master}` to fix a bug
-  - Or, `git checkout -b feature\{awesome-feature} {master}` to create awesome features.
+  - `git checkout -b hotfix/{fix-a-bug} {master}` to fix a bug
+  - Or, `git checkout -b feature/{awesome-feature} {master}` to create awesome features.
 1. You will need npm to work with you: `npm install --dev`
 1. Work on your codes... (Thanks!!)
 1. Before `commit -am`, please run `npm test` to make a basic test.
-1. Push to Github `git push origin feature\{awesome-feature}`
+1. Push to Github `git push origin feature/{awesome-feature}`
 1. In Github, go to my [numbo repo](https://github.com/Edditoria/numbo/)
 1. Click the nice **Compare & pull request** button
 1. :warning: Remember to pull to **master branch**. Make sure:
@@ -45,4 +45,4 @@ Sometimes you may want to fix a typo, or do some small changes that doesn't need
 
 > reference: [Editing files in another user's repository - *Github Help*](https://help.github.com/articles/editing-files-in-another-user-s-repository/)
 
-Thank you so much for your contribution!! :pray:
+:beer: Thank you so much for your contribution!! :pray:

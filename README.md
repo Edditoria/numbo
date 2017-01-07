@@ -192,7 +192,7 @@ Please kindly wait for more releases.
 
 # Contribution
 
-*tl;tr* For pull request, please do check **Allow edits from maintainers**, and merge from **your new branch** into **master branch**.
+*tl;tr* For pull request, please do check **Allow edits from maintainers**, and merge from **your new branch** into **my master branch**.
 
 For details, please kindly read [CONTRIBUTING.md](CONTRIBUTING.md)
 
