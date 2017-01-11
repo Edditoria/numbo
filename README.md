@@ -1,6 +1,6 @@
 # About `numbo`
 
-Convert number and monetary amount to written text. Also helpful for writing cheques (checks). It supports English and Traditional Chinese.
+Convert number and monetary amount to written text in multiple languages. Also helpful for writing cheques (checks). Currently, it supports English, Simplified Chinese and Traditional Chinese.
 
 Quick examples:
 
@@ -10,7 +10,12 @@ numbo.convert(3.14) // "three point one four"
 numbo.convert(0.5, 'amount') // "fifty cents"
 numbo.convert(100, 'check') // "One Hundred Dollars and No Cent Only"
 
-// Traditional Chinese (Taiwan), optional as a plugin
+// Simplified Chinese, optional as a plugin
+numbo.convert(3.14, 'zhCN') // "三点一四"
+numbo.convert(0.5, 'zhCN', 'amount') // "五角"
+numbo.convert(100, 'zhCN', 'check') // "壹佰元整"
+
+// Traditional Chinese, optional as a plugin
 numbo.convert(3.14, 'zhTW') // "三點一四"
 numbo.convert(0.5, 'zhTW', 'amount') // "五角"
 numbo.convert(100, 'zhTW', 'check') // "壹佰元正"
@@ -30,8 +35,10 @@ For node.js
 
 ```js
 var numbo = require('numbo');
-numbo.zhTW = require('numbo/lib/numbo.zhTW'); // add this line if you want to convert Traditional Chinese
+numbo.zhTW = require('numbo/lib/numbo.zhTW'); // add support of Traditional Chinese
+numbo.zhCN = require('numbo/lib/numbo.zhCN'); // add support of Simplified Chinese
 console.log(numbo.convert('123.45')); // "one hundred and twenty-three point four five"
+console.log(numbo.convert('123.45', 'zhCN')); // "一百二十三点四五" (require numbo.zhCN)
 console.log(numbo.convert('123.45', 'zhTW')); // "一百二十三點四五" (require numbo.zhTW)
 ```
 
@@ -49,7 +56,8 @@ And it is ready to serve in front-end environment:
 <html>
   <head>
     <script src='bower_components/numbo/dist/numbo.js'></script>
-    <!-- add below line for additional languages/plugins -->
+    <!-- optional: add below lines for additional languages/plugins -->
+    <script src='bower_components/numbo/dist/numbo.zhCN.js'></script> <!-- Simplified Chinese -->
     <script src='bower_components/numbo/dist/numbo.zhTW.js'></script> <!-- Traditional Chinese -->
   </head>
 </html>
@@ -68,7 +76,8 @@ Nothing can stop you. Download the file `numbo.js` and refer it in your html fil
 <html>
   <head>
     <script src='numbo.js'></script>
-    <!-- add below line for additional languages/plugins -->
+    <!-- optional: add below lines for additional languages/plugins -->
+    <script src='numbo.zhCN.js'></script> <!-- Simplified Chinese -->
     <script src='numbo.zhTW.js'></script> <!-- Traditional Chinese -->
   </head>
 </html>
@@ -112,7 +121,7 @@ numbo.convert(123.4567, 'check')
 
 In v2.x, you can convert number to Tradtional Chinese. The options are same as previous versions. You can do it via multiple options (now maximum of two).
 
-1. Language/plugin: `'enUS'` or `'zhTW'`
+1. Language/plugin: `'enUS'`, `'zhCN'` or `'zhTW'`
 2. Format: `'number'`, `'amount'` or `'check'`
 
 ```js
@@ -131,7 +140,7 @@ More format will be provided in future releases, e.g. no hyphen, no "and" word, 
 - You must use a string if the input is more than 16 characters.
 - Limitations:
   - English plugin supports up to 66 digits, i.e. one hundred vigintillion.
-  - Traditional Chinese plugin supports up to 48 digits, i.e. 一千載.
+  - Simplified and Traditional Chinese plugins support up to 48 digits, i.e. 一千載.
 
 ## Format of `options`
 
