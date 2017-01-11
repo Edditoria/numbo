@@ -1,6 +1,6 @@
 {
   "name": "numbo",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Convert number and monetary amount to written text. Also helpful for writing cheques (checks).",
   "main": "./lib/numbo.js",
   "scripts": {
@@ -27,9 +27,7 @@
   },
   "homepage": "https://edditoria.github.io/numbo",
   "devDependencies": {
-    "coffee-script": "^1.11.0",
-    "webpack": "^1.13.0",
-    "webpack-dev-server": "^1.16.0"
+    "coffee-script": "^1.11.0"
   },
   "directories": {
     "lib": "./lib",
