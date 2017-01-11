@@ -55,6 +55,17 @@ class Numbo
             console.log 'Error: Option in parseCents() is invalid. Use the default option (Math.ceil)'
             'ceil'
       Math[mathOption](parseInt(str3dp, 10) / 10)
+    speakByDigit: (str, n1, separator = ' ') ->
+      # match every characters of `str` to `n1[str]` one-by-one
+      # the 1st arg should a string contains numbers only (e.g. '000123')
+      # return a string (e.g. 'zero zero zero one two three')
+      if typeof str is 'string' and str.search(/\D/g) < 0
+        output = []
+        output.push(n1[+item]) for item in str
+        output.join(separator)
+      else
+        console.log 'Error: Invalid argument of speakByDigit()'
+        null
     check: (input, characters = '') ->
       # check if there are only:
       # - contains numbers and comma
@@ -124,6 +135,7 @@ class Numbo
     parse99: tools.parse99
     parseCent: tools.parseCents
     parseCents: tools.parseCents
+    speakByDigit: tools.speakByDigit
     check: tools.check
     validate: tools.check
     normalize: tools.normalize
@@ -199,14 +211,6 @@ class Numbo
           output.push item + unit
       output.join(' ').replace(/^\s+|\s+$/g,'') # trim whitespace
 
-    speakDec = (str) ->
-      # speak the decimal place one by one
-      if str is '' then ''
-      else
-        strArr = for item in str
-          n1withZero[parseInt item, 10]
-        ' point ' + strArr.join(' ')
-
     #
     #    #  #         #
     #    ####
@@ -227,7 +231,9 @@ class Numbo
         intArr = tools.splitInt(strSplited[0])
         int = speakInt(intArr)
         if int is '' then int = 'zero'
-        dec = speakDec(strSplited[1])
+        dec =
+          if strSplited[1] is '' then ''
+          else ' point ' + tools.speakByDigit(strSplited[1], n1withZero, ' ')
         (int + dec).toLowerCase()
 
     speakAmt = (str, options = 'amount') ->

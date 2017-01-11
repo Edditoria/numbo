@@ -73,27 +73,11 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
         }
       };
     })(this);
-    speakByDigit = function(str, n1, separator) {
-      var i, item, len, output;
-      if (separator == null) {
-        separator = ' ';
-      }
-      if (typeof str === 'string' && str.search(/\D/g) < 0) {
-        output = [];
-        for (i = 0, len = str.length; i < len; i++) {
-          item = str[i];
-          output.push(n1[+item]);
-        }
-        return output.join(separator);
-      } else {
-        console.log('Error: Invalid argument of speakByDigit()');
-        return null;
-      }
-    };
     check = this.tools.check;
     normalize = this.tools.normalize;
     splitNum = this.tools.splitNum;
     parseCents = this.tools.parseCents;
+    speakByDigit = this.tools.speakByDigit;
     speakNum = function(str) {
       var dec, dot, int, strSplited;
       strSplited = splitNum(str);

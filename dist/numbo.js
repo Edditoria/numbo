@@ -60,6 +60,23 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
         })();
         return Math[mathOption](parseInt(str3dp, 10) / 10);
       },
+      speakByDigit: function(str, n1, separator) {
+        var i, item, len1, output;
+        if (separator == null) {
+          separator = ' ';
+        }
+        if (typeof str === 'string' && str.search(/\D/g) < 0) {
+          output = [];
+          for (i = 0, len1 = str.length; i < len1; i++) {
+            item = str[i];
+            output.push(n1[+item]);
+          }
+          return output.join(separator);
+        } else {
+          console.log('Error: Invalid argument of speakByDigit()');
+          return null;
+        }
+      },
       check: function(input, characters) {
         var acceptRegex, commaAfterDot, dotCount, illegalStr, inputStr, result;
         if (characters == null) {
@@ -144,6 +161,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
       parse99: tools.parse99,
       parseCent: tools.parseCents,
       parseCents: tools.parseCents,
+      speakByDigit: tools.speakByDigit,
       check: tools.check,
       validate: tools.check,
       normalize: tools.normalize,
@@ -153,7 +171,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
     };
 
     convert_enUS = function(input, options) {
-      var main, n1, n10, n1000, n1withZero, n99, speak999, speakAmt, speakDec, speakInt, speakNum;
+      var main, n1, n10, n1000, n1withZero, n99, speak999, speakAmt, speakInt, speakNum;
       if (options == null) {
         options = 'default';
       }
@@ -195,23 +213,6 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
         }
         return output.join(' ').replace(/^\s+|\s+$/g, '');
       };
-      speakDec = function(str) {
-        var item, strArr;
-        if (str === '') {
-          return '';
-        } else {
-          strArr = (function() {
-            var i, len1, results;
-            results = [];
-            for (i = 0, len1 = str.length; i < len1; i++) {
-              item = str[i];
-              results.push(n1withZero[parseInt(item, 10)]);
-            }
-            return results;
-          })();
-          return ' point ' + strArr.join(' ');
-        }
-      };
       speakNum = function(str) {
         var dec, int, intArr, strSplited;
         if (str === '0') {
@@ -225,7 +226,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE
           if (int === '') {
             int = 'zero';
           }
-          dec = speakDec(strSplited[1]);
+          dec = strSplited[1] === '' ? '' : ' point ' + tools.speakByDigit(strSplited[1], n1withZero, ' ');
           return (int + dec).toLowerCase();
         }
       };

@@ -68,18 +68,6 @@ zhTW = (input, options = 'default') ->
         .replace(/\零+$/g, '') # remove tailing zero '零'
         .replace(/\零+/g, '零') # remove double '零'
 
-  speakByDigit = (str, n1, separator = ' ') ->
-    # match every characters of `str` to `n1[str]` one-by-one
-    # the 1st arg should a string contains numbers only (e.g. '000123')
-    # return a string (e.g. 'zero zero zero one two three')
-    if typeof str is 'string' and str.search(/\D/g) < 0
-      output = []
-      output.push(n1[+item]) for item in str
-      output.join(separator)
-    else
-      console.log 'Error: Invalid argument of speakByDigit()'
-      null
-
   #  #     #
   #  ##   ##   ##   # #    #
   #  # # # #  #  #  # ##   #
@@ -93,6 +81,7 @@ zhTW = (input, options = 'default') ->
   normalize = @tools.normalize
   splitNum = @tools.splitNum
   parseCents = @tools.parseCents
+  speakByDigit = @tools.speakByDigit
 
   speakNum = (str) ->
     strSplited = splitNum(str)
