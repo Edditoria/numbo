@@ -1,7 +1,7 @@
 {
   "name": "numbo",
-  "version": "2.3.0",
-  "description": "Convert number and monetary amount to written text in multiple languages. Also helpful for writing cheques (checks).",
+  "version": "2.3.1",
+  "description": "Convert number and monetary amount to written text. Also helpful for writing cheques (checks). Supports English. 支援中文",
   "main": "./lib/numbo.js",
   "scripts": {
     "test": "coffee -o ./lib/ -c ./src/*.coffee; coffee -o ./dist/ -c ./src/*.coffee; coffee -o ./docs/assets/js -c ./src/*.coffee; coffee -o ./test/ -c ./src/test/*; for f in test/*; do echo \"$f\"; node \"$f\"; done; echo '=== npm-test Script Done ==='; exit 0"

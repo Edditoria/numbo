@@ -1,8 +1,8 @@
 # About `numbo`
 
-Convert number and monetary amount to written text in multiple languages. Also helpful for writing cheques (checks). Currently, it supports English, Simplified Chinese and Traditional Chinese. And it's available in npm and bower.
+Convert number and monetary amount to written text in multiple languages. Also helpful for writing cheques (checks). Currently, it supports English, Simplified Chinese and Traditional Chinese. Available in npm and bower.
 
-\(numbo 是一個 javascript 小程式，將亞拉伯數字轉換成中文丶英文，另有提供支票用的大寫格式 :\)
+\(numbo 是一個 javascript 小程式，將亞拉伯數字轉換成繁體中文丶簡體中文及英文，另有提供支票用的大寫格式 :\)
 
 Quick examples:
 
