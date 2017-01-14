@@ -2,7 +2,7 @@ title: numbo
 description: convert number and monetary amount to written text
 email: edditoria@gmail.com
 
-theme: jekyll-theme-hacker
+theme: jekyll-theme-slate
 show_downloads: false
 
 exclude:

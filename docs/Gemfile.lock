@@ -106,9 +106,9 @@ GEM
     jekyll-sitemap (0.12.0)
       jekyll (~> 3.3)
     jekyll-swiss (0.4.0)
-    jekyll-theme-hacker (0.0.3)
-      jekyll (~> 3.3)
     jekyll-theme-primer (0.1.1)
+      jekyll (~> 3.3)
+    jekyll-theme-slate (0.0.3)
       jekyll (~> 3.3)
     jekyll-titles-from-headings (0.1.2)
       jekyll (~> 3.3)
@@ -161,7 +161,7 @@ PLATFORMS
 
 DEPENDENCIES
   github-pages (= 109)
-  jekyll-theme-hacker (~> 0.0.3)
+  jekyll-theme-slate (~> 0.0.3)
 
 BUNDLED WITH
    1.13.7

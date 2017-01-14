@@ -2,4 +2,4 @@
 source "https://rubygems.org"
 
 gem 'github-pages', '109', group: :jekyell_plugins
-gem 'jekyll-theme-hacker', '~> 0.0.3'
+gem 'jekyll-theme-slate', '~> 0.0.3'
