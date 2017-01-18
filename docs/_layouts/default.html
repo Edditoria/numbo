@@ -7,8 +7,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
 
     <!-- #customized -->
-    <title>{{ site.title | default: site.github.repository_name }}</title>
-    <meta name="description" content="{{ site.description | default: site.github.repository_name }} : {{ site.description | default: site.github.project_tagline }}">
+    {% include title.html %}
     {% include numbo_scripts.html %}
 
   </head>
