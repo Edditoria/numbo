@@ -1,9 +1,11 @@
 title: numbo
-description: convert number and monetary amount to written text
+description: number-to-text javascript library
 email: edditoria@gmail.com
 
 theme: jekyll-theme-slate
 show_downloads: false
+
+host: 0.0.0.0
 
 exclude:
   - Gemfile
