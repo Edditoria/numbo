@@ -1,9 +1,57 @@
 ---
 ---
 
-body {
-  height: 100%
-}
+$bgcolor: #212121;
+$lit-white: #f2f2f2;
+$lit-black: #191919;
+$console-green: #00f51a;
+$screen-split: 50%;
+$demo-height: 35%;
+$header-position-middle: ($screen-split - $demo-height) / 2;
+
 html {
+  height: 100%;
+}
+
+body {
   height: 95%;
+  background-color: $bgcolor;
+  color: white;
+}
+
+.header-title {
+  font-size: 2em;
+  margin: 0.33em 0 0;
+  position: absolute;
+  bottom: 100% - $header-position-middle;
+}
+
+.header-subtitle {
+  font-size: 1em;
+  margin: 0.33em 0 0;
+  position: absolute;
+  top: $header-position-middle;
+}
+
+.console-wrap {
+  background-color: black;
+  color: $console-green;
+  position: absolute;
+  bottom: 100% - $screen-split;
+  height: $demo-height;
+  width: 100%;
+}
+
+.app-demo-wrap {
+  background-color: $lit-white;
+  color: $lit-black;
+  position: absolute;
+  top: $screen-split;
+  height: $demo-height;
+  width: 100%;
+}
+
+.footer_wrap {
+  position: absolute;
+  bottom: 0%;
 }

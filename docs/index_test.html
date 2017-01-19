@@ -4,23 +4,29 @@ layout: bootstrap
 
 <div class='header_wrap container-fluid'>
   <header>
-    <h1>{{ site.title | default: site.github.repository_name }}</h1>
-    <h2>{{ site.description | default: site.github.project_tagline }}</h2>
+    <h1 class='header-title'>{{ site.title | default: site.github.repository_name }}</h1>
+    <h2 class='header-subtitle'>{{ site.description | default: site.github.project_tagline }}</h2>
   </header>
 </div>
 
 <div class='main_content_wrap'>
-  <div class='console-container container'>
-    Console Demo Area
-  </div>
+  <main>
+    <section>
+      <div class='console-wrap container'>
+        Console Demo Area
+      </div>
+    </section>
 
-  <div class='app-demo-area container'>
-    App Demo Area
-  </div>
+    <section>
+      <div class='app-demo-wrap container'>
+        App Demo Area
+      </div>
+    </section>
+  </main>
 </div>
 
 <div class='footer_wrap container-fluid'>
   <footer>
-    footer area
+    Copyright (c) 2017 Edditoria. Code licensed MIT, docs CC BY 3.0.
   </footer>
 </div>
