@@ -2,30 +2,52 @@
 layout: bootstrap
 ---
 
-<div class='header_wrap container-fluid'>
+<div class='header container-fluid'>
   <header>
     <h1 class='header-title'>{{ site.title | default: site.github.repository_name }}</h1>
     <h2 class='header-subtitle'>{{ site.description | default: site.github.project_tagline }}</h2>
   </header>
 </div>
 
-<div class='main_content_wrap'>
+<div class='main'>
   <main>
     <section>
       <div class='console-wrap container'>
-        Console Demo Area
+        <div class='console-command'>
+          <p>&gt; numbo.convert(123.45, "enUS", "cheque")</p>
+          <p>"One Hundred Twenty-three Dollars and Forty-five Cents Only"</p>
+          <p>&gt; numbo.convert(123.45, "zhTW", "amount")</p>
+          <p>"一百二十三元四角五分"</p>
+          <p>&gt; numbo.convert(3.1416, "zhCN", "number")</p>
+          <p>"三点一四一六"</p>
+        </div>
       </div>
     </section>
 
     <section>
       <div class='app-demo-wrap container'>
-        App Demo Area
+        <div class='input'>
+          1234567.89
+        </div>
+        <div class='output'>
+          一百二十三萬四千五百六十七元八角九分
+        </div>
+        <div class='lang btn-group' role='group' aria-label='select a language'>
+          <button type='button' class='btn btn-default' aria-label='US English'>en-US</button>
+          <button type='button' class='btn btn-default selected' aria-label='Tradtional Chinese'>zh-TW</button>
+          <button type='button' class='btn btn-default' aria-label='Simplified Chinese'>zh-CN</button>
+        </div>
+        <div class='tpl btn-group' role='group' aria-label='select a format'>
+          <button type='button' class='btn btn-default' aria-label='number'>num</button>
+          <button type='button' class='btn btn-default selected' aria-label='amount'>amt</button>
+          <button type='button' class='btn btn-default' aria-label='cheque'>chq</button>
+        </div>
       </div>
     </section>
   </main>
 </div>
 
-<div class='footer_wrap container-fluid'>
+<div class='footer container-fluid'>
   <footer>
     Copyright (c) 2017 Edditoria. Code licensed MIT, docs CC BY 3.0.
   </footer>

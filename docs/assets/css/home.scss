@@ -1,6 +1,8 @@
 ---
 ---
 
+@import 'typed';
+
 $bgcolor: #212121;
 $lit-white: #f2f2f2;
 $lit-black: #191919;
@@ -35,11 +37,20 @@ body {
 
 .console-wrap {
   background-color: black;
-  color: $console-green;
   position: absolute;
   bottom: 100% - $screen-split;
   height: $demo-height;
   width: 100%;
+  padding: 0 .67em;
+}
+
+.console-command {
+  color: $console-green;
+  font-family: monospace;
+  p {
+    line-height: 1.2em;
+    margin: 0.33em 0;
+  }
 }
 
 .app-demo-wrap {
@@ -49,9 +60,20 @@ body {
   top: $screen-split;
   height: $demo-height;
   width: 100%;
+  .input {
+    font-size: 2em;
+  }
+  .btn {
+    background-color: $lit-white;
+    border-color: #ff67da;
+  }
+  .btn.selected {
+    background-color: #ff67da;
+    color: white;
+  }
 }
 
-.footer_wrap {
+.footer {
   position: absolute;
   bottom: 0%;
 }
