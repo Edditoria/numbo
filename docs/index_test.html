@@ -12,7 +12,7 @@ layout: bootstrap
 <div class='main'>
   <main>
     <section>
-      <div class='console-wrap container'>
+      <div class='console-wrap container-fluid'>
         <div class='console-command'>
           <p>&gt; numbo.convert(123.45, "enUS", "cheque")</p>
           <p>"One Hundred Twenty-three Dollars and Forty-five Cents Only"</p>
@@ -25,22 +25,28 @@ layout: bootstrap
     </section>
 
     <section>
-      <div class='app-demo-wrap container'>
+      <div class='app-demo-wrap container-fluid'>
         <div class='input'>
           1234567.89
         </div>
         <div class='output'>
           一百二十三萬四千五百六十七元八角九分
         </div>
-        <div class='lang btn-group' role='group' aria-label='select a language'>
-          <button type='button' class='btn btn-default' aria-label='US English'>en-US</button>
-          <button type='button' class='btn btn-default selected' aria-label='Tradtional Chinese'>zh-TW</button>
-          <button type='button' class='btn btn-default' aria-label='Simplified Chinese'>zh-CN</button>
-        </div>
-        <div class='tpl btn-group' role='group' aria-label='select a format'>
-          <button type='button' class='btn btn-default' aria-label='number'>num</button>
-          <button type='button' class='btn btn-default selected' aria-label='amount'>amt</button>
-          <button type='button' class='btn btn-default' aria-label='cheque'>chq</button>
+        <div class="control text-center">
+          <div class="lang">
+            <div class='btn-group' role='group' aria-label='select a language'>
+              <button type='button' class='btn btn-default' aria-label='US English'>en-US</button>
+              <button type='button' class='btn btn-default selected' aria-label='Tradtional Chinese'>zh-TW</button>
+              <button type='button' class='btn btn-default' aria-label='Simplified Chinese'>zh-CN</button>
+            </div>
+          </div>
+          <div class="tpl">
+            <div class='btn-group' role='group' aria-label='select a format'>
+              <button type='button' class='btn btn-default' aria-label='number'>num</button>
+              <button type='button' class='btn btn-default selected' aria-label='amount'>amt</button>
+              <button type='button' class='btn btn-default' aria-label='cheque'>chq</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -49,7 +55,7 @@ layout: bootstrap
 
 <div class='footer container-fluid'>
   <footer>
-    <div>
+    <div class='text-center'>
       <a class='github-btn btn btn-default' href='https://github.com/edditoria/numbo'>View on GitHub</a>
     </div>
     <div class='copyright'>

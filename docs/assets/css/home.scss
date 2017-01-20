@@ -17,6 +17,7 @@ html {
 
 body {
   height: 95%;
+  max-width: 320px;
   background-color: $bgcolor;
   color: white;
 }
@@ -62,10 +63,18 @@ body {
   width: 100%;
   .input {
     font-size: 2em;
+    margin: 0.33em 0 0;
+  }
+  .lang, .tpl {
+    margin-bottom: 0.5em;
+  }
+  .btn-group {
+    width: 15em;
   }
   .btn {
     background-color: $lit-white;
     border-color: #ff67da;
+    width: 33%;
   }
   .btn.selected {
     background-color: #ff67da;
@@ -73,9 +82,18 @@ body {
   }
 }
 
+.control {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 0.33em;
+  width: 100%;
+}
+
 .footer {
   position: absolute;
   bottom: 0%;
+  width: 100%;
 }
 
 .github-btn {
