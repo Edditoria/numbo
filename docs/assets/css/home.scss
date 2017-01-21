@@ -17,9 +17,12 @@ html {
 
 body {
   height: 95%;
-  max-width: 320px;
   background-color: $bgcolor;
   color: white;
+}
+
+.header {
+  height: $screen-split - $demo-height;
 }
 
 .header-title {
@@ -94,6 +97,7 @@ body {
   position: absolute;
   bottom: 0%;
   width: 100%;
+  height: $screen-split - $demo-height;
 }
 
 .github-btn {
@@ -106,4 +110,38 @@ body {
 .copyright {
   font-size: 0.8em;
   margin: 0.67em 0;
+}
+
+/*
+ #
+ #         ##   #    # #####   ####   ####    ##   #####  ######
+ #        #  #  ##   # #    # #      #    #  #  #  #    # #
+ #       #    # # #  # #    #  ####  #      #    # #    # #####
+ #       ###### #  # # #    #      # #      ###### #####  #
+ #       #    # #   ## #    # #    # #    # #    # #      #
+ ####### #    # #    # #####   ####   ####  #    # #      ######
+*/
+
+@media all and (orientation: landscape) and (max-width: 767px) {
+  .header-title, .header-subtitle {
+    display: inline-block;
+    position: inherit;
+    margin-right: 0.33em;
+  }
+  .header-subtitle:before {
+    content: 'a ';
+  }
+  .control {
+    position: static;
+    bottom: auto;
+    left: auto;
+    float: left;
+    width: auto;
+    margin-right: 1em;
+    margin-top: 1em;
+  }
+  .footer-links, .copyright {
+    display: inline-block;
+    margin-right: 0.33em;
+  }
 }
