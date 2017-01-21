@@ -42,6 +42,7 @@ body {
 .console-wrap {
   background-color: black;
   position: absolute;
+  overflow: hidden; // for Terminal-like effect
   bottom: 100% - $screen-split;
   height: $demo-height;
   width: 100%;
@@ -49,6 +50,9 @@ body {
 }
 
 .console-command {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 0.5em;
   color: $console-green;
   font-family: monospace;
   p {
