@@ -1,7 +1,16 @@
 ---
 ---
 
-@import 'typed';
+// media query flow:
+// first portrait mobile
+// then landscape mobile
+// then landscape desktop
+// then portrait desktop
+// note:
+// - responsive queries follows Bootstrap system
+// - portrait follows common screen size (h)
+
+// @import 'typed';
 
 $bgcolor: #212121;
 $lit-white: #f2f2f2;
@@ -10,6 +19,23 @@ $console-green: #00f51a;
 $screen-split: 50%;
 $demo-height: 35%;
 $header-position-middle: ($screen-split - $demo-height) / 2;
+
+@mixin subtitle-deco {
+  .header-subtitle:before {
+    content: 'a ';
+  }
+}
+
+/*
+ ######
+ #     # ###### ######   ##   #    # #      #####
+ #     # #      #       #  #  #    # #        #
+ #     # #####  #####  #    # #    # #        #
+ #     # #      #      ###### #    # #        #
+ #     # #      #      #    # #    # #        #
+ ######  ###### #      #    #  ####  ######   #
+*/
+
 
 html {
   height: 100%;
@@ -104,6 +130,10 @@ body {
   height: $screen-split - $demo-height;
 }
 
+.footer-links {
+  margin-top: 0.67em;
+}
+
 .github-btn {
   background-color: #0090ff;
   color: white;
@@ -113,7 +143,6 @@ body {
 
 .copyright {
   font-size: 0.8em;
-  margin: 0.67em 0;
 }
 
 /*
@@ -126,15 +155,17 @@ body {
  ####### #    # #    # #####   ####   ####  #    # #      ######
 */
 
-@media all and (orientation: landscape) and (max-width: 767px) {
+// special: small screen in landscape, e.g. 800x600
+// keep the up-down layout, just like mobile
+@media all
+and (orientation: landscape)
+and (max-width: 991px) {
   .header-title, .header-subtitle {
     display: inline-block;
     position: inherit;
     margin-right: 0.33em;
   }
-  .header-subtitle:before {
-    content: 'a ';
-  }
+  @include subtitle-deco;
   .control {
     position: static;
     bottom: auto;
@@ -146,6 +177,110 @@ body {
   }
   .footer-links, .copyright {
     display: inline-block;
+    margin-top: 0;
     margin-right: 0.33em;
+  }
+}
+
+/*
+ ######
+ #     # ######  ####  #####   ####  #    #  ####  # #    # ######
+ #     # #      #      #    # #    # ##   # #      # #    # #
+ ######  #####   ####  #    # #    # # #  #  ####  # #    # #####
+ #   #   #           # #####  #    # #  # #      # # #    # #
+ #    #  #      #    # #      #    # #   ## #    # #  #  #  #
+ #     # ######  ####  #       ####  #    #  ####  #   ##   ######
+*/
+
+// small devices
+@media all
+and (min-width: 600px) {
+  html, body {
+    font-size: 110%;
+  }
+  @include subtitle-deco;
+}
+// @media all
+// and (orientation: portrait)
+// and (min-width: 600px) {
+//   html, body {
+//     font-size: 110%;
+//   }
+//   @include subtitle-deco;
+// }
+
+// IMPORTANT BREAK POINT
+// landscape mode for medium devices
+// changes to left-right layout in
+@media all
+and (orientation: landscape)
+and (min-width: 992px) {
+  .console-wrap {
+    position: absolute;
+    bottom: auto; // reset
+    height: $demo-height * 2;
+    width: 50%;
+  }
+  .app-demo-wrap {
+    position: absolute;
+    top: auto; // reset
+    left: 50%;
+    height: $demo-height * 2;
+    width: 50%;
+  }
+}
+
+// medium devices
+@media all
+and (min-width: 992px) {
+  .app-demo-wrap {
+    .input-output-wrap {
+      margin-top: 7em;
+    }
+    .input {
+      font-size: 3em;
+    }
+    .output {
+      font-size: 1.5em;
+    }
+  }
+}
+@media all
+and (orientation: portrait)
+and (min-width: 768px) {
+  .app-demo-wrap {
+    .input-output-wrap {
+      margin-top: 2em;
+      text-align: center;
+    }
+  }
+}
+
+// large devices
+@media all
+and (min-width: 1200px) {
+  .header {
+    padding: 1.33em;
+  }
+  .console-command {
+    font-size: 1.33em;
+  }
+  .app-demo-wrap {
+    .input-output-wrap {
+      padding-right: 1em;
+    }
+  }
+}
+@media all
+and (orientation: portrait)
+and (min-width: 900px) {
+  html, body {
+    font-size: 130%;
+  }
+  .header {
+    padding: 1.33em;
+  }
+  .footer {
+    padding-top: 1em;
   }
 }
