@@ -26,6 +26,18 @@ $header-position-middle: ($screen-split - $demo-height) / 2;
   }
 }
 
+@mixin valign-by-pseudo {
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+  &:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+  }
+}
+
 /*
  ######
  #     # ###### ######   ##   #    # #      #####
@@ -160,9 +172,12 @@ body {
 @media all
 and (orientation: landscape)
 and (max-width: 991px) {
+  header {
+    @include valign-by-pseudo;
+  }
   .header-title, .header-subtitle {
+    position: static;
     display: inline-block;
-    position: inherit;
     margin-right: 0.33em;
   }
   @include subtitle-deco;
@@ -195,19 +210,15 @@ and (max-width: 991px) {
 // small devices
 @media all
 and (min-width: 600px) {
+  @include subtitle-deco;
+}
+@media all
+and (orientation: portrait)
+and (min-width: 600px) {
   html, body {
     font-size: 110%;
   }
-  @include subtitle-deco;
 }
-// @media all
-// and (orientation: portrait)
-// and (min-width: 600px) {
-//   html, body {
-//     font-size: 110%;
-//   }
-//   @include subtitle-deco;
-// }
 
 // IMPORTANT BREAK POINT
 // landscape mode for medium devices
