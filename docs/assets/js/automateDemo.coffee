@@ -82,10 +82,17 @@ $ ->
       $('.' + target + ' button[value=' + value + ']').addClass('selected')
       return
 
-    $('.input').text(n.input)
-    $('.output').text(outputMsg)
-    switchClass('lang', n.lang)
-    switchClass('tpl', n.tpl)
+    callbackFunc = ->
+      switchClass('lang', n.lang)
+      switchClass('tpl', n.tpl)
+      $('.output').text(outputMsg)
+    typedOptions =
+      strings: [n.input]
+      typeSpeed: 15
+      showCursor: false
+      callback: callbackFunc
+    $('.input').typed(typedOptions)
+
 
   setInterval((-> operateAppDemo(generateNumboOptions())), 5300)
 
