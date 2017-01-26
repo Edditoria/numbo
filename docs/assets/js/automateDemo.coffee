@@ -35,9 +35,17 @@ generateNumboOptions = ->
 
 $ ->
 
+  #
+  #   ####   ####  #    #  ####   ####  #      ######
+  #  #    # #    # ##   # #      #    # #      #
+  #  #      #    # # #  #  ####  #    # #      #####
+  #  #      #    # #  # #      # #    # #      #
+  #  #    # #    # #   ## #    # #    # #      #
+  #   ####   ####  #    #  ####   ####  ###### ######
+
   typeMsg = (numboOptions) ->
     # numboOptions should be { input, lang, tpl }
-    # IMPORTANT: this function will assume that window.numbo() exists
+    # IMPORTANT: this function assumes that window.numbo() exists
     n = numboOptions
     inputMsg = "numbo.convert(\"#{n.input}\", \"#{n.lang}\", \"#{n.tpl}\")"
     outputMsg = '\"' + window.numbo.convert(n.input, n.lang, n.tpl) + '\"'
@@ -55,5 +63,30 @@ $ ->
 
   # output of generateNumboOptions() must fit to numboOptions in typeMsg()
   setInterval((-> typeMsg(generateNumboOptions())), 5000)
+
+  #
+  #    ##   #####  #####     #####  ###### #    #  ####
+  #   #  #  #    # #    #    #    # #      ##  ## #    #
+  #  #    # #    # #    #    #    # #####  # ## # #    #
+  #  ###### #####  #####     #    # #      #    # #    #
+  #  #    # #      #         #    # #      #    # #    #
+  #  #    # #      #         #####  ###### #    #  ####
+
+  operateAppDemo = (numboOptions) ->
+    # numboOptions should be { input, lang, tpl }
+    # IMPORTANT: this function assumes that window.numbo() exists
+    n = numboOptions
+    outputMsg = window.numbo.convert(n.input, n.lang, n.tpl)
+    switchClass = (target, value) ->
+      $('.' + target + ' .selected').removeClass('selected')
+      $('.' + target + ' button[value=' + value + ']').addClass('selected')
+      return
+
+    $('.input').text(n.input)
+    $('.output').text(outputMsg)
+    switchClass('lang', n.lang)
+    switchClass('tpl', n.tpl)
+
+  setInterval((-> operateAppDemo(generateNumboOptions())), 5300)
 
   return
