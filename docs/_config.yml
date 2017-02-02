@@ -2,7 +2,31 @@ title: numbo
 tagline: number-to-text javascript library
 description: numbo is a Javascript library. It converts number and monetary amount to written text in multiple languages. Also helpful for writing cheques (checks). Available in npm and bower. Open-source in Github.
 
+# my seo tags (not jekyll-seo-tag)
+author: Edditoria
 email: edditoria@gmail.com
+twitter:
+  username: Edditoria
+  type: summary
+  image:
+    url: /assets/images/numbo-web-screenshot-896x480.png
+    width: 896
+    height: 480
+facebook:
+  publisher: 100003271324063
+  admins: 100003271324063
+  image:
+    url: /assets/images/numbo-web-screenshot-1200x630.png
+    width: 1200
+    height: 630
+webmaster_verifications:
+  google: Siv0JaYz_VzZV-ohqkY_mCHb9-4nG51qW-v4428xsIs
+social:
+  links:
+    - https://twitter.com/edditoria
+    - https://www.facebook.com/edditoria
+    - https://plus.google.com/+edditoria
+    - https://github.com/edditoria
 
 theme: jekyll-theme-slate
 show_downloads: false
@@ -16,6 +40,7 @@ exclude:
 
 gems:
   - jekyll-coffeescript
+  # - jekyll-seo-tag
 
 # description: > # this means to ignore newlines until "baseurl:"
 #   Write an awesome description for your new site here. You can edit this
