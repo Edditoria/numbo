@@ -2,13 +2,13 @@
 
 /*
 
-numbo.zhCN, as a plugin for Numbo, convert number to Simplifed Chinese.
+numbo.zhCN, as a plugin for Numbo, convert number to Simplified Chinese.
 
 This plugin and Numbo are open source in:
 https://github.com/Edditoria/numbo
 
 under MIT license:
-https://github.com/Edditoria/numbo/blob/master/LICENSE
+https://github.com/Edditoria/numbo/blob/master/LICENSE.md
  */
 
 (function() {

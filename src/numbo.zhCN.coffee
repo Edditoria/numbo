@@ -6,7 +6,7 @@ This plugin and Numbo are open source in:
 https://github.com/Edditoria/numbo
 
 under MIT license:
-https://github.com/Edditoria/numbo/blob/master/LICENSE
+https://github.com/Edditoria/numbo/blob/master/LICENSE.md
 ###
 
 zhCN = (input, options = 'default') ->
