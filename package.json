@@ -3,8 +3,15 @@
   "version": "2.3.1",
   "description": "Convert number and monetary amount to written text. Also helpful for writing cheques (checks). Supports English. 支援中文",
   "main": "./lib/numbo.js",
+  "directories": {
+    "lib": "./lib",
+    "test": "./test"
+  },
   "scripts": {
-    "test": "coffee -o ./lib/ -c ./src/*.coffee; coffee -o ./dist/ -c ./src/*.coffee; coffee -o ./docs/assets/js -c ./src/*.coffee; coffee -o ./test/ -c ./src/test/*; for f in test/*; do echo \"$f\"; node \"$f\"; done; echo '=== npm-test Script Done ==='; exit 0"
+    "doTest": "for f in test/*; do echo \"$f\"; node \"$f\"; done; echo '=== npm-test Script Done ==='; exit 0",
+    "build": "source ./build.sh",
+    "test": "npm run build && npm run doTest",
+    "prepublish": "npm run test"
   },
   "repository": {
     "type": "git",
@@ -28,9 +35,5 @@
   "homepage": "https://edditoria.github.io/numbo",
   "devDependencies": {
     "coffee-script": "^1.11.0"
-  },
-  "directories": {
-    "lib": "./lib",
-    "test": "./test"
   }
 }
