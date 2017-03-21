@@ -22,10 +22,7 @@ testData =
 doTest = (testObj, lang, option, job) ->
   # result is an array contains `true` or `false`
   console.log """
-    -------
-    Start Test Job: [#{job}]
-
-    Expected error logs (not the test errors):
+    -> numbo.convert(input, #{lang}, #{option}):
   """
   results = for obj in testObj
     input = obj['input']
@@ -55,17 +52,22 @@ doTest = (testObj, lang, option, job) ->
   summary.report = "#{job}: #{summary.total} tests, #{summary.success} success, #{summary.fail} fail"
 
   console.log """
-
-    #{summary.report}
-    -------
+    Result: #{summary.total} tests, #{summary.success} success, #{summary.fail} fail
 
     """
   summary
 
+console.log """
+  Starting Test:
+  =============
+
+  Expected error logs and test result:
+  """
+
 results = []
 for lang in langs
   for tpl in tpls
-    jobDesc = "Converting #{tpl} in #{lang}"
+    jobDesc = "numbo.convert(input, '#{lang}', '#{tpl}')"
     result = doTest testData[lang][tpl], lang, tpl, jobDesc
     results.push result
 #todo: doTest for 'default' and option not provided

@@ -32,7 +32,7 @@
 
   doTest = function(testObj, lang, option, job) {
     var expect, i, input, item, len, obj, output, result, results, summary;
-    console.log("-------\nStart Test Job: [" + job + "]\n\nExpected error logs (not the test errors):");
+    console.log("-> numbo.convert(input, " + lang + ", " + option + "):");
     results = (function() {
       var i, len, results1;
       results1 = [];
@@ -62,9 +62,11 @@
       }
     }
     summary.report = job + ": " + summary.total + " tests, " + summary.success + " success, " + summary.fail + " fail";
-    console.log("\n" + summary.report + "\n-------\n");
+    console.log("Result: " + summary.total + " tests, " + summary.success + " success, " + summary.fail + " fail\n");
     return summary;
   };
+
+  console.log("Starting Test:\n=============\n\nExpected error logs and test result:");
 
   results = [];
 
@@ -72,7 +74,7 @@
     lang = langs[i];
     for (j = 0, len1 = tpls.length; j < len1; j++) {
       tpl = tpls[j];
-      jobDesc = "Converting " + tpl + " in " + lang;
+      jobDesc = "numbo.convert(input, '" + lang + "', '" + tpl + "')";
       result = doTest(testData[lang][tpl], lang, tpl, jobDesc);
       results.push(result);
     }
