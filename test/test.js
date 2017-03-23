@@ -66,7 +66,7 @@
     return summary;
   };
 
-  console.log("Starting Test:\n=============\n\nExpected error logs and test result:");
+  console.log("Starting Test\n=============\n\nError logs (that MAY not make the test fail):\n");
 
   results = [];
 
@@ -80,13 +80,13 @@
     }
   }
 
-  console.log("\n=======\nTest Summary in test.js:");
+  console.log("Summary\n=======\n");
 
   for (k = 0, len2 = results.length; k < len2; k++) {
     result = results[k];
     console.log(result.report);
   }
 
-  console.log("\n=== test.js Test Done ===\n");
+  console.log("\n=== Test Done ===\n");
 
 }).call(this);

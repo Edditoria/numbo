@@ -58,10 +58,11 @@ doTest = (testObj, lang, option, job) ->
   summary
 
 console.log """
-  Starting Test:
+  Starting Test
   =============
 
-  Expected error logs and test result:
+  Error logs (that MAY not make the test fail):
+
   """
 
 results = []
@@ -73,9 +74,9 @@ for lang in langs
 #todo: doTest for 'default' and option not provided
 
 console.log """
+  Summary
+  =======
 
-=======
-Test Summary in test.js:
 """
 
 for result in results
@@ -83,6 +84,6 @@ for result in results
 
 console.log """
 
-=== test.js Test Done ===
+=== Test Done ===
 
 """

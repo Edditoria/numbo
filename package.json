@@ -8,7 +8,7 @@
     "test": "./test"
   },
   "scripts": {
-    "doTest": "for f in test/*; do echo \"$f\"; node \"$f\"; done; echo '=== npm-test Script Done ==='; exit 0",
+    "doTest": "node ./test/test.js",
     "build": "source ./build.sh",
     "test": "npm run build && npm run doTest",
     "prepublish": "npm run test"
