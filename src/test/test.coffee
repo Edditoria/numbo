@@ -1,23 +1,19 @@
-langs = ['enUS', 'zhCN', 'zhTW']
-tpls = ['number', 'amount', 'cheque']
-
 numbo = require './../lib/numbo.js'
 numbo.zhTW = require './../lib/numbo.zhTW.js'
 numbo.zhCN = require './../lib/numbo.zhCN.js'
 
-testData =
-  enUS:
-    number: require './testNum.js'
-    amount: require './testAmount.js'
-    cheque: require './testCheque.js'
-  zhCN:
-    number: require './testNum.zhCN.js'
-    amount: require './testAmount.zhCN.js'
-    cheque: require './testCheque.zhCN.js'
-  zhTW:
-    number: require './testNum.zhTW.js'
-    amount: require './testAmount.zhTW.js'
-    cheque: require './testCheque.zhTW.js'
+langs = ['enUS', 'zhCN', 'zhTW']
+tpls = ['number', 'amount', 'cheque']
+
+# create testData object in structure of testData[lang][tpl]
+requireTestData = ->
+  output = {}
+  for lang in langs
+    output[lang] = {}
+    for tpl in tpls
+      output[lang][tpl] = require "./testData.#{lang}.#{tpl}.js"
+  output
+testData = requireTestData()
 
 doTest = (testObj, lang, option, job) ->
   # result is an array contains `true` or `false`
