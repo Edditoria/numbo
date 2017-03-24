@@ -85,11 +85,12 @@ if testResults.fail.length > 0
     ============
 
   """
-  for item in testResults.fail
-    console.log item
+  console.log testResults.fail
+  console.log '\n'
+  if module? and module.exports
+    throw new Error("Test fail. Process exit now.")
 
 console.log """
 
 === Test Done ===
-
 """
