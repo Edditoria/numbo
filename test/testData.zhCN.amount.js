@@ -20,14 +20,8 @@
       'input': 2.01,
       'expect': '两元一分'
     }, {
-      'input': 2.02,
-      'expect': '两元两分'
-    }, {
       'input': 2.1,
       'expect': '两元一角'
-    }, {
-      'input': 2.2,
-      'expect': '两元两角'
     }, {
       'input': 9,
       'expect': '九元'
@@ -72,19 +66,55 @@
       'expect': '五角'
     }, {
       'input': .00001,
-      'expect': '零元'
+      'expect': '一分'
     }, {
       'input': 1.00001,
-      'expect': '一元'
+      'expect': '一元一分'
     }, {
       'input': 2.00001,
-      'expect': '两元'
+      'expect': '两元一分'
     }, {
       'input': 3.00001,
-      'expect': '三元'
+      'expect': '三元一分'
     }, {
       'input': 1000,
       'expect': '一千元'
+    }, {
+      'input': 1000000,
+      'expect': '一百万元'
+    }, {
+      'input': 1234567.89,
+      'expect': '一百二十三万四千五百六十七元八角九分'
+    }, {
+      'input': '123.9940',
+      'expect': '一百二十四元'
+    }, {
+      'input': '123.9950',
+      'expect': '一百二十四元'
+    }, {
+      'input': 'test a string',
+      'expect': null
+    }, {
+      'input': '',
+      'expect': null
+    }, {
+      'input': '0000000',
+      'expect': '零元'
+    }, {
+      'input': '0.1',
+      'expect': '一角'
+    }, {
+      'input': '00000123.4500000',
+      'expect': '一百二十三元四角五分'
+    }, {
+      'input': '1e+100',
+      'expect': 'Ding! One Google... Oops... One Googol!!'
+    }, {
+      'input': 2.02,
+      'expect': '两元两分'
+    }, {
+      'input': 2.2,
+      'expect': '两元两角'
     }, {
       'input': 1001,
       'expect': '一千零一元'
@@ -116,9 +146,6 @@
       'input': 100101,
       'expect': '十万零一百零一元'
     }, {
-      'input': 1000000,
-      'expect': '一百万元'
-    }, {
       'input': 1001010,
       'expect': '一百万一千零一十元'
     }, {
@@ -136,27 +163,6 @@
     }, {
       'input': '1000000000000001001',
       'expect': '一百京零一千零一元'
-    }, {
-      'input': 1234567.89,
-      'expect': '一百二十三万四千五百六十七元八角九分'
-    }, {
-      'input': 'test a string',
-      'expect': null
-    }, {
-      'input': '',
-      'expect': null
-    }, {
-      'input': '0000000',
-      'expect': '零元'
-    }, {
-      'input': '0.1',
-      'expect': '一角'
-    }, {
-      'input': '00000123.4500000',
-      'expect': '一百二十三元四角五分'
-    }, {
-      'input': '1e+100',
-      'expect': 'Ding! One Google... Oops... One Googol!!'
     }
   ];
 

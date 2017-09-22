@@ -66,16 +66,16 @@
       'expect': 'fifty cents'
     }, {
       'input': .00001,
-      'expect': 'null'
+      'expect': 'one cent'
     }, {
       'input': 1.00001,
-      'expect': 'one dollar'
+      'expect': 'one dollar and one cent'
     }, {
       'input': 2.00001,
-      'expect': 'two dollars'
+      'expect': 'two dollars and one cent'
     }, {
       'input': 3.00001,
-      'expect': 'three dollars'
+      'expect': 'three dollars and one cent'
     }, {
       'input': 1000,
       'expect': 'one thousand dollars'
@@ -86,8 +86,26 @@
       'input': 1234567.89,
       'expect': 'one million two hundred thirty-four thousand five hundred sixty-seven dollars and eighty-nine cents'
     }, {
+      'input': '123.9940',
+      'expect': 'one hundred twenty-four dollars'
+    }, {
+      'input': '123.9950',
+      'expect': 'one hundred twenty-four dollars'
+    }, {
       'input': 'test a string',
       'expect': null
+    }, {
+      'input': '',
+      'expect': null
+    }, {
+      'input': '0000000',
+      'expect': 'null'
+    }, {
+      'input': '0.1',
+      'expect': 'ten cents'
+    }, {
+      'input': '00000123.4500000',
+      'expect': 'one hundred twenty-three dollars and forty-five cents'
     }, {
       'input': '1e+100',
       'expect': 'Ding! One Google... Oops... One Googol!!'

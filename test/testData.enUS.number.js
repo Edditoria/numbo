@@ -86,6 +86,12 @@
       'input': 1234567.89,
       'expect': 'one million two hundred and thirty-four thousand five hundred and sixty-seven point eight nine'
     }, {
+      'input': '123.9940',
+      'expect': 'one hundred and twenty-three point nine nine four'
+    }, {
+      'input': '123.9950',
+      'expect': 'one hundred and twenty-three point nine nine five'
+    }, {
       'input': 'test a string',
       'expect': null
     }, {

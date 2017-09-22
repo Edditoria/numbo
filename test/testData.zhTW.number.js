@@ -80,6 +80,36 @@
       'input': 1000,
       'expect': '一千'
     }, {
+      'input': 1000000,
+      'expect': '一百萬'
+    }, {
+      'input': 1234567.89,
+      'expect': '一百二十三萬四千五百六十七點八九'
+    }, {
+      'input': '123.9940',
+      'expect': '一百二十三點九九四'
+    }, {
+      'input': '123.9950',
+      'expect': '一百二十三點九九五'
+    }, {
+      'input': 'test a string',
+      'expect': null
+    }, {
+      'input': '',
+      'expect': null
+    }, {
+      'input': '0000000',
+      'expect': '零'
+    }, {
+      'input': '0.1',
+      'expect': '零點一'
+    }, {
+      'input': '00000123.4500000',
+      'expect': '一百二十三點四五'
+    }, {
+      'input': '1e+100',
+      'expect': 'Ding! One Google... Oops... One Googol!!'
+    }, {
       'input': 1001,
       'expect': '一千零一'
     }, {
@@ -110,9 +140,6 @@
       'input': 100101,
       'expect': '十萬零一百零一'
     }, {
-      'input': 1000000,
-      'expect': '一百萬'
-    }, {
       'input': 1001010,
       'expect': '一百萬一千零一十'
     }, {
@@ -130,27 +157,6 @@
     }, {
       'input': '1000000000000001001',
       'expect': '一百京零一千零一'
-    }, {
-      'input': 1234567.89,
-      'expect': '一百二十三萬四千五百六十七點八九'
-    }, {
-      'input': 'test a string',
-      'expect': null
-    }, {
-      'input': '',
-      'expect': null
-    }, {
-      'input': '0000000',
-      'expect': '零'
-    }, {
-      'input': '0.1',
-      'expect': '零點一'
-    }, {
-      'input': '00000123.4500000',
-      'expect': '一百二十三點四五'
-    }, {
-      'input': '1e+100',
-      'expect': 'Ding! One Google... Oops... One Googol!!'
     }
   ];
 

@@ -20,14 +20,19 @@ module.exports = [
   {'input': 0.01, 'expect': 'One Cent Only'}
   {'input': 0.1, 'expect': 'Ten Cents Only'}
   {'input': .50, 'expect': 'Fifty Cents Only'}
-  {'input': .00001, 'expect': 'Null'}
-  {'input': 1.00001, 'expect': 'One Dollar and No Cent Only'}
-  {'input': 2.00001, 'expect': 'Two Dollars and No Cent Only'}
-  {'input': 3.00001, 'expect': 'Three Dollars and No Cent Only'}
+  {'input': .00001, 'expect': 'One Cent Only'} # {'input': .00001, 'expect': 'Null'}
+  {'input': 1.00001, 'expect': 'One Dollar and One Cent Only'} # {'input': 1.00001, 'expect': 'One Dollar and No Cent Only'}
+  {'input': 2.00001, 'expect': 'Two Dollars and One Cent Only'} # {'input': 2.00001, 'expect': 'Two Dollars and No Cent Only'}
+  {'input': 3.00001, 'expect': 'Three Dollars and One Cent Only'} # {'input': 3.00001, 'expect': 'Three Dollars and No Cent Only'}
   {'input': 1000, 'expect': 'One Thousand Dollars and No Cent Only'}
   {'input': 1000000, 'expect': 'One Million Dollars and No Cent Only'}
   {'input': 1234567.89, 'expect': 'One Million Two Hundred Thirty-four Thousand Five Hundred Sixty-seven Dollars and Eighty-nine Cents Only'}
+  {'input': '123.9940', 'expect': 'One Hundred Twenty-four Dollars and No Cent Only'}
+  {'input': '123.9950', 'expect': 'One Hundred Twenty-four Dollars and No Cent Only'}
   {'input': 'test a string', 'expect': null}
+  {'input': '', 'expect': null}
+  {'input': '0000000', 'expect': 'Null'}
+  {'input': '0.1', 'expect': 'Ten Cents Only'}
+  {'input': '00000123.4500000', 'expect': 'One Hundred Twenty-three Dollars and Forty-five Cents Only'}
   {'input': '1e+100', 'expect': 'Ding! One Google... Oops... One Googol!!'}
-
 ]
