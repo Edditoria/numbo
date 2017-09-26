@@ -15,7 +15,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE.md
   var zhTW;
 
   zhTW = function(input, options) {
-    var check, main, n1, n10, n10Simple, n1Simple, nLarge, normalize, parseCents, speak9999, speakAmt, speakByDigit, speakInt, speakNum, splitNum;
+    var adjustDecimal, check, main, n1, n10, n10Simple, n1Simple, nLarge, normalize, parseCents, speak9999, speakAmt, speakByDigit, speakInt, speakNum, splitNum;
     if (options == null) {
       options = 'default';
     }
@@ -77,6 +77,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE.md
     normalize = this.tools.normalize;
     splitNum = this.tools.splitNum;
     parseCents = this.tools.parseCents;
+    adjustDecimal = this.tools.adjustDecimal;
     speakByDigit = this.tools.speakByDigit;
     speakNum = function(str) {
       var dec, dot, int, strSplited;
@@ -91,9 +92,10 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE.md
       if (options == null) {
         options = 'cheque';
       }
+      str = adjustDecimal(str, 'ceil', 2);
       strSplited = splitNum(str);
       int = strSplited[0];
-      dec = parseCents(strSplited[1]);
+      dec = +((strSplited[1] + '0').slice(0, 2));
       if (int === '0' && dec === 0) {
         return '零元';
       } else {

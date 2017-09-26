@@ -81,6 +81,7 @@ zhTW = (input, options = 'default') ->
   normalize = @tools.normalize
   splitNum = @tools.splitNum
   parseCents = @tools.parseCents
+  adjustDecimal = @tools.adjustDecimal
   speakByDigit = @tools.speakByDigit
 
   speakNum = (str) ->
@@ -91,9 +92,10 @@ zhTW = (input, options = 'default') ->
     speakInt(int, true) + dot + speakByDigit(dec, n1Simple, '')
 
   speakAmt = (str, options = 'cheque') ->
+    str = adjustDecimal(str, 'ceil', 2)
     strSplited = splitNum(str)
     int = strSplited[0] # remark: zero will return '0' (string)
-    dec = parseCents(strSplited[1]) # return a number
+    dec = +((strSplited[1] + '0').slice(0,2)) #todo: pack into tools.parseCents
     if int is '0' and dec is 0
       '零元'
     else
