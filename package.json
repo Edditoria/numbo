@@ -34,6 +34,6 @@
   },
   "homepage": "https://edditoria.github.io/numbo",
   "devDependencies": {
-    "coffee-script": "^1.11.0"
+    "coffee-script": "^1.12.7"
   }
 }
