@@ -221,9 +221,10 @@ class Numbo
   #
   #
 
-  convert_enUS = (input, options = 'default') ->
+  convert_enUS = (input, options = 'default', zeroCent = false) ->
     # input floating `input` e.g. nnnnnnn.dddd
     # return string e.g. one hundred point two three
+    #todo: zeroCent is a temp variable that will be replaced
 
     n1 = [
       '' #zero
@@ -302,7 +303,7 @@ class Numbo
           else ' point ' + tools.speakByDigit(strSplited[1], n1withZero, ' ')
         (int + dec).toLowerCase()
 
-    speakAmt = (str, options = 'amount') ->
+    speakAmt = (str, options = 'amount', zeroCent) ->
       # convert amount `str` to written text
       # accept options as 'amount' or 'cheque'
       # - amount: some dollars and some cents
@@ -349,9 +350,10 @@ class Numbo
         else
           console.log 'Error: Option in speakAmt() is invalid.'
           output = null
+      if zeroCent is true then output = output.replace('and No Cent', 'and Zero Cent')
       output
 
-    main = (input, options = 'default') ->
+    main = (input, options = 'default', zeroCent = false) ->
       # `input` is a string or number
       # `options` should be a string
       if input is '' then null
@@ -365,12 +367,12 @@ class Numbo
           #todo: if typeof options is 'string'
           switch options
             when 'default', 'number', 'num' then speakNum(input)
-            when 'cheque', 'check', 'chk', 'chq' then speakAmt(input, 'cheque')
+            when 'cheque', 'check', 'chk', 'chq' then speakAmt(input, 'cheque', zeroCent)
             when 'amount', 'amt' then speakAmt(input, 'amount')
             else
               console.log 'Error: Option in enUS is not valid'
               null
-    main(input, options)
+    main(input, options, zeroCent)
 
   enUS: convert_enUS
 
@@ -392,6 +394,7 @@ class Numbo
     else
       plugin = '' # set as empty first
       template = '' # set as empty first
+      zeroCent = false #todo: temp setup
       otherOptions = []
       error = false
       # parse each item
@@ -418,14 +421,18 @@ class Numbo
       # Skip and return null if any error occurs
       if error is true then null
       # Currently, otherOptions is not allowed yet.
-      else if otherOptions.length > 0
+      else if otherOptions.length > 0 and otherOptions.toString() isnt 'zeroCent'
+        #todo: the condition about 'zeroCent' should be done in parseOption()
         console.log 'Error: Invalid option. Possibly more than one template is selected. Or, some option(s) are parsed into [otherOptions], but it is not allowed in current version yet.'
         null
       else
         # execute convert() according to options provided
         if template is '' then template = 'default'
         if plugin is '' then plugin = 'enUS'
-        @[plugin](input, template)
+        if otherOptions.toString() is 'zeroCent'
+          #todo: should be done in parseOption()
+          zeroCent = true
+        @[plugin](input, template, zeroCent) #todo: temp setup for zeroCent
 
 
 numbo = new Numbo()
