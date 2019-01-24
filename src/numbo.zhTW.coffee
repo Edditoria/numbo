@@ -1,12 +1,11 @@
 ###
-
 numbo.zhTW, as a plugin for Numbo, convert number to Traditional Chinese.
 
 This plugin and Numbo are open source in:
 https://github.com/Edditoria/numbo
 
 under MIT license:
-https://github.com/Edditoria/numbo/blob/master/LICENSE.md
+https://github.com/Edditoria/numbo/blob/master/LICENSE.txt
 ###
 
 zhTW = (input, options = 'default') ->
