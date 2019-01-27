@@ -5,6 +5,7 @@ docs/.bundle/
 docs/vendor/
 docs/_site/
 docs/.sass-cache/
+docs/.jekyll-metadata
 
 
                   #
