@@ -1,3 +1,6 @@
+.bowerrc
+.editorconfig
+.nvmrc
 dist
 docs
 src
