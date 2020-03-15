@@ -1,9 +1,0 @@
-.bowerrc
-.editorconfig
-.nvmrc
-dist
-docs
-src
-test
-bower.json
-CONTRIBUTING.md
