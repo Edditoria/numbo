@@ -9,6 +9,6 @@ end_of_line=lf
 indent_style=tab
 insert_final_newline=true
 
-[{bower.json,package.json,package-lock.json}]
+[{*.yml,*.yaml,bower.json,package.json,package-lock.json}]
 indent_style=space
 indent_size=2
