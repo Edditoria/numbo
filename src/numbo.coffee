@@ -6,6 +6,15 @@ under MIT license:
 https://github.com/Edditoria/numbo/blob/master/LICENSE.txt
 ###
 
+import parse99 from './utils/parse-99.coffee'
+import trimWhitespace from './utils/trim-whitespace.coffee'
+import parseCents from './utils/parse-cents.coffee'
+import speakByDigit from './utils/speak-by-digit.coffee'
+import check from './utils/check.coffee'
+import normalize from './utils.normalize.coffee'
+import adjustDecimal from './utils/adjust-decimal.coffee'
+import splitNum from './utils/split-num.coffee'
+import splitInt from './utils/split-int.coffee'
 
 class Numbo
 
@@ -22,179 +31,15 @@ class Numbo
   #
 
   tools =
-    trimWhitespace: (str) ->
-      str.replace(/^\s+|\s+$/g,'')
-    parse99: (arr1, arr10, separator = ' ') ->
-      # parse number to words from 0 to 99
-      # 0 is usually an empty string ''
-      # `arr1`: array from 0 to 9 in a language
-      #   e.g. ['', One', 'Two',...'Nine']
-      # `arr10`: unit [10, 20, 30,...90] in a language
-      #   e.g. ['Ten', 'Twenty',...'Ninety']
-      # output example: ['One', 'Two',...'Ninty-nine']
-      # `separator`: usually a space ' ' (default), a hyphen '-', or an empty string ''
-      lenArr1 = arr1.length
-      for num in [0..99]
-        if num < lenArr1
-          arr1[num]
-        else if num % 10 is 0
-          arr10[Math.floor(num/10)]
-        else
-          arr10[Math.floor(num/10)] + separator + arr1[num % 10].toLowerCase()
-    parseCents: (str, option = 'ceil') ->
-      console.log 'Depreciated: Parse the whole string using adjustDecimal() instead' #todo
-      # slice first 3 characters, round it, then return 2-digit number
-      # e.g. '015' becomes '02' (2 cents), '5' becomes '50' (50 cents)
-      # `option` supports 'ceil', 'round', 'floor'
-      str3dp = (str + '000').slice(0,3)
-      mathOption =
-        switch option
-          when 'round' then 'round'
-          when 'floor' then 'floor'
-          when 'ceil' then 'ceil'
-          else
-            console.log 'Error: Option in parseCents() is invalid. Use the default option (Math.ceil)'
-            'ceil'
-      Math[mathOption](parseInt(str3dp, 10) / 10)
-    speakByDigit: (str, n1, separator = ' ') ->
-      # match every characters of `str` to `n1[str]` one-by-one
-      # the 1st arg should a string contains numbers only (e.g. '000123')
-      # return a string (e.g. 'zero zero zero one two three')
-      if typeof str is 'string' and str.search(/\D/g) < 0
-        output = []
-        output.push(n1[+item]) for item in str
-        output.join(separator)
-      else
-        console.log 'Error: Invalid argument of speakByDigit()'
-        null
-    check: (input, characters = '') ->
-      # check if there are only:
-      # - contains numbers and comma
-      # - beginning with any of '$', '+', '-'
-      # - only one dot
-      # - no ',' after dot
-      # accepts additional characters as 2nd argument #todo
-      # returns true or false
-      result = false
-      inputStr = input.toString()
-      acceptRegex = /^[\+\-\$]*[\d\.\,]*|[\d\.\,]*/g
-      illegalStr = inputStr.replace(acceptRegex, '')
-      dotCount = (inputStr.match(/\./g) or []).length # count string occurrence in string
-      commaAfterDot = inputStr.indexOf(',', inputStr.indexOf('.')) > 0
-      if illegalStr is '' and dotCount < 2 and !commaAfterDot then result = true
-      result
-    normalize: (input, characters = '') ->
-      # expect `input` is a string of integer or floating
-      # features:
-      # - remove leading '$', '+' and '-'
-      # - remove leading and tailing zero
-      # - remove any ',' before '.'
-      # - add '0' if the input starts by '.' e.g. '.5'
-      # remove '.' if no decimal place
-      # accepts additional characters as 2nd argument #todo
-      if typeof input isnt 'string' then input = input.toString() # for safety
-      regexHead = /,|^[$|\-]*(0|,)*(?!\.)/g # e.g. '-$0,001,000' matches '$0,00'
-      regexTail = /0*$/g
-      dotIndex = input.indexOf('.')
-      if dotIndex is -1
-        output = input.replace(regexHead, '')
-      else
-        inputArr = tools.splitNum(input)
-        inputArr[0] = inputArr[0].replace(regexHead, '')
-        inputArr[1] = inputArr[1].replace(regexTail, '')
-        output = inputArr.join('.')
-      # if output is an empty string or begins with '.', add a '0'
-      if output.indexOf('.') is 0 then output = '0' + output
-      if output is '' then output = '0'
-      # if output is end with '.', remove the '.'
-      output.replace(/\.$/, '')
-    adjustDecimal: (str, type = 'ceil', dp = 2) ->
-      # To adjust `input` to `dp` decimal place, e.g. 123.4567 becomes 123.46
-      # - `str` should be a string e.g. '123', '123.45'
-      # - `type` accepts 'ceil' (default), 'floor' or 'round'
-      # - `dp` should be a number between 0 to 4 (default is 2)
-      # To avoid errors, do check() and normalize() before adjustDecimal()
-      if typeof str isnt 'string' then str = str.toString() # for safety
-      dotIndex = str.indexOf('.')
-      if dotIndex is -1 then return str
-      # check args
-      if type isnt 'ceil' and type isnt 'floor' and type isnt 'round'
-        type = 'ceil'
-        console.log 'Error: type in adjustDecimal() is invalid. Use the default option (Math.ceil)'
-      if typeof dp isnt 'number' or dp < 0
-        dp = 2
-        console.log 'Error: dp in adjustDecimal() is invalid. Use the default option (adjust to 2 decimal place)'
-      # functions to carry digits
-      parseDec = (dec, type, dp) ->
-        # return '.nnnn' or '1'
-        dec = '0.' + dec
-        # do dec * 100, then Math[type]
-        dec = Math[type](+(dec + 'e+' + dp))
-        # do dec / 100
-        dec = +(dec + 'e-' + dp) # 1 or 0 or 0.nnnn
-        if dec is 0 then ''
-        else if dec is 1 then '1'
-        else (dec + '').replace(/^0/g, '') # '.nnnn'
-      carryInt = (int) ->
-        len = int.length
-        if len < 16
-          +int + 1 + ''
-        else
-          intArr = int.split('')
-          index = len
-          isCarry = true
-          while index and isCarry
-            index--
-            thisChar = +intArr[index] + 1 + ''
-            if thisChar is '10'
-              thisChar = '0'
-              # isCarry = true
-            else
-              isCarry = false
-            intArr[index] = thisChar
-          if isCarry then intArr.unshift('1')
-          intArr.join('')
-      if type is 'ceil' or type is 'round'
-        # dotIndex = str.indexOf('.') is ready for use
-        int = str.slice(0, dotIndex)
-        dec = str.slice(dotIndex + 1)
-        dec = parseDec(dec, type, dp)
-        if dec is '1'
-          dec = ''
-          int = carryInt(int)
-        int + dec
-      else if type is 'floor'
-        int = str.slice(0, dotIndex)
-        dec = str.slice(dotIndex, dotIndex + dp + 1)
-        if +dec is 0 then dec = ''
-        int + dec
-      else
-        console.log 'Error: Unknown error in tools.adjustDecimal()'
-        str
-
-    splitNum: (input) ->
-      # `input` should be a string or number of positive number (integer or float), e.g. 'nnnnnnnn.dddd'
-      # return an array ['nnnnnnnn', 'dddd']
-      # if there is no decimal place, will return ['nnnn', '']
-      if typeof input isnt 'string' then input = input.toString() # for safety
-      if input.indexOf('.') is -1
-        output = [input, '']
-      else
-        output = input.split('.')
-      if output[0] is '' then output[0] = '0'
-      output
-    splitInt: (int, digit = 3) ->
-      # split `int` (an integer) into ['n', 'nnn', 'nnn'...], depends on `digit`
-      if typeof int isnt 'string' then int = int.toString() # for safety
-      output = []
-      times = Math.ceil(int.length / digit) # at least 1
-      while times
-        len = int.length
-        intTail = int.substring(len-digit, len) # cut the tail
-        int = int.substring(0, len-digit) # the remaining `int`
-        output.unshift(intTail)
-        times--
-      output
+    parse99: parse99
+    trimWhitespace: trimWhitespace
+    parseCents: parseCents
+    speakByDigit: speakByDigit
+    check: check
+    normalize: normalize
+    adjustDecimal: adjustDecimal
+    splitNum: splitNum
+    splitInt: splitInt
   tools:
     trimWhitespace: tools.trimWhitespace
     parse99: tools.parse99
