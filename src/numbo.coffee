@@ -282,8 +282,4 @@ class Numbo
 
 numbo = new Numbo()
 
-
-if module? and module.exports
-  module.exports = numbo
-if window?
-  window.numbo = numbo
+export default numbo
