@@ -16,6 +16,7 @@ import adjustDecimal from './utils/adjust-decimal.coffee'
 import splitNum from './utils/split-num.coffee'
 import splitInt from './utils/split-int.coffee'
 
+import parseOptions from './utils/parse-options.coffee'
 import enUS from './en-us.coffee'
 
 class Numbo
@@ -63,34 +64,12 @@ class Numbo
     if options.length is 0 # not provide any option
       convert_enUS(input)
     else
-      plugin = '' # set as empty first
-      template = '' # set as empty first
       zeroCent = false #todo: temp setup
-      otherOptions = []
-      error = false
-      # parse each item
-      for item in options
-        if typeof item is 'string'
-          if @[item]? # the item is a language/plugin
-            if plugin is '' then plugin = item
-            else
-              console.log 'Error: Invalid option. You have selected more than one language/plugin. Returns null'
-              error = true
-          else if template is ''
-            switch item
-              when 'default' then template = 'default'
-              when 'number', 'num' then template = 'number'
-              when 'check', 'cheque', 'chk', 'chq' then template = 'cheque'
-              when 'amount', 'amt' then template = 'amount'
-              else
-                otherOptions.push(item)
-          else
-            otherOptions.push(item)
-        else # item isnt 'string'
-          console.log 'Error: Invalid option. Each option has to be a string.'
-          error = true
+      parsedOptions = parseOptions(options)
+      otherOptions = parsedOptions.otherOptions
+
       # Skip and return null if any error occurs
-      if error is true then null
+      if parsedOptions.error is true then null
       # Currently, otherOptions is not allowed yet.
       else if otherOptions.length > 0 and otherOptions.toString() isnt 'zeroCent'
         #todo: the condition about 'zeroCent' should be done in parseOption()
@@ -98,12 +77,10 @@ class Numbo
         null
       else
         # execute convert() according to options provided
-        if template is '' then template = 'default'
-        if plugin is '' then plugin = 'enUS'
         if otherOptions.toString() is 'zeroCent'
           #todo: should be done in parseOption()
           zeroCent = true
-        @[plugin](input, template, zeroCent) #todo: temp setup for zeroCent
+        @[parsedOptions.plugin](input, otherOptions.template, zeroCent) #todo: temp setup for zeroCent
 
 
 numbo = new Numbo()
