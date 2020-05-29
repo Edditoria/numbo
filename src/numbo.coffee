@@ -21,66 +21,57 @@ import enUS from './en-us.coffee'
 
 class Numbo
 
-  tools =
-    parse99: parse99
-    trimWhitespace: trimWhitespace
-    parseCents: parseCents
-    speakByDigit: speakByDigit
-    check: check
-    normalize: normalize
-    adjustDecimal: adjustDecimal
-    splitNum: splitNum
-    splitInt: splitInt
-  tools:
-    trimWhitespace: tools.trimWhitespace
-    parse99: tools.parse99
-    parseCent: tools.parseCents #todo to be depreciated
-    parseCents: tools.parseCents #todo to be depreciated
-    speakByDigit: tools.speakByDigit
-    check: tools.check
-    validate: tools.check
-    normalize: tools.normalize
-    normalise: tools.normalize
-    adjustDecimal: tools.adjustDecimal
-    splitNum: tools.splitNum
-    splitInt: tools.splitInt
+	tools =
+		parse99: parse99
+		trimWhitespace: trimWhitespace
+		parseCents: parseCents
+		speakByDigit: speakByDigit
+		check: check
+		normalize: normalize
+		adjustDecimal: adjustDecimal
+		splitNum: splitNum
+		splitInt: splitInt
+	tools:
+		trimWhitespace: tools.trimWhitespace
+		parse99: tools.parse99
+		parseCent: tools.parseCents #todo to be depreciated
+		parseCents: tools.parseCents #todo to be depreciated
+		speakByDigit: tools.speakByDigit
+		check: tools.check
+		validate: tools.check
+		normalize: tools.normalize
+		normalise: tools.normalize
+		adjustDecimal: tools.adjustDecimal
+		splitNum: tools.splitNum
+		splitInt: tools.splitInt
 
-  convert_enUS = enUS
-  enUS: convert_enUS
-
-
-  #   #####
-  #  #     #  ####  #    # #    # ###### #####  #####
-  #  #       #    # ##   # #    # #      #    #   #
-  #  #       #    # # #  # #    # #####  #    #   #
-  #  #       #    # #  # # #    # #      #####    #
-  #  #     # #    # #   ##  #  #  #      #   #    #
-  #   #####   ####  #    #   ##   ###### #    #   #
+	convert_enUS = enUS
+	enUS: convert_enUS
 
 
-  convert: (input, options...) ->
-    # `input` can be string or number
-    # `options` can be language ('zhTW') and style ('number', 'amount' or 'cheque')
-    if options.length is 0 # not provide any option
-      convert_enUS(input)
-    else
-      zeroCent = false #todo: temp setup
-      parsedOptions = parseOptions(options)
-      otherOptions = parsedOptions.otherOptions
+	convert: (input, options...) ->
+		# `input` can be string or number
+		# `options` can be language ('zhTW') and style ('number', 'amount' or 'cheque')
+		if options.length is 0 # not provide any option
+			convert_enUS(input)
+		else
+			zeroCent = false #todo: temp setup
+			parsedOptions = parseOptions(options)
+			otherOptions = parsedOptions.otherOptions
 
-      # Skip and return null if any error occurs
-      if parsedOptions.error is true then null
-      # Currently, otherOptions is not allowed yet.
-      else if otherOptions.length > 0 and otherOptions.toString() isnt 'zeroCent'
-        #todo: the condition about 'zeroCent' should be done in parseOption()
-        console.log 'Error: Invalid option. Possibly more than one template is selected. Or, some option(s) are parsed into [otherOptions], but it is not allowed in current version yet.'
-        null
-      else
-        # execute convert() according to options provided
-        if otherOptions.toString() is 'zeroCent'
-          #todo: should be done in parseOption()
-          zeroCent = true
-        @[parsedOptions.plugin](input, otherOptions.template, zeroCent) #todo: temp setup for zeroCent
+			# Skip and return null if any error occurs
+			if parsedOptions.error is true then null
+			# Currently, otherOptions is not allowed yet.
+			else if otherOptions.length > 0 and otherOptions.toString() isnt 'zeroCent'
+				#todo: the condition about 'zeroCent' should be done in parseOption()
+				console.log 'Error: Invalid option. Possibly more than one template is selected. Or, some option(s) are parsed into [otherOptions], but it is not allowed in current version yet.'
+				null
+			else
+				# execute convert() according to options provided
+				if otherOptions.toString() is 'zeroCent'
+					#todo: should be done in parseOption()
+					zeroCent = true
+				@[parsedOptions.plugin](input, otherOptions.template, zeroCent) #todo: temp setup for zeroCent
 
 
 numbo = new Numbo()
