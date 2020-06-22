@@ -1,13 +1,18 @@
-export default (options) ->
+normalizeLangs = (lang) ->
+	return lang.replace(/\-|\_/g, '').toLowerCase()
+
+export default (langs, options) ->
 	plugin = '' # set as empty first
 	template = '' # set as empty first
 	otherOptions = []
 	error = false
+	normalizedLangs = langs.map((lang) -> normalizeLangs(lang))
 
 	# parse each item
 	for item in options
 		if typeof item is 'string'
-			if @[item]? # the item is a language/plugin
+			normalizedOption = normalizeLangs(item)
+			if normalizedLangs.indexOf(normalizedOption) >= 0 # the item is a language/plugin
 				if plugin is '' then plugin = item
 				else
 					console.log 'Error: Invalid option. You have selected more than one language/plugin. Returns null'

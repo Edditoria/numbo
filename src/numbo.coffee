@@ -48,6 +48,7 @@ class Numbo
 	convert_enUS = enUS
 	enUS: convert_enUS
 
+	langs = ['enUS', 'zhTW', 'zhCN']
 
 	convert: (input, options...) ->
 		# `input` can be string or number
@@ -56,7 +57,7 @@ class Numbo
 			convert_enUS(input)
 		else
 			zeroCent = false #todo: temp setup
-			parsedOptions = parseOptions(options)
+			parsedOptions = parseOptions(langs, options)
 			otherOptions = parsedOptions.otherOptions
 
 			# Skip and return null if any error occurs
