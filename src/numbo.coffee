@@ -71,7 +71,7 @@ class Numbo
 				if otherOptions.toString() is 'zeroCent'
 					#todo: should be done in parseOption()
 					zeroCent = true
-				@[parsedOptions.plugin](input, otherOptions.template, zeroCent) #todo: temp setup for zeroCent
+				@[parsedOptions.plugin](input, parsedOptions.template, zeroCent) #todo: temp setup for zeroCent
 
 
 numbo = new Numbo()
