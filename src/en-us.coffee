@@ -1,3 +1,11 @@
+import check from './utils/check.coffee'
+import normalize from './utils/normalize.coffee'
+import adjustDecimal from './utils/adjust-decimal.coffee'
+import splitNum from './utils/split-num.coffee'
+import splitInt from './utils/split-int.coffee'
+import speakByDigit from './utils/speak-by-digit.coffee'
+import parse99 from './utils/parse-99.coffee'
+
 export default (input, options = 'default', zeroCent = false) ->
 	# input floating `input` e.g. nnnnnnn.dddd
 	# return string e.g. one hundred point two three
@@ -31,7 +39,7 @@ export default (input, options = 'default', zeroCent = false) ->
 	]
 
 	# n99 is an array ['', One', 'Two'..'Ninety-nine']
-	n99 = tools.parse99(n1, n10, '-')
+	n99 = parse99(n1, n10, '-')
 
 	speak999 = (num, addAnd = true) ->
 		# expect `num` is an integer from 1 to 999
@@ -71,13 +79,13 @@ export default (input, options = 'default', zeroCent = false) ->
 		if str is '0' then 'zero'
 		else if str is '1' then 'one' # faster
 		else
-			strSplited = tools.splitNum(str)
-			intArr = tools.splitInt(strSplited[0])
+			strSplited = splitNum(str)
+			intArr = splitInt(strSplited[0])
 			int = speakInt(intArr)
 			if int is '' then int = 'zero'
 			dec =
 				if strSplited[1] is '' then ''
-				else ' point ' + tools.speakByDigit(strSplited[1], n1withZero, ' ')
+				else ' point ' + speakByDigit(strSplited[1], n1withZero, ' ')
 			(int + dec).toLowerCase()
 
 	speakAmt = (str, options = 'amount', zeroCent) ->
@@ -90,18 +98,18 @@ export default (input, options = 'default', zeroCent = false) ->
 			dollarUnit = ['Dollar', 'Dollars']
 			centUnit = ['Cent', 'Cents']
 			# Math.ceil to 2 decimal place
-			str = tools.adjustDecimal(str, 'ceil', 2)
+			str = adjustDecimal(str, 'ceil', 2)
 			# parse the `str`
-			strSplited = tools.splitNum(str)
+			strSplited = splitNum(str)
 			# parse dollars
-			intArr = tools.splitInt(strSplited[0])
+			intArr = splitInt(strSplited[0])
 			int = speakInt(intArr, false) # no 'and'
 			dollars =
 				if int is '' then ''
 				else if int is 'One' then ' ' + dollarUnit[0]
 				else ' ' + dollarUnit[1]
 			# parse cents
-			dec = +((strSplited[1] + '0').slice(0,2)) #todo: pack into tools.parseCents
+			dec = +((strSplited[1] + '0').slice(0,2)) #todo: pack into parseCents
 			dec = n99[dec] # remark: n99[0] returns ''
 			cents =
 				if dec is '' and int is '' then 'Null'
@@ -136,11 +144,11 @@ export default (input, options = 'default', zeroCent = false) ->
 		if input is '' then null
 		else if input is '1e+100' then 'Ding! One Google... Oops... One Googol!!'
 		else
-			if tools.check(input) is false
+			if check(input) is false
 				console.log 'Error: Invalid input value. Return null'
 				null
 			else
-				input = tools.normalize(input) # input must become a string
+				input = normalize(input) # input must become a string
 				#todo: if typeof options is 'string'
 				switch options
 					when 'default', 'number', 'num' then speakNum(input)

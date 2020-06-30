@@ -59,5 +59,5 @@ export default (str, type = 'ceil', dp = 2) ->
 		if +dec is 0 then dec = ''
 		int + dec
 	else
-		console.log 'Error: Unknown error in tools.adjustDecimal()'
+		console.log 'Error: Unknown error in adjustDecimal()'
 		str

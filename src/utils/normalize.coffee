@@ -1,3 +1,5 @@
+import splitNum from './split-num.coffee'
+
 export default (input, characters = '') ->
 	# expect `input` is a string of integer or floating
 	# features:
@@ -14,7 +16,7 @@ export default (input, characters = '') ->
 	if dotIndex is -1
 		output = input.replace(regexHead, '')
 	else
-		inputArr = tools.splitNum(input)
+		inputArr = splitNum(input)
 		inputArr[0] = inputArr[0].replace(regexHead, '')
 		inputArr[1] = inputArr[1].replace(regexTail, '')
 		output = inputArr.join('.')
