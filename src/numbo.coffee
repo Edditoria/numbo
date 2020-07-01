@@ -18,6 +18,8 @@ import splitInt from './utils/split-int.coffee'
 
 import parseOptions from './utils/parse-options.coffee'
 import enUS from './en-us.coffee'
+import zhTW from './zh-tw.coffee'
+import zhCN from './zh-cn.coffee'
 
 class Numbo
 
@@ -46,7 +48,11 @@ class Numbo
 		splitInt: tools.splitInt
 
 	convert_enUS = enUS
+	convert_zhTW = zhTW
+	convert_zhCN = zhCN
 	enUS: convert_enUS
+	zhTW: convert_zhTW
+	zhCN: convert_zhCN
 
 	langs = ['enUS', 'zhTW', 'zhCN']
 
