@@ -8,15 +8,15 @@ under MIT license:
 https://github.com/Edditoria/numbo/blob/master/LICENSE.txt
 ###
 
-zhCN = (input, options = 'default') ->
+import check from './utils/check.coffee'
+import normalize from './utils/normalize.coffee'
+import adjustDecimal from './utils/adjust-decimal.coffee'
+import splitNum from './utils/split-num.coffee'
+import speakByDigit from './utils/speak-by-digit.coffee'
+import splitInt from './utils/split-int.coffee'
+import parseCents from './utils/parse-cents.coffee'
 
-	#                 #####  #     #
-	#  ###### #    # #     # ##    #
-	#      #  #    # #       # #   #
-	#     #   ###### #       #  #  #
-	#    #    #    # #       #   # #
-	#   #     #    # #     # #    ##
-	#  ###### #    #  #####  #     #
+export default (input, options = 'default') ->
 
 # note to 0:
 # - 《出版物上数字用法》规定：一个数字用作计量时，其中“0”的汉字书写形式为“零”；
@@ -56,7 +56,7 @@ zhCN = (input, options = 'default') ->
 		# then speak9999() one by one
 		if str is '0' then '零'
 		else
-			strArr = @tools.splitInt(str, 4)
+			strArr = splitInt(str, 4)
 			times = strArr.length - 1
 			output = ''
 			for item, num in strArr
@@ -81,14 +81,6 @@ zhCN = (input, options = 'default') ->
 	#  #     # #    # # #   ##
 	#  #     # #    # # #    #
 
-	# import the tools from `numbo`
-	check = @tools.check
-	normalize = @tools.normalize
-	splitNum = @tools.splitNum
-	parseCents = @tools.parseCents
-	adjustDecimal = @tools.adjustDecimal
-	speakByDigit = @tools.speakByDigit
-
 	speakNum = (str) ->
 		strSplited = splitNum(str)
 		int = strSplited[0]
@@ -100,7 +92,7 @@ zhCN = (input, options = 'default') ->
 		str = adjustDecimal(str, 'ceil', 2)
 		strSplited = splitNum(str)
 		int = strSplited[0] # remark: zero will return '0' (string)
-		dec = +((strSplited[1] + '0').slice(0,2)) #todo: pack into tools.parseCents
+		dec = +((strSplited[1] + '0').slice(0,2)) #todo: pack into parseCents
 		if int is '0' and dec is 0
 			'零元'
 		else
@@ -147,9 +139,3 @@ zhCN = (input, options = 'default') ->
 						console.log 'Error: Option in zhCN is not valid'
 						null
 	main(input, options)
-
-
-if module? and module.exports
-	module.exports = zhCN
-if window?
-	window.numbo.zhCN = zhCN
