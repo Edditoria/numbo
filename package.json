@@ -44,6 +44,8 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "coffeescript": "^2.5.1",
+    "gulp": "^4.0.2",
+    "gulp-coffee": "^3.0.3",
     "rollup": "^2.3.3",
     "rollup-plugin-coffee-script": "^2.0.0",
     "rollup-plugin-esformatter": "^2.0.1"
