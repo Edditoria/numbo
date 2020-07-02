@@ -13,7 +13,7 @@
   "scripts": {
     "doTest": "node ./test/test.js",
     "build": "source ./build.sh",
-    "build:esm": "rollup --config rollup.config.esm.js",
+    "build:esm": "gulp -f gulpfile.coffee",
     "test": "npm run build && npm run doTest",
     "prepublish": "npm run test"
   },
