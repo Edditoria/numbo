@@ -13,7 +13,8 @@
   "scripts": {
     "doTest": "node ./test/test.js",
     "build": "source ./build.sh",
-    "build:esm": "gulp -f gulpfile.coffee",
+    "build:esm": "gulp -f gulpfile.coffee buildESM",
+    "build:test:esm": "gulp -f gulpfile.coffee buildTestESM",
     "test": "npm run build && npm run doTest",
     "prepublish": "npm run test"
   },
