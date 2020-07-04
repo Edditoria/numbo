@@ -19,7 +19,7 @@ for lang in langs
 	for type in types
 		dataList = allData[lang][type]
 		eachTestResult = createResult(
-			'numbo.convert', numbo, dataList, lang, type
+			'numbo', numbo, dataList, lang, type
 		)
 		testResults.push eachTestResult
 

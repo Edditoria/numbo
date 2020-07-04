@@ -1,6 +1,9 @@
-initResult = (desc, dataLen, lang, type) ->
+initResult = (jobType, dataLen, lang, type) ->
+	jobDesc =
+		if jobType is 'numbo' then "numbo.convert(input, '#{lang}', '#{type}')"
+		else "#{lang}(input, '#{type}')"
 	return {
-		jobDesc: "#{desc}(input, '#{lang}', '#{type}')"
+		jobDesc: jobDesc
 		summary: 'Waiting...'
 		total: dataLen
 		success: 0
@@ -19,14 +22,21 @@ createSummary = (total, success, fail) ->
 	return "#{total} tests, #{success} success, #{fail} fail"
 
 ###*
+@param jobType {string} - Either 'numbo', 'enUS', 'zhTW' or 'zhCN'.
 @param callbackFn {Object} - Either enUS, zhTW, zhCN or whole numbo object.
-	Don't import numbo stuff in this file, so this module file can be re-usable.
+                             Don't import numbo-like objects in this file,
+                             so this module file can be re-usable.
 ###
-export default (desc, callbackFn, dataList, lang, type) ->
-	testResult = initResult(desc, dataList.length, lang, type)
+export default (jobType, callbackFn, dataList, lang, type) ->
+	testResult = initResult(jobType, dataList.length, lang, type)
 	for eachData in dataList
 		# note: eachData has { input, expect }; Now adds { ans }
-		eachData.ans = callbackFn.convert(eachData.input, lang, type)
+		eachData.ans =
+			if jobType is 'numbo'
+				# Only numbo object has .convert() method
+				callbackFn.convert(eachData.input, lang, type)
+			else
+				callbackFn(eachData.input, type)
 		testResult = updateResult(eachData, testResult)
 	testResult.summary = createSummary(
 		testResult.total
