@@ -4,7 +4,7 @@ export default (testResults) ->
 	total = 0
 	success = 0
 	fail = 0
-	failCases = []
+	failCasesList = []
 
 	printMsg('summary')
 
@@ -13,12 +13,18 @@ export default (testResults) ->
 		success += result.success
 		fail += result.fail
 		if result.failCases.length > 0
-			failCases.push result.failCases
+			failCasesList.push {
+				jobDesc: result.jobDesc
+				failCases: result.failCases
+			}
 		console.log "#{result.jobDesc}: #{result.summary}"
 
-	if failCases.length > 0
+	if failCasesList.length > 0
 		printMsg('failResults')
-		console.log failCases
+		for eachFailCases in failCasesList
+			console.log "-> #{eachFailCases.jobDesc}"
+			console.log eachFailCases.failCases
+			console.log '\n'
 
 	printMsg('testDone')
 
