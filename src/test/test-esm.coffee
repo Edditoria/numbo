@@ -14,8 +14,12 @@ import zhCN from '../esm/zh-cn.mjs'
 import langs from './shared/langs.coffee'
 import types from './shared/types.coffee'
 import createResult from './shared/create-result.coffee'
+import printMsg from './shared/print-msg.coffee'
+import processResults from './shared/process-results.coffee'
 
-# All eachTestResult are identical
+printMsg('startTest')
+
+# Suppose all testResults are identical
 testResults = []
 
 for lang in langs
@@ -39,4 +43,4 @@ for langMod in langMods
 		)
 		testResults.push eachTestResult
 
-console.log testResults
+processResults(testResults)
