@@ -11,11 +11,15 @@
     "README.md"
   ],
   "scripts": {
-    "doTest": "node ./test/test.js",
-    "build": "source ./build.sh",
-    "build:esm": "gulp -f gulpfile.coffee buildESM",
-    "build:test:esm": "gulp -f gulpfile.coffee buildTestESM",
-    "test": "npm run build && npm run doTest",
+    "build": "npm run build:esm && npm run build:bundles",
+    "build:esm": "gulp -f gulpfile.coffee",
+    "build:bundles": "rollup --config rollup.config.js",
+    "testOnly": "npm run test:esm && npm run test:bundles",
+    "testOnly:esm": "node ./test/test-esm.mjs",
+    "testOnly:bundles": "node ./test/test-bundles.js",
+    "test": "npm run build && npm run testOnly",
+    "test:esm": "npm run build:esm && npm run testOnly:esm",
+    "test:bundles": "npm run build:bundles && npm run testOnly:bundles",
     "prepublish": "npm run test"
   },
   "repository": {
