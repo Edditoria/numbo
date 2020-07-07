@@ -45,6 +45,7 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@rollup/plugin-babel": "^5.0.4",
+    "@rollup/plugin-commonjs": "^13.0.0",
     "coffeescript": "^2.5.1",
     "gulp": "^4.0.2",
     "gulp-coffee": "^3.0.3",

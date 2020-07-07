@@ -7,6 +7,7 @@
 
 import packageJson from './package.json';
 import babel from '@rollup/plugin-babel';
+import cjs from '@rollup/plugin-commonjs';
 import coffee from 'rollup-plugin-coffee-script';
 
 const packageName = packageJson.name;
@@ -57,5 +58,20 @@ const files = [
 	}
 ];
 const configs = files.map(file => createConfig(file));
+
+// Add test-bundles to configs
+configs.push({
+	input: 'src/test/test-bundles.coffee',
+	output: {
+		file: 'test/test-bundles.js',
+		format: 'cjs',
+		// name: packageName
+	},
+	// context: 'this',
+	plugins: [
+		coffee(),
+		cjs()
+	]
+});
 
 export default configs;

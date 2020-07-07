@@ -10,6 +10,7 @@ srcGlobs = [
 ]
 testGlobs = [
 	'src/test/**/*.coffee'
+	'!src/test/test-bundles.coffee'
 ]
 
 # $1: Extension name to be replaced; $2: Two characters "';" to be reserved
