@@ -51,6 +51,9 @@ const files = [
 	}, {
 		input: 'src/zh-cn.coffee',
 		output: 'bundles/numbo.zh-cn.js'
+	}, {
+		input: 'src/numbo.coffee',
+		output: 'docs/assets/js/numbo.js'
 	}
 ];
 const configs = files.map(file => createConfig(file));
