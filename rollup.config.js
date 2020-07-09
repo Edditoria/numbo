@@ -30,7 +30,12 @@ function createConfig(file) {
 			coffee(),
 			babel({
 				babelrc: false,
-				presets: ['@babel/env'],
+				presets: [
+					[
+						'@babel/preset-env',
+						{ targets: { ie: "9", node: "4" } }
+					]
+				],
 				babelHelpers: 'bundled',
 				exclude: 'node_modules/**',
 				extensions: resolveExt
