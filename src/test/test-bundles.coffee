@@ -5,10 +5,10 @@ Run tests for each module: numbo, enUS, zhCN, zhTW.
 
 ###
 
-numbo = require '../bundles/numbo.js'
-enUS = require '../bundles/numbo.en-us.js'
-zhTW = require '../bundles/numbo.zh-tw.js'
-zhCN = require '../bundles/numbo.zh-cn.js'
+numbo = require '../bundles/numbo.min.js'
+enUS = require '../bundles/numbo.en-us.min.js'
+zhTW = require '../bundles/numbo.zh-tw.min.js'
+zhCN = require '../bundles/numbo.zh-cn.min.js'
 
 console.log numbo.convert('123.45', 'enUS', 'cheque')
 console.log enUS('123.45', 'number')
