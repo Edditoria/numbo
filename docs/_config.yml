@@ -2,7 +2,7 @@
 
 title: numbo
 tagline: number-to-text javascript library
-description: numbo is a Javascript library. It converts number and monetary amount to written text in multiple languages. Also helpful for writing cheques (checks). Available in npm and bower. Open-source in Github.
+description: Numbo is a Javascript library to convert number and monetary amount to written text in multiple languages. Also helpful for writing cheques (checks). Available in npm and bower. Open-source in Github.
 
 # my seo tags (not jekyll-seo-tag)
 author: Edditoria

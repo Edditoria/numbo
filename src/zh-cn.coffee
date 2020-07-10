@@ -1,10 +1,12 @@
-###
-numbo.zhCN, as a plugin for Numbo, convert number to Simplified Chinese.
+###*
+@file Convert number to Simplified Chinese (zh-CN) as part of Numbo JS library.
 
-This plugin and Numbo are open source in:
+Numbo is open source in:
 https://github.com/Edditoria/numbo
 
-under MIT license:
+@author Edditoria
+@license MIT
+Code released under the MIT license:
 https://github.com/Edditoria/numbo/blob/master/LICENSE.txt
 ###
 

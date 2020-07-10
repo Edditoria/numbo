@@ -1,3 +1,15 @@
+###*
+@file Convert number to English (en-US) as part of Numbo JS library.
+
+Numbo is open source in:
+https://github.com/Edditoria/numbo
+
+@author Edditoria
+@license MIT
+Code released under the MIT license:
+https://github.com/Edditoria/numbo/blob/master/LICENSE.txt
+###
+
 import check from './utils/check.coffee'
 import normalize from './utils/normalize.coffee'
 import adjustDecimal from './utils/adjust-decimal.coffee'

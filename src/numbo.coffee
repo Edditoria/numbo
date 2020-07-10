@@ -1,8 +1,15 @@
-###
+###*
+Numbo is a Javascript library to convert number and monetary amount
+to written text in multiple languages.
+Also helpful for writing cheques (checks). Supports English, and 支援中文.
+
 Numbo is open source in:
 https://github.com/Edditoria/numbo
 
-under MIT license:
+@file The main entry of Numbo library.
+@author Edditoria
+@license MIT
+Code released under the MIT license:
 https://github.com/Edditoria/numbo/blob/master/LICENSE.txt
 ###
 
