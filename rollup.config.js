@@ -10,6 +10,7 @@ import babel from '@rollup/plugin-babel';
 import cjs from '@rollup/plugin-commonjs';
 import coffee from 'rollup-plugin-coffee-script';
 import { terser } from "rollup-plugin-terser";
+import banner from 'rollup-plugin-banner';
 
 const packageName = packageJson.name;
 const resolveExt = ['.coffee', '.litcoffee', '.mjs', 'js'];
@@ -48,7 +49,8 @@ function createConfig(file) {
 				mangle: false,
 				keep_classnames: true,
 				keep_fnames: true
-			})
+			}),
+			banner({ file: 'src/about-numbo.txt'})
 		]
 	};
 }
