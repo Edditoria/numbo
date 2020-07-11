@@ -12,8 +12,24 @@ import coffee from 'rollup-plugin-coffee-script';
 import { terser } from "rollup-plugin-terser";
 import banner from 'rollup-plugin-banner';
 
+const testMode = false;
 const packageName = packageJson.name;
 const resolveExt = ['.coffee', '.litcoffee', '.mjs', 'js'];
+
+function getTerserOptions(testMode) {
+	return {
+		ecma: 5,
+		compress: false,
+		mangle: false,
+		keep_classnames: true,
+		keep_fnames: true,
+		output: {
+			beautify: testMode,
+			comments: testMode,
+			indent_level: 2
+		}
+	};
+}
 
 function createConfig(file) {
 	return {
@@ -43,13 +59,7 @@ function createConfig(file) {
 				exclude: 'node_modules/**',
 				extensions: resolveExt
 			}),
-			terser({
-				ecma: 5,
-				compress: false,
-				mangle: false,
-				keep_classnames: true,
-				keep_fnames: true
-			}),
+			terser(getTerserOptions(testMode)),
 			banner({ file: 'src/about-numbo.txt'})
 		]
 	};
