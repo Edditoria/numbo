@@ -28,38 +28,21 @@ import enUS from './en-us.coffee'
 import zhTW from './zh-tw.coffee'
 import zhCN from './zh-cn.coffee'
 
+utils =
+	trimWhitespace: trimWhitespace
+	parse99: parse99
+	parseCent: parseCents #todo to be depreciated
+	parseCents: parseCents #todo to be depreciated
+	speakByDigit: speakByDigit
+	check: check
+	validate: check
+	normalize: normalize
+	normalise: normalize
+	adjustDecimal: adjustDecimal
+	splitNum: splitNum
+	splitInt: splitInt
+
 class Numbo
-
-	tools =
-		parse99: parse99
-		trimWhitespace: trimWhitespace
-		parseCents: parseCents
-		speakByDigit: speakByDigit
-		check: check
-		normalize: normalize
-		adjustDecimal: adjustDecimal
-		splitNum: splitNum
-		splitInt: splitInt
-	tools:
-		trimWhitespace: tools.trimWhitespace
-		parse99: tools.parse99
-		parseCent: tools.parseCents #todo to be depreciated
-		parseCents: tools.parseCents #todo to be depreciated
-		speakByDigit: tools.speakByDigit
-		check: tools.check
-		validate: tools.check
-		normalize: tools.normalize
-		normalise: tools.normalize
-		adjustDecimal: tools.adjustDecimal
-		splitNum: tools.splitNum
-		splitInt: tools.splitInt
-
-	convert_enUS = enUS
-	convert_zhTW = zhTW
-	convert_zhCN = zhCN
-	enUS: convert_enUS
-	zhTW: convert_zhTW
-	zhCN: convert_zhCN
 
 	langs = ['enUS', 'zhTW', 'zhCN']
 
@@ -67,7 +50,7 @@ class Numbo
 		# `input` can be string or number
 		# `options` can be language ('zhTW') and style ('number', 'amount' or 'cheque')
 		if options.length is 0 # not provide any option
-			convert_enUS(input)
+			@enUS(input)
 		else
 			zeroCent = false #todo: temp setup
 			parsedOptions = parseOptions(langs, options)
@@ -87,6 +70,11 @@ class Numbo
 					zeroCent = true
 				@[parsedOptions.plugin](input, parsedOptions.template, zeroCent) #todo: temp setup for zeroCent
 
+# Public methods
+Numbo::tools = utils
+Numbo::enUS = enUS
+Numbo::zhTW = zhTW
+Numbo::zhCN = zhCN
 
 numbo = new Numbo()
 
