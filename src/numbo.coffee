@@ -42,18 +42,23 @@ utils =
 	splitNum: splitNum
 	splitInt: splitInt
 
+langs =
+	enUS: enUS
+	zhTW: zhTW
+	zhCN: zhCN
+
 class Numbo
 
-	langs = ['enUS', 'zhTW', 'zhCN']
+	langNames = ['enUS', 'zhTW', 'zhCN']
 
 	convert: (input, options...) ->
 		# `input` can be string or number
 		# `options` can be language ('zhTW') and style ('number', 'amount' or 'cheque')
 		if options.length is 0 # not provide any option
-			@enUS(input)
+			langs.enUS(input)
 		else
 			zeroCent = false #todo: temp setup
-			parsedOptions = parseOptions(langs, options)
+			parsedOptions = parseOptions(langNames, options)
 			otherOptions = parsedOptions.otherOptions
 
 			# Skip and return null if any error occurs
@@ -68,7 +73,7 @@ class Numbo
 				if otherOptions.toString() is 'zeroCent'
 					#todo: should be done in parseOption()
 					zeroCent = true
-				@[parsedOptions.plugin](input, parsedOptions.template, zeroCent) #todo: temp setup for zeroCent
+				langs[parsedOptions.plugin](input, parsedOptions.template, zeroCent) #todo: temp setup for zeroCent
 
 # Public methods
 Numbo::tools = utils
