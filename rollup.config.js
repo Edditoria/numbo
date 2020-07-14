@@ -116,4 +116,20 @@ configs.push({
 	]
 });
 
+// Add all-tools.js to configs
+configs.push({
+	input: 'src/test/shared/all-tools.coffee',
+	output: {
+		file: 'test/shared/all-tools.js',
+		format: 'cjs',
+		// name: packageName,
+		exports: 'auto'
+	},
+	// context: 'this',
+	plugins: [
+		coffee(),
+		cjs()
+	]
+});
+
 export default configs;
