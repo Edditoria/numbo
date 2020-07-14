@@ -100,4 +100,20 @@ configs.push({
 	]
 });
 
+// Add all-data.js to configs
+configs.push({
+	input: 'src/test/data/all-data.coffee',
+	output: {
+		file: 'test/data/all-data.js',
+		format: 'cjs',
+		// name: packageName,
+		exports: 'auto'
+	},
+	// context: 'this',
+	plugins: [
+		coffee(),
+		cjs()
+	]
+});
+
 export default configs;
