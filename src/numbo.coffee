@@ -47,35 +47,36 @@ langs =
 	zhTW: zhTW
 	zhCN: zhCN
 
+langNames = ['enUS', 'zhTW', 'zhCN']
+convert = (input, options...) ->
+	# `input` can be string or number
+	# `options` can be language ('zhTW') and style ('number', 'amount' or 'cheque')
+	if options.length is 0 # not provide any option
+		langs.enUS(input)
+	else
+		zeroCent = false #todo: temp setup
+		parsedOptions = parseOptions(langNames, options)
+		otherOptions = parsedOptions.otherOptions
+
+		# Skip and return null if any error occurs
+		if parsedOptions.error is true then null
+		# Currently, otherOptions is not allowed yet.
+		else if otherOptions.length > 0 and otherOptions.toString() isnt 'zeroCent'
+			#todo: the condition about 'zeroCent' should be done in parseOption()
+			console.log 'Error: Invalid option. Possibly more than one template is selected. Or, some option(s) are parsed into [otherOptions], but it is not allowed in current version yet.'
+			null
+		else
+			# execute convert() according to options provided
+			if otherOptions.toString() is 'zeroCent'
+				#todo: should be done in parseOption()
+				zeroCent = true
+			langs[parsedOptions.plugin](input, parsedOptions.template, zeroCent) #todo: temp setup for zeroCent
+
+
 class Numbo
 
-	langNames = ['enUS', 'zhTW', 'zhCN']
-
-	convert: (input, options...) ->
-		# `input` can be string or number
-		# `options` can be language ('zhTW') and style ('number', 'amount' or 'cheque')
-		if options.length is 0 # not provide any option
-			langs.enUS(input)
-		else
-			zeroCent = false #todo: temp setup
-			parsedOptions = parseOptions(langNames, options)
-			otherOptions = parsedOptions.otherOptions
-
-			# Skip and return null if any error occurs
-			if parsedOptions.error is true then null
-			# Currently, otherOptions is not allowed yet.
-			else if otherOptions.length > 0 and otherOptions.toString() isnt 'zeroCent'
-				#todo: the condition about 'zeroCent' should be done in parseOption()
-				console.log 'Error: Invalid option. Possibly more than one template is selected. Or, some option(s) are parsed into [otherOptions], but it is not allowed in current version yet.'
-				null
-			else
-				# execute convert() according to options provided
-				if otherOptions.toString() is 'zeroCent'
-					#todo: should be done in parseOption()
-					zeroCent = true
-				langs[parsedOptions.plugin](input, parsedOptions.template, zeroCent) #todo: temp setup for zeroCent
-
 # Public methods
+Numbo::convert = convert
 Numbo::tools = utils
 Numbo::enUS = enUS
 Numbo::zhTW = zhTW
