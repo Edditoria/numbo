@@ -7,7 +7,6 @@
 
 import packageJson from './package.json';
 import babel from '@rollup/plugin-babel';
-import cjs from '@rollup/plugin-commonjs';
 import coffee from 'rollup-plugin-coffee-script';
 import { terser } from "rollup-plugin-terser";
 import banner from 'rollup-plugin-banner';
@@ -95,8 +94,7 @@ configs.push({
 	},
 	// context: 'this',
 	plugins: [
-		coffee(),
-		cjs()
+		coffee()
 	]
 });
 
@@ -111,8 +109,7 @@ configs.push({
 	},
 	// context: 'this',
 	plugins: [
-		coffee(),
-		cjs()
+		coffee()
 	]
 });
 
@@ -127,8 +124,7 @@ configs.push({
 	},
 	// context: 'this',
 	plugins: [
-		coffee(),
-		cjs()
+		coffee()
 	]
 });
 
