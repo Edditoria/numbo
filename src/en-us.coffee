@@ -137,28 +137,25 @@ speakAmt = (str, options = 'amount', zeroCent) ->
 	output
 
 
+###
+@param {string|number} input - A string of floating number in format of 'nnnnnnn.dddd', e.g. '123.45'.
+@param {string} options - Type of output: 'number', 'amount', 'cheque' or related alias.
+@param {boolean} zeroCent - True to write 'and Zero Cent' instead of 'and No Cent'. However this is a temp setup only #todo to be replaced.
+@return {string|null} - e.g. 'one hundred point two three', or null if detects error.
+###
 export default (input, options = 'default', zeroCent = false) ->
-	# input floating `input` e.g. nnnnnnn.dddd
-	# return string e.g. one hundred point two three
-	#todo: zeroCent is a temp variable that will be replaced
-
-	main = (input, options = 'default', zeroCent = false) ->
-		# `input` is a string or number
-		# `options` should be a string
-		if input is '' then null
-		else if input is '1e+100' then 'Ding! One Google... Oops... One Googol!!'
+	if input is '' then return null
+	if input is '1e+100' then return 'Ding! One Google... Oops... One Googol!!'
+	if check(input) is false
+		console.log 'Error: Invalid input value. Return null'
+		return null
+	# else
+	input = normalize(input) # input must become a string
+	#todo: if typeof options is 'string'
+	switch options
+		when 'default', 'number', 'num' then return speakNum(input)
+		when 'cheque', 'check', 'chk', 'chq' then return speakAmt(input, 'cheque', zeroCent)
+		when 'amount', 'amt' then return speakAmt(input, 'amount')
 		else
-			if check(input) is false
-				console.log 'Error: Invalid input value. Return null'
-				null
-			else
-				input = normalize(input) # input must become a string
-				#todo: if typeof options is 'string'
-				switch options
-					when 'default', 'number', 'num' then speakNum(input)
-					when 'cheque', 'check', 'chk', 'chq' then speakAmt(input, 'cheque', zeroCent)
-					when 'amount', 'amt' then speakAmt(input, 'amount')
-					else
-						console.log 'Error: Option in enUS is not valid'
-						null
-	main(input, options, zeroCent)
+			console.log 'Error: Option in enUS is not valid'
+			return null

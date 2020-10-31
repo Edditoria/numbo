@@ -109,25 +109,23 @@ speakAmt = (str, options = 'cheque') ->
 		dollar + cent
 
 
+###
+@param {string|number} input - A string of floating number in format of 'nnnnnnn.dddd', e.g. '123.45'.
+@param {string} options - Type of output: 'number', 'amount', 'cheque' or related alias.
+@return {string|null} - e.g. '一百二十三點四五', or null if detects error.
+###
 export default (input, options = 'default') ->
-
-	main = (input, options = 'default') ->
-		# input is a string or a number
-		# options should be a string
-		if input is '' then null
-		else if input is '1e+100' then 'Ding! One Google... Oops... One Googol!!'
+	if input is '' then return null
+	if input is '1e+100' then return 'Ding! One Google... Oops... One Googol!!'
+	if check(input) is false
+		console.log 'Error: Invalid input value. Return null'
+		return null
+	# else
+	input = normalize(input) # input becomes a string
+	switch options
+		when 'default', 'number', 'num' then return speakNum(input)
+		when 'cheque', 'check', 'chk', 'chq' then return speakAmt(input, 'cheque')
+		when 'amount', 'amt' then return speakAmt(input, 'amount')
 		else
-			if check(input) is false
-				console.log 'Error: Invalid input value. Return null'
-				null
-			else
-				input = normalize(input) # input becomes a string
-				input
-				switch options
-					when 'default', 'number', 'num' then speakNum(input)
-					when 'cheque', 'check', 'chk', 'chq' then speakAmt(input, 'cheque')
-					when 'amount', 'amt' then speakAmt(input, 'amount')
-					else
-						console.log 'Error: Option in zhTW is not valid'
-						null
-	main(input, options)
+			console.log 'Error: Option in zhTW is not valid'
+			return null
