@@ -6,7 +6,7 @@ Do not work in Rollup or Babel.
 
 ###* @type {Data} See data structure in all-data.coffee ###
 import allData from './data/all-data.mjs'
-import numbo from '../esm/numbo.mjs'
+import Numbo from '../esm/numbo.mjs'
 import enUS from '../esm/en-us.mjs'
 import zhTW from '../esm/zh-tw.mjs'
 import zhCN from '../esm/zh-cn.mjs'
@@ -21,6 +21,8 @@ printMsg('startTest')
 
 # Suppose all testResults are identical
 testResults = []
+
+numbo = new Numbo()
 
 for lang in langs
 	for type in types

@@ -3,7 +3,7 @@ Run tests for each module: numbo, enUS, zhCN, zhTW.
 
 ###
 
-numbo = require '../bundles/numbo.min.js'
+Numbo = require '../bundles/numbo.min.js'
 enUS = require '../bundles/numbo.en-us.min.js'
 zhTW = require '../bundles/numbo.zh-tw.min.js'
 zhCN = require '../bundles/numbo.zh-cn.min.js'
@@ -23,6 +23,8 @@ printMsg('startTest')
 testResults = []
 
 # Test numbo
+
+numbo = new Numbo()
 
 for lang in langs
 	for type in types

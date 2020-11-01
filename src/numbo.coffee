@@ -82,6 +82,4 @@ Numbo::enUS = enUS
 Numbo::zhTW = zhTW
 Numbo::zhCN = zhCN
 
-numbo = new Numbo()
-
-export default numbo
+export default Numbo
