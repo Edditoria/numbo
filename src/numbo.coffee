@@ -47,6 +47,10 @@ langs =
 	zhTW: zhTW
 	zhCN: zhCN
 
+defaultOptions =
+	lang: 'enUS'
+	type: 'number'
+
 ###
 Convert numerical input to a specific language.
 It will pass the whole option object to another modules for further processing.
@@ -55,7 +59,9 @@ It will pass the whole option object to another modules for further processing.
 @return {string} - Final output of numbo.
 ###
 convert = (input, options) ->
-	return langs[options.lang](input, options)
+	# Clone defaultOptions, then override it using options
+	oneTimeOptions = Object.assign({}, defaultOptions, options)
+	return langs[oneTimeOptions.lang](input, oneTimeOptions)
 
 
 class Numbo
