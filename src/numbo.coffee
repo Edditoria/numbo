@@ -24,6 +24,7 @@ import splitNum from './utils/split-num.coffee'
 import splitInt from './utils/split-int.coffee'
 
 # import parseOptions from './utils/parse-options.coffee'
+import parseLang from './utils/parse-lang.coffee'
 import enUS from './en-us.coffee'
 import zhTW from './zh-tw.coffee'
 import zhCN from './zh-cn.coffee'
@@ -61,6 +62,12 @@ It will pass the whole option object to another modules for further processing.
 convert = (input, options) ->
 	# Clone defaultOptions, then override it using options
 	oneTimeOptions = Object.assign({}, defaultOptions, options)
+	oneTimeOptions.lang = parseLang(oneTimeOptions.lang)
+	if oneTimeOptions.lang is false
+		return null
+	if !langs[oneTimeOptions.lang]?
+		console.log 'Error: Cannot find the lang function:', options.lang
+		return null
 	return langs[oneTimeOptions.lang](input, oneTimeOptions)
 
 
