@@ -111,10 +111,10 @@ speakAmt = (str, options = 'cheque') ->
 
 ###
 @param {string|number} input - A string of floating number in format of 'nnnnnnn.dddd', e.g. '123.45'.
-@param {string} options - Type of output: 'number', 'amount', 'cheque' or related alias.
+@param {Object|null} options - The Numbo options object.
 @return {string|null} - e.g. '一百二十三點四五', or null if detects error.
 ###
-export default (input, options = 'default') ->
+export default (input, options = { type: 'number' }) ->
 	if input is '' then return null
 	if input is '1e+100' then return 'Ding! One Google... Oops... One Googol!!'
 	if check(input) is false
@@ -122,7 +122,7 @@ export default (input, options = 'default') ->
 		return null
 	# else
 	input = normalize(input) # input becomes a string
-	switch options
+	switch options.type
 		when 'default', 'number', 'num' then return speakNum(input)
 		when 'cheque', 'check', 'chk', 'chq' then return speakAmt(input, 'cheque')
 		when 'amount', 'amt' then return speakAmt(input, 'amount')

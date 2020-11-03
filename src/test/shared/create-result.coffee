@@ -1,7 +1,7 @@
 initResult = (jobType, dataLen, lang, type) ->
 	jobDesc =
-		if jobType is 'numbo' then "numbo.convert(input, '#{lang}', '#{type}')"
-		else "#{lang}(input, '#{type}')"
+		if jobType is 'numbo' then "numbo.convert(input, { #{lang}, #{type} })"
+		else "#{lang}(input, { #{type} })"
 	return {
 		jobDesc: jobDesc
 		summary: 'Waiting...'
@@ -30,13 +30,14 @@ createSummary = (total, success, fail) ->
 export default (jobType, callbackFn, dataList, lang, type) ->
 	testResult = initResult(jobType, dataList.length, lang, type)
 	for eachData in dataList
+		options = { lang: lang, type: type }
 		# note: eachData has { input, expect }; Now adds { ans }
 		eachData.ans =
 			if jobType is 'numbo'
 				# Only numbo object has .convert() method
-				callbackFn.convert(eachData.input, lang, type)
+				callbackFn.convert(eachData.input, options)
 			else
-				callbackFn(eachData.input, type)
+				callbackFn(eachData.input, options)
 		testResult = updateResult(eachData, testResult)
 	testResult.summary = createSummary(
 		testResult.total

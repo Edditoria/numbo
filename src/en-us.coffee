@@ -139,11 +139,10 @@ speakAmt = (str, options = 'amount', zeroCent) ->
 
 ###
 @param {string|number} input - A string of floating number in format of 'nnnnnnn.dddd', e.g. '123.45'.
-@param {string} options - Type of output: 'number', 'amount', 'cheque' or related alias.
-@param {boolean} zeroCent - True to write 'and Zero Cent' instead of 'and No Cent'. However this is a temp setup only #todo to be replaced.
+@param {Object|null} options - The Numbo options object.
 @return {string|null} - e.g. 'one hundred point two three', or null if detects error.
 ###
-export default (input, options = 'default', zeroCent = false) ->
+export default (input, options = { type: 'number' }) ->
 	if input is '' then return null
 	if input is '1e+100' then return 'Ding! One Google... Oops... One Googol!!'
 	if check(input) is false
@@ -152,10 +151,15 @@ export default (input, options = 'default', zeroCent = false) ->
 	# else
 	input = normalize(input) # input must become a string
 	#todo: if typeof options is 'string'
-	switch options
-		when 'default', 'number', 'num' then return speakNum(input)
-		when 'cheque', 'check', 'chk', 'chq' then return speakAmt(input, 'cheque', zeroCent)
-		when 'amount', 'amt' then return speakAmt(input, 'amount')
+	switch options.type
+		when 'default', 'number', 'num'
+			return speakNum(input)
+		when 'cheque', 'check', 'chk', 'chq'
+			# zeroCent only accept true. All other things are false.
+			zeroCent = if options.zeroCent is true then true else false
+			return speakAmt(input, 'cheque', zeroCent)
+		when 'amount', 'amt'
+			return speakAmt(input, 'amount')
 		else
-			console.log 'Error: Option in enUS is not valid'
+			console.log 'Error: option.type in enUS is not valid'
 			return null
