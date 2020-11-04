@@ -52,6 +52,10 @@ defaultOptions =
 	lang: 'enUS'
 	type: 'number'
 
+setOptions = (options) ->
+	Object.assign(defaultOptions, options)
+	return defaultOptions
+
 ###
 Convert numerical input to a specific language.
 It will pass the whole option object to another modules for further processing.
@@ -79,5 +83,8 @@ Numbo::tools = utils
 Numbo::enUS = enUS
 Numbo::zhTW = zhTW
 Numbo::zhCN = zhCN
+
+Numbo::getDefaultOptions = () -> return defaultOptions
+Numbo::setOptions = setOptions
 
 export default Numbo
