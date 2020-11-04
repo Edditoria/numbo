@@ -58,6 +58,10 @@ setOptions = (options) ->
 	Object.assign(userOptions, options)
 	return userOptions
 
+resetOptions = () ->
+	userOptions = Object.assign({}, defaultOptions)
+	return userOptions
+
 ###
 Convert numerical input to a specific language.
 It will pass the whole option object to another modules for further processing.
@@ -89,5 +93,6 @@ Numbo::zhCN = zhCN
 Numbo::getDefaultOptions = () -> return defaultOptions
 Numbo::getOptions = () -> return userOptions
 Numbo::setOptions = setOptions
+Numbo::resetOptions = resetOptions
 
 export default Numbo
