@@ -52,15 +52,13 @@ defaultOptions =
 	lang: 'enUS'
 	type: 'number'
 
-userOptions = Object.assign({}, defaultOptions)
-
 setOptions = (options) ->
-	Object.assign(userOptions, options)
-	return userOptions
+	Object.assign(@options, options)
+	return @options
 
 resetOptions = () ->
-	userOptions = Object.assign({}, defaultOptions)
-	return userOptions
+	@options = Object.assign({}, defaultOptions)
+	return @options
 
 ###
 Convert numerical input to a specific language.
@@ -70,8 +68,8 @@ It will pass the whole option object to another modules for further processing.
 @return {string} - Final output of numbo.
 ###
 convert = (input, options) ->
-	# Clone userOptions, then override it using options
-	oneTimeOptions = Object.assign({}, userOptions, options)
+	# Clone this.options, then override it using options
+	oneTimeOptions = Object.assign({}, @options, options)
 	oneTimeOptions.lang = parseLang(oneTimeOptions.lang)
 	if oneTimeOptions.lang is false
 		return null
@@ -82,6 +80,11 @@ convert = (input, options) ->
 
 
 class Numbo
+	constructor: (options) ->
+		if !options? # options == null
+			@options = defaultOptions
+		else
+			@options = Object.assign({}, defaultOptions, options)
 
 # Public methods
 Numbo::convert = convert
@@ -91,7 +94,7 @@ Numbo::zhTW = zhTW
 Numbo::zhCN = zhCN
 
 Numbo::getDefaultOptions = () -> return defaultOptions
-Numbo::getOptions = () -> return userOptions
+Numbo::getOptions = () -> return @options
 Numbo::setOptions = setOptions
 Numbo::resetOptions = resetOptions
 
