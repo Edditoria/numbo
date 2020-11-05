@@ -17,7 +17,7 @@
     "build:esm": "gulp -f gulpfile.coffee",
     "build:bundles": "rollup --config rollup.config.js",
     "testOnly": "npm run testOnly:esm && npm run testOnly:bundles",
-    "testOnly:esm": "node ./test/test-esm.mjs",
+    "testOnly:esm": "node ./test/test-options.mjs && node ./test/test-esm.mjs",
     "testOnly:bundles": "node ./test/test-bundles.js",
     "test": "npm run build && npm run testOnly",
     "test:esm": "npm run build:esm && npm run testOnly:esm",
