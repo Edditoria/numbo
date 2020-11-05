@@ -129,7 +129,7 @@ export default (input, options = { type: 'number' }) ->
 	# else
 	input = normalize(input) # input becomes a string
 	switch options.type
-		when 'default', 'number', 'num' then return speakNum(input)
+		when null, 'number', 'num' then return speakNum(input)
 		when 'cheque', 'check', 'chk', 'chq' then return speakAmt(input, 'cheque')
 		when 'amount', 'amt' then return speakAmt(input, 'amount')
 		else

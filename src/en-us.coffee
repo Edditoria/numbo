@@ -162,7 +162,7 @@ export default (input, options = defaultOptions) ->
 	input = normalize(input) # input must become a string
 	#todo: if typeof options is 'string'
 	switch options.type
-		when 'default', 'number', 'num'
+		when null, 'number', 'num'
 			return speakNum(input)
 		when 'cheque', 'check', 'chk', 'chq'
 			# zeroCent only accept true. All other things are false.
