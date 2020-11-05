@@ -18,6 +18,10 @@ import splitInt from './utils/split-int.coffee'
 import speakByDigit from './utils/speak-by-digit.coffee'
 import parse99 from './utils/parse-99.coffee'
 
+defaultOptions =
+	type: 'number'
+	zeroCent: false
+
 n1 = [
 	'' #zero
 	'One', 'Two', 'Three', 'Four', 'Five'
@@ -86,11 +90,17 @@ speakNum = (str) ->
 		(int + dec).toLowerCase()
 
 # Main function 2 of 2
-speakAmt = (str, options = 'amount', zeroCent) ->
-	# convert amount `str` to written text
-	# accept options as 'amount' or 'cheque'
-	# - amount: some dollars and some cents
-	# - cheque: Some Dollars and Some Cents Only
+###
+Convert numerical amount to written text.
+@param {string} str - The input in string.
+@param {type} type - Either 'amount' or 'cheque':
+	- 'amount': some dollars and some cents.
+	- 'cheque': Some Dollars and Some Cents Only.
+@param {boolean} zeroCent - When zero cent:
+	- true: "and no cent"
+	- false: "and zero cent"
+###
+speakAmt = (str, type, zeroCent) ->
 	if str is '0' then output = 'Null'
 	else
 		dollarUnit = ['Dollar', 'Dollars']
@@ -119,14 +129,14 @@ speakAmt = (str, options = 'amount', zeroCent) ->
 			if dollars is '' then ''
 			else ' and '
 		output = int + dollars + andWord + dec + cents
-	# adjust the output according to `options`
+	# adjust the output according to `type`
 	output =
-		if options is 'cheque'
+		if type is 'cheque'
 			if output is 'Null'
 				'Null'
 			else
 				output + ' Only'
-		else if options is 'amount'
+		else if type is 'amount'
 			output
 				.replace(' and No Cent', '')
 				.toLowerCase()
@@ -142,7 +152,7 @@ speakAmt = (str, options = 'amount', zeroCent) ->
 @param {Object|null} options - The Numbo options object.
 @return {string|null} - e.g. 'one hundred point two three', or null if detects error.
 ###
-export default (input, options = { type: 'number' }) ->
+export default (input, options = defaultOptions) ->
 	if input is '' then return null
 	if input is '1e+100' then return 'Ding! One Google... Oops... One Googol!!'
 	if check(input) is false
@@ -159,7 +169,7 @@ export default (input, options = { type: 'number' }) ->
 			zeroCent = if options.zeroCent is true then true else false
 			return speakAmt(input, 'cheque', zeroCent)
 		when 'amount', 'amt'
-			return speakAmt(input, 'amount')
+			return speakAmt(input, 'amount', false)
 		else
 			console.log 'Error: option.type in enUS is not valid'
 			return null
