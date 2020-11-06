@@ -42,7 +42,7 @@ function createConfig(file) {
 		/* #todo:
 		Evaluate the usage of this flagged option
 		This is to overcome the error "`this` has been rewritten to `undefined`"
-		in process of compiling numbo.coffee */
+		in process of compiling index.coffee */
 		context: 'this',
 		plugins: [
 			coffee(),
@@ -59,14 +59,14 @@ function createConfig(file) {
 				extensions: resolveExt
 			}),
 			terser(getTerserOptions(testMode)),
-			banner({ file: 'src/about-numbo.txt'})
+			banner({ file: 'src/index.head.txt'})
 		]
 	};
 }
 
 const files = [
 	{
-		input: 'src/numbo.coffee',
+		input: 'src/index.coffee',
 		output: 'bundles/numbo.min.js'
 	}, {
 		input: 'src/en-us.coffee',
@@ -78,7 +78,7 @@ const files = [
 		input: 'src/zh-cn.coffee',
 		output: 'bundles/numbo.zh-cn.min.js'
 	}, {
-		input: 'src/numbo.coffee',
+		input: 'src/index.coffee',
 		output: 'docs/assets/js/numbo.min.js'
 	}
 ];

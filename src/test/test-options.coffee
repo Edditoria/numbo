@@ -1,4 +1,4 @@
-import Numbo from '../esm/numbo.mjs'
+import Numbo from '../esm/index.mjs'
 import printMsg from './shared/print-msg.coffee'
 
 numbo = new Numbo()

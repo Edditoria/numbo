@@ -6,7 +6,7 @@ Do not work in Rollup or Babel.
 
 ###* @type {Data} See data structure in all-data.coffee ###
 import allData from './data/all-data.mjs'
-import Numbo from '../esm/numbo.mjs'
+import Numbo from '../esm/index.mjs'
 import enUS from '../esm/en-us.mjs'
 import zhTW from '../esm/zh-tw.mjs'
 import zhCN from '../esm/zh-cn.mjs'
