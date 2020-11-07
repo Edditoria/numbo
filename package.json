@@ -9,11 +9,16 @@
   "//module": "ESM format; Entry point of modules; Not minified; Consume using import",
   "module": "./esm/index.mjs",
   "files": [
-    "/lib/**/*",
+    "/bundles/**/*",
+    "/esm/**/*",
     "package.json",
     "LICENSE.txt",
     "README.md"
   ],
+  "engines": {
+    "//": "Require node >=14.0 to develop this package",
+    "node": ">=6"
+  },
   "scripts": {
     "clean": "gulp -f gulpfile.coffee clean",
     "build": "npm run build:esm && npm run build:bundles",
@@ -28,9 +33,14 @@
     "prepublishOnly": "npm run test",
     "prepack": "npm run test"
   },
+  "author": "Edditoria <edditoria@gmail.com>",
+  "homepage": "https://edditoria.github.io/numbo",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Edditoria/numbo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Edditoria/numbo/issues"
   },
   "keywords": [
     "convert",
@@ -42,14 +52,7 @@
     "number to text",
     "speak number"
   ],
-  "author": "Edditoria <edditoria@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/Edditoria/numbo/issues"
-  },
-  "homepage": "https://edditoria.github.io/numbo",
-  "engines": {
-    "node": ">=6"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
@@ -65,6 +68,5 @@
     "rollup-plugin-banner": "^0.2.1",
     "rollup-plugin-coffee-script": "^2.0.0",
     "rollup-plugin-terser": "^6.1.0"
-  },
-  "dependencies": {}
+  }
 }
