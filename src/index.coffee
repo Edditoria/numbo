@@ -90,7 +90,7 @@ class Numbo
 
 # Public methods
 Numbo::convert = convert
-Numbo::tools = utils
+Numbo::utils = utils
 Numbo::enUS = enUS
 Numbo::zhTW = zhTW
 Numbo::zhCN = zhCN
