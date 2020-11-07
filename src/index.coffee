@@ -16,6 +16,7 @@ https://github.com/Edditoria/numbo/blob/master/LICENSE.txt
 import parse99 from './utils/parse-99.coffee'
 import trimWhitespace from './utils/trim-whitespace.coffee'
 import parseCents from './utils/parse-cents.coffee'
+import parseType from './utils/parse-type.coffee'
 import speakByDigit from './utils/speak-by-digit.coffee'
 import check from './utils/check.coffee'
 import normalize from './utils/normalize.coffee'
@@ -34,6 +35,7 @@ utils =
 	parse99: parse99
 	parseCent: parseCents #todo to be depreciated
 	parseCents: parseCents #todo to be depreciated
+	parseType: parseType
 	speakByDigit: speakByDigit
 	check: check
 	validate: check
