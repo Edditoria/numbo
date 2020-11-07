@@ -22,7 +22,8 @@
     "test": "npm run build && npm run testOnly",
     "test:esm": "npm run build:esm && npm run testOnly:esm",
     "test:bundles": "npm run build:bundles && npm run testOnly:bundles",
-    "prepublish": "npm run test"
+    "prepublishOnly": "npm run test",
+    "prepack": "npm run test"
   },
   "repository": {
     "type": "git",
