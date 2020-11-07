@@ -4,7 +4,10 @@
   "description": "Convert number and monetary amount to written text. Also helpful for writing cheques (checks). Supports English, and 支援中文.",
   "license": "MIT",
   "private": true,
-  "main": "./lib/numbo.js",
+  "//main": "UMD format; Bundle in one file; Minified; Act as fallback",
+  "main": "./bundles/numbo.min.js",
+  "//module": "ESM format; Entry point of modules; Not minified; Consume using import",
+  "module": "./esm/index.mjs",
   "files": [
     "/lib/**/*",
     "package.json",
