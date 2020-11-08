@@ -46,7 +46,7 @@ speak9999 = (str, isSimple = true) ->
 	else output = output.replace(/\零+$/g, '') # remove tailing '零'
 	output
 
-speakInt = (str, isSimple = true) =>
+speakInt = (str, isSimple = true) ->
 	# split the str into array by every 4 characters
 	# then speak9999() one by one
 	if str is '0' then '零'
