@@ -4,13 +4,13 @@ This file is usable after compiling to mjs.
 Do not work in Rollup or Babel.
 ###
 
-###* @type {Data} See data structure in all-data.coffee ###
-import allData from './data/all-data.mjs'
 import Numbo from '../esm/index.mjs'
 import enUS from '../esm/en-us.mjs'
 import zhTW from '../esm/zh-tw.mjs'
 import zhCN from '../esm/zh-cn.mjs'
 
+###* @type {Data} See data structure in all-data.coffee ###
+import allData from './data/all-data.coffee'
 import langs from './shared/langs.coffee'
 import types from './shared/types.coffee'
 import createResult from './shared/create-result.coffee'
