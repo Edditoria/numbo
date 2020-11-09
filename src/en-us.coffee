@@ -17,6 +17,7 @@ import splitNum from './utils/split-num.coffee'
 import splitInt from './utils/split-int.coffee'
 import speakByDigit from './utils/speak-by-digit.coffee'
 import parse99 from './utils/parse-99.coffee'
+import trimWhitespace from './utils/trim-whitespace.coffee'
 
 defaultOptions =
 	type: 'number'
@@ -72,7 +73,7 @@ speakInt = (numArr, addAnd = true) ->
 			unit = ' ' + n1000[times]
 			item = speak999(parseInt(item, 10), addAnd)
 			output.push item + unit
-	output.join(' ').replace(/^\s+|\s+$/g,'') # trim whitespace
+	trimWhitespace(output.join(' '))
 
 # Main function 1 of 2
 speakNum = (str) ->
