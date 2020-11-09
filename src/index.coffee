@@ -24,7 +24,6 @@ import adjustDecimal from './utils/adjust-decimal.coffee'
 import splitNum from './utils/split-num.coffee'
 import splitInt from './utils/split-int.coffee'
 
-# import parseOptions from './utils/parse-options.coffee'
 import parseLang from './utils/parse-lang.coffee'
 import enUS from './en-us.coffee'
 import zhTW from './zh-tw.coffee'
