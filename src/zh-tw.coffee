@@ -81,7 +81,7 @@ speakAmt = (str, options = 'cheque') ->
 	str = adjustDecimal(str, 'ceil', 2)
 	strSplited = splitNum(str)
 	int = strSplited[0] # remark: zero will return '0' (string)
-	dec = +((strSplited[1] + '0').slice(0,2)) #todo: pack into parseCents
+	dec = +parseCents(strSplited[1])
 	if int is '0' and dec is 0
 		'零元'
 	else

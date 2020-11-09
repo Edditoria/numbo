@@ -17,6 +17,7 @@ import splitNum from './utils/split-num.coffee'
 import splitInt from './utils/split-int.coffee'
 import speakByDigit from './utils/speak-by-digit.coffee'
 import parse99 from './utils/parse-99.coffee'
+import parseCents from './utils/parse-cents.coffee'
 import trimWhitespace from './utils/trim-whitespace.coffee'
 
 defaultOptions =
@@ -117,9 +118,13 @@ speakAmt = (str, type, zeroCent) ->
 			if int is '' then ''
 			else if int is 'One' then ' ' + dollarUnit[0]
 			else ' ' + dollarUnit[1]
-		# parse cents
-		dec = +((strSplited[1] + '0').slice(0,2)) #todo: pack into parseCents
-		dec = n99[dec] # remark: n99[0] returns ''
+		# parse cents:
+		# 1. strSplited[1]
+		# 2. parseCents()
+		# 3. +dec
+		# 4. n99()
+		# remark: n99[0] returns ''
+		dec = n99[+parseCents(strSplited[1])]
 		cents =
 			if dec is '' and int is '' then 'Null'
 			else if dec is '' then 'No Cent'
