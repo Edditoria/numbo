@@ -8,6 +8,28 @@
   "main": "./bundles/numbo.min.js",
   "//module": "ESM format; Entry point of modules; Not minified; Consume using import",
   "module": "./esm/index.mjs",
+  "//exports": "Experimental. Require node >=13.2. Recommend >=14.0",
+  "exports": {
+    ".": {
+      "require": "./bundles/numbo.min.js",
+      "default": "./esm/index.mjs"
+    },
+    "./en-us": {
+      "require": "./bundles/numbo.en-us.min.js",
+      "default": "./esm/en-us.mjs"
+    },
+    "./zh-cn": {
+      "require": "./bundles/numbo.zh-cn.min.js",
+      "default": "./esm/zh-cn.mjs"
+    },
+    "./zh-tw": {
+      "require": "./bundles/numbo.zh-tw.min.js",
+      "default": "./esm/zh-tw.mjs"
+    },
+    "./utils/*": {
+      "default": "./esm/utils/*.mjs"
+    }
+  },
   "files": [
     "/bundles/**/*",
     "/esm/**/*",
