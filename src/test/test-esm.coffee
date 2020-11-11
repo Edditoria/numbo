@@ -1,7 +1,7 @@
 ###
-Run tests for each module: numbo, enUS, zhCN, zhTW.
-This file is usable after compiling to mjs.
-Do not work in Rollup or Babel.
+Run tests for each module: Numbo, enUS, zhCN, zhTW.
+This file and the imported modules are managed by Gulp, not Rollup.
+Gulp creates all imported files, rather than transpile them into one file.
 ###
 
 import Numbo from '../esm/index.mjs'
@@ -22,6 +22,8 @@ printMsg('startTest')
 # Suppose all testResults are identical
 testResults = []
 
+# Test Numbo
+
 numbo = new Numbo()
 
 for lang in langs
@@ -31,6 +33,8 @@ for lang in langs
 			'numbo', numbo, dataList, lang, type
 		)
 		testResults.push eachTestResult
+
+# Test enUS, zhTW and zhCN
 
 langMods = [
 	{ lang: 'enUS', mod: enUS }

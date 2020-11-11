@@ -14,7 +14,7 @@ import zhCNNumber from './zh-cn.number.coffee'
 @property {Object.<Lang>.<Type>.<?string>} expect - Expected result for running numbo()
 @typedef {Object} Lang - One of { enUS, zhTW, zhCN } as property of Data
 @typedef {Object} Type - One of { amount, cheque, number } as property of Lang
-*###
+###
 
 export default {
 	enUS:

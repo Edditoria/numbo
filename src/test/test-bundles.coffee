@@ -1,6 +1,7 @@
 ###
-Run tests for each module: numbo, enUS, zhCN, zhTW.
-
+Run tests for each bundle: Numbo, enUS, zhCN, zhTW.
+This file and required modules are managed by Rollup, not Gulp.
+Rollup creates the required files, rather than bundling them in one file.
 ###
 
 Numbo = require '../bundles/numbo.min.js'
@@ -8,7 +9,10 @@ enUS = require '../bundles/numbo.en-us.min.js'
 zhTW = require '../bundles/numbo.zh-tw.min.js'
 zhCN = require '../bundles/numbo.zh-cn.min.js'
 
+###* @type {Data} See data structure in all-data.coffee ###
 allData = require './data/all-data.js'
+# Require all-tools instead of one-by-one,
+# because rollup packs all tools into one single file.
 tools = require './shared/all-tools.js'
 
 langs = tools.langs
@@ -22,7 +26,7 @@ printMsg('startTest')
 # Suppose all testResults are identical
 testResults = []
 
-# Test numbo
+# Test Numbo
 
 numbo = new Numbo()
 
