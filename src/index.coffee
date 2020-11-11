@@ -6,6 +6,7 @@ Also helpful for writing cheques (checks). Supports English, and 支援中文.
 Numbo is open source in:
 https://github.com/Edditoria/numbo
 
+@module Numbo
 @file The main entry of Numbo library.
 @author Edditoria
 @license MIT
@@ -29,11 +30,25 @@ import enUS from './en-us.coffee'
 import zhTW from './zh-tw.coffee'
 import zhCN from './zh-cn.coffee'
 
+###*
+@typedef {Object} Options
+Numbo options are widely used as argument in modules.
+It is designed to bring forward to vary modules and functions.
+All property are optional. Defaults are:
+@property {?string} lang - Numbo bundled modules: 'enUS', 'zhTW' and 'zhCN'.
+@property {?string} type - 'number', 'amount', 'cheque' and their aliases.
+@property {?boolean} zeroCent - Useful when cheque amount is an integer.
+	True to display "and zero cent" instead of "and no cent".
+###
+
+# Collections of utils and langs
+# ==============================
+
 utils =
 	trimWhitespace: trimWhitespace
 	parse99: parse99
-	parseCent: parseCents #todo to be depreciated
-	parseCents: parseCents #todo to be depreciated
+	parseCent: parseCents
+	parseCents: parseCents
 	parseType: parseType
 	speakByDigit: speakByDigit
 	check: check
@@ -49,6 +64,10 @@ langs =
 	zhTW: zhTW
 	zhCN: zhCN
 
+# Operating Options
+# =================
+
+###* @type {Options} ###
 defaultOptions =
 	lang: 'enUS'
 	type: 'number'
@@ -61,15 +80,15 @@ resetOptions = () ->
 	@options = Object.assign({}, defaultOptions)
 	return @options
 
-###
-Convert numerical input to a specific language.
-It will pass the whole option object to another modules for further processing.
+###*
+Convert is named for Numbo.convert() method.
+It actually passes numerical string and options to a language module.
 @param {string|number} input - The key input being converted, e.g. '123.45'.
-@param {Object|null} options - Includes lang, type and others.
-@return {string} - Final output of numbo.
+@param {Options|null} options
+@return {string} - Final output of Numbo.
 ###
 convert = (input, options) ->
-	# Clone this.options, then override it using options
+	# Clone this.options, then override it using options arg
 	oneTimeOptions = Object.assign({}, @options, options)
 	oneTimeOptions.lang = parseLang(oneTimeOptions.lang)
 	if oneTimeOptions.lang is false

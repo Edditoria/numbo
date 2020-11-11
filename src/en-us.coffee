@@ -1,4 +1,5 @@
 ###*
+@module enUS
 @file Convert number to English (en-US) as part of Numbo JS library.
 
 Numbo is open source in:
@@ -20,12 +21,13 @@ import parse99 from './utils/parse-99.coffee'
 import parseCents from './utils/parse-cents.coffee'
 import trimWhitespace from './utils/trim-whitespace.coffee'
 
+###* @type {Options} ###
 defaultOptions =
 	type: 'number'
 	zeroCent: false
 
 n1 = [
-	'' #zero
+	'' # zero
 	'One', 'Two', 'Three', 'Four', 'Five'
 	'Six', 'Seven', 'Eight', 'Nine', 'Ten'
 	'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen'
@@ -39,7 +41,7 @@ n1withZero = [
 	'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'
 ]
 n10 = [
-	'' #zero
+	'' # zero
 	'Ten', 'Twenty', 'Thirty', 'Forty', 'Fifty'
 	'Sixty', 'Seventy', 'Eighty', 'Ninety'
 ]
@@ -50,12 +52,17 @@ n1000 = [
 	'Quattuordecillion', 'Quindecillion', 'Sexdecillion', 'Septendecillion', 'Octodecillion'
 	'Novemdecillion', 'Vigintillion'
 ]
-# n99 is an array ['', One', 'Two'..'Ninety-nine']
+###* @type {Array.<string>} Basically ['', One', 'Two'..'Ninety-nine'] ###
 n99 = parse99(n1, n10, '-')
 
-
+###*
+Convert number (1..999) to English.
+Work for speakInt().
+@param {number} num - Expect an integer 1..999
+@param {boolean|null} [addAnd=true]
+@return {string}
+###
 speak999 = (num, addAnd = true) ->
-	# expect `num` is an integer from 1 to 999
 	if num <=99 then n99[num]
 	else if num % 100 is 0
 		n1[Math.floor(num/100)] + ' Hundred'
@@ -64,8 +71,14 @@ speak999 = (num, addAnd = true) ->
 		hundred = if addAnd then ' Hundred and ' else ' Hundred '
 		output = n1[d100] + hundred + n99[num % 100]
 
+###*
+Convert integer part of Numbo input to English.
+Work for speakNum() and speakAmt().
+@param {Array} numArr - e.g. [12, 345, 678].
+@param {boolean|null} [addAdd=true] - Will be brought forward to speak999().
+@return {string}
+###
 speakInt = (numArr, addAnd = true) ->
-	# expect `numArr` is an array
 	output = []
 	times = numArr.length
 	for item, num in numArr
@@ -76,9 +89,14 @@ speakInt = (numArr, addAnd = true) ->
 			output.push item + unit
 	trimWhitespace(output.join(' '))
 
-# Main function 1 of 2
+###*
+Convert Numbo input to English.
+As one of two main functions in enUS,
+it runs when options.type is 'number'.
+@param {string} str - Numbo input after parsing.
+@return {string} - Final answer of Numbo.
+###
 speakNum = (str) ->
-	# convert number `str` to written text
 	if str is '0' then 'zero'
 	else if str is '1' then 'one' # faster
 	else
@@ -91,16 +109,16 @@ speakNum = (str) ->
 			else ' point ' + speakByDigit(strSplited[1], n1withZero, ' ')
 		(int + dec).toLowerCase()
 
-# Main function 2 of 2
-###
-Convert numerical amount to written text.
-@param {string} str - The input in string.
+###*
+Convert Numbo input to English.
+As one of two main functions in enUS,
+it runs when options.type is 'amount' or 'cheque'.
+@param {string} str - Numbo input after parsing.
 @param {type} type - Either 'amount' or 'cheque':
-	- 'amount': some dollars and some cents.
+	- 'amount': some dollars and some cents, or
 	- 'cheque': Some Dollars and Some Cents Only.
-@param {boolean} zeroCent - When zero cent:
-	- true: "and no cent"
-	- false: "and zero cent"
+@param {boolean} zeroCent - zeroCent in Numbo Options.
+@return Final answer of Numbo.
 ###
 speakAmt = (str, type, zeroCent) ->
 	if str is '0' then output = 'Null'
@@ -153,8 +171,11 @@ speakAmt = (str, type, zeroCent) ->
 	output
 
 
-###
-@param {string|number} input - A string of floating number in format of 'nnnnnnn.dddd', e.g. '123.45'.
+###*
+Convert Numbo input to English.
+This enUS module reacts to numbo.convert(input, options) when type is en-US.
+Or directly import it as a function.
+@param {string|number} input - Numbo input 'nnnnnnn.dddd', e.g. '123.45'.
 @param {Object|null} options - The Numbo options object.
 @return {string|null} - e.g. 'one hundred point two three', or null if detects error.
 ###
@@ -166,12 +187,11 @@ export default (input, options = defaultOptions) ->
 		return null
 	# else
 	input = normalize(input) # input must become a string
-	#todo: if typeof options is 'string'
 	switch options.type
 		when null, 'number', 'num'
 			return speakNum(input)
 		when 'cheque', 'check', 'chk', 'chq'
-			# zeroCent only accept true. All other things are false.
+			# zeroCent only accepts true. All other values are false.
 			zeroCent = if options.zeroCent is true then true else false
 			return speakAmt(input, 'cheque', zeroCent)
 		when 'amount', 'amt'

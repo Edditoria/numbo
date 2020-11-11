@@ -1,4 +1,5 @@
 ###*
+@module zhTW
 @file Convert number to Traditional Chinese (zh-TW) as part of Numbo JS library.
 
 Numbo is open source in:
@@ -18,19 +19,29 @@ import speakByDigit from './utils/speak-by-digit.coffee'
 import splitInt from './utils/split-int.coffee'
 import parseCents from './utils/parse-cents.coffee'
 
-# 0 to 9
+###* @type {Array.<string>} - [0..9] in full-stroke style. ###
 n1 = ['零', '壹', '貳', '叁', '肆', '伍', '陸', '柒', '捌', '玖']
+###* @type {Array.<string>} - [0..9] in normal-stroke style. ###
 n1Simple = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
-# units for digits (i.e. 1, 10, 100, 1000)
+###* @type {Array.<string>} - ['', 10, 100, 1000] in full-stroke style. ###
 n10 = ['', '拾', '佰', '仟']
+###* @type {Array.<string>} - ['', 10, 100, 1000] in normal-stroke style. ###
 n10Simple = ['', '十', '百', '千']
-# units for large number (i.e. 1, 1 0000 , 1 0000 0000 ...)
-# 萬萬為億，萬億為兆
+###*
+@type {Array.<string>} Names for large numbers: 1, 1 0000 , 1 0000 0000 ...
+	Quote: 萬萬為億，萬億為兆。
+###
 nLarge = [
 	'', '萬', '億', '兆', '京'
 	'垓', '秭', '穰', '溝', '澗', '正', '載'
 ]
 
+###*
+Convert number ('1'..'9999') to Chinese.
+@param {string} str - Expect '1'..'9999'
+@param {boolean|null} [isSimple=true] - Result in simple-stroke style, e.g. '一' instead of '壹'.
+@return {string}
+###
 speak9999 = (str, isSimple = true) ->
 	# expect a string within 4 digit
 	# may contain double '零'/'〇', but not going to fix it here
@@ -46,6 +57,14 @@ speak9999 = (str, isSimple = true) ->
 	else output = output.replace(/\零+$/g, '') # remove tailing '零'
 	output
 
+###*
+Convert integer part of Numbo input to Chinese.
+It splits str into array by every 4 characters, then speak9999() one-by-one.
+Work for speakNum() and speakAmt().
+@param {string} str
+@param {boolean|null} isSimple - Will be brought forward to speak9999().
+@return {string}
+###
 speakInt = (str, isSimple = true) ->
 	# split the str into array by every 4 characters
 	# then speak9999() one by one
@@ -68,7 +87,13 @@ speakInt = (str, isSimple = true) ->
 			.replace(/\零+$/g, '') # remove tailing zero '零'
 			.replace(/\零+/g, '零') # remove double '零'
 
-# Main function 1 of 2
+###*
+Convert Numbo input to Chinese in Taiwan.
+As one of two main functions in zhTW,
+it runs when options.type is 'number'.
+@param {string} str - Numbo input after parsing.
+@return {string} - Final answer of Numbo.
+###
 speakNum = (str) ->
 	strSplited = splitNum(str)
 	int = strSplited[0]
@@ -76,7 +101,14 @@ speakNum = (str) ->
 	dot = if dec is '' then '' else '點'
 	speakInt(int, true) + dot + speakByDigit(dec, n1Simple, '')
 
-# Main function 2 of 2
+###*
+Convert Numbo input to Chinese in Taiwan.
+As one of two main functions in zhTW,
+it runs when options.type is 'amount' or 'cheque'.
+@param {string} str - Numbo input after parsing.
+@param {string} options - Either 'amount' or 'cheque'
+@return {string} - Final answer of Numbo.
+###
 speakAmt = (str, options = 'cheque') ->
 	str = adjustDecimal(str, 'ceil', 2)
 	strSplited = splitNum(str)
@@ -109,8 +141,11 @@ speakAmt = (str, options = 'cheque') ->
 		dollar + cent
 
 
-###
-@param {string|number} input - A string of floating number in format of 'nnnnnnn.dddd', e.g. '123.45'.
+###*
+Convert Numbo input to Chinese in Taiwan.
+This zhTW module reacts to numbo.convert(input, options) when type is zh-TW.
+Or directly import it as a function.
+@param {string|number} input - Numbo input 'nnnnnnn.dddd', e.g. '123.45'.
 @param {Object|null} options - The Numbo options object.
 @return {string|null} - e.g. '一百二十三點四五', or null if detects error.
 ###
