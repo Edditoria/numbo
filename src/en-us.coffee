@@ -63,13 +63,12 @@ Work for speakInt().
 @return {string}
 ###
 speak999 = (num, addAnd = true) ->
-	if num <=99 then n99[num]
-	else if num % 100 is 0
-		n1[Math.floor(num/100)] + ' Hundred'
-	else
-		d100 = Math.floor(num/100)
-		hundred = if addAnd then ' Hundred and ' else ' Hundred '
-		output = n1[d100] + hundred + n99[num % 100]
+	if num <=99 then return n99[num]
+	if num % 100 is 0 then return n1[Math.floor(num/100)] + ' Hundred'
+	# else
+	d100 = Math.floor(num/100)
+	hundred = if addAnd then ' Hundred and ' else ' Hundred '
+	return n1[d100] + hundred + n99[num % 100]
 
 ###*
 Convert integer part of Numbo input to English.
@@ -87,7 +86,7 @@ speakInt = (numArr, addAnd = true) ->
 			unit = ' ' + n1000[times]
 			item = speak999(parseInt(item, 10), addAnd)
 			output.push item + unit
-	trimWhitespace(output.join(' '))
+	return trimWhitespace(output.join(' '))
 
 ###*
 Convert Numbo input to English.
@@ -97,17 +96,17 @@ it runs when options.type is 'number'.
 @return {string} - Final answer of Numbo.
 ###
 speakNum = (str) ->
-	if str is '0' then 'zero'
-	else if str is '1' then 'one' # faster
-	else
-		strSplited = splitNum(str)
-		intArr = splitInt(strSplited[0])
-		int = speakInt(intArr)
-		if int is '' then int = 'zero'
-		dec =
-			if strSplited[1] is '' then ''
-			else ' point ' + speakByDigit(strSplited[1], n1withZero, ' ')
-		(int + dec).toLowerCase()
+	if str is '0' then return 'zero'
+	if str is '1' then return 'one' # faster
+	# else
+	strSplited = splitNum(str)
+	intArr = splitInt(strSplited[0])
+	int = speakInt(intArr)
+	if int is '' then int = 'zero'
+	dec =
+		if strSplited[1] is '' then ''
+		else ' point ' + speakByDigit(strSplited[1], n1withZero, ' ')
+	return (int + dec).toLowerCase()
 
 ###*
 Convert Numbo input to English.
@@ -167,8 +166,9 @@ speakAmt = (str, type, zeroCent) ->
 		else
 			console.log 'Error: Option in speakAmt() is invalid.'
 			output = null
-	if zeroCent is true then output = output.replace('and No Cent', 'and Zero Cent')
-	output
+	if zeroCent is true
+		output = output.replace('and No Cent', 'and Zero Cent')
+	return output
 
 
 ###*
@@ -197,5 +197,5 @@ export default (input, options = defaultOptions) ->
 		when 'amount', 'amt'
 			return speakAmt(input, 'amount', false)
 		else
-			console.log 'Error: option.type in enUS is not valid'
+			console.log 'Error: options.type in enUS is not valid'
 			return null

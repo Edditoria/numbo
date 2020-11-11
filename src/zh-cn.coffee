@@ -58,9 +58,8 @@ speak9999 = (str, isSimple = true) ->
 		eachNum = +str[num]
 		unit = if eachNum is 0 then '' else speakN10[times - num]
 		output += speakN1[eachNum] + unit
-	if output is '零零零零' then output = '零'
-	else output = output.replace(/\零+$/g, '') # remove tailing '零'
-	output
+	if output is '零零零零' then return '零'
+	else return output.replace(/\零+$/g, '') # remove tailing '零'
 
 ###*
 Convert integer part of Numbo input to Chinese.
@@ -71,24 +70,24 @@ Work for speakNum() and speakAmt().
 @return {string}
 ###
 speakInt = (str, isSimple = true) ->
-	if str is '0' then '零'
-	else
-		strArr = splitInt(str, 4)
-		times = strArr.length - 1
-		output = ''
-		for item, num in strArr
-			speakItem = speak9999(item, isSimple) # item = 0 will return '零'
-			if num is 0
-				# the first item, in case of 10 to 19, need to remove 一, 壹 and 零
-				# e.g. 12 in 12,0000,0000 , or simply 18 in 18
-				itemNum = parseInt(item, 10)
-				if itemNum > 9 and itemNum < 20
-					speakItem = speakItem.replace(/^[\一\壹]|\零/g, '')
-			unit = if speakItem is '零' then '' else nLarge[times - num]
-			output += speakItem + unit
-		output
-			.replace(/\零+$/g, '') # remove tailing zero '零'
-			.replace(/\零+/g, '零') # remove double '零'
+	if str is '0' then return '零'
+	# else
+	strArr = splitInt(str, 4)
+	times = strArr.length - 1
+	output = ''
+	for item, num in strArr
+		speakItem = speak9999(item, isSimple) # item = 0 will return '零'
+		if num is 0
+			# the first item, in case of 10 to 19, need to remove 一, 壹 and 零
+			# e.g. 12 in 12,0000,0000 , or simply 18 in 18
+			itemNum = parseInt(item, 10)
+			if itemNum > 9 and itemNum < 20
+				speakItem = speakItem.replace(/^[\一\壹]|\零/g, '')
+		unit = if speakItem is '零' then '' else nLarge[times - num]
+		output += speakItem + unit
+	return output
+		.replace(/\零+$/g, '') # remove tailing zero '零'
+		.replace(/\零+/g, '零') # remove double '零'
 
 ###*
 Convert Numbo input to Chinese in China PRC.
@@ -102,7 +101,7 @@ speakNum = (str) ->
 	int = strSplited[0]
 	dec = strSplited[1]
 	dot = if dec is '' then '' else '点'
-	speakInt(int, true) + dot + speakByDigit(dec, n1Simple, '')
+	return speakInt(int, true) + dot + speakByDigit(dec, n1Simple, '')
 
 ###*
 Convert Numbo input to Chinese in China PRC.
@@ -118,30 +117,30 @@ speakAmt = (str, options = 'cheque') ->
 	int = strSplited[0] # remark: zero will return '0' (string)
 	dec = +parseCents(strSplited[1])
 	if int is '0' and dec is 0
-		'零元'
-	else
-		isSimple = if options is 'cheque' then false else true
-		dollar =
-			if int is '0' then ''
-			else if int is '2' and options isnt 'cheque' then '两元'
-			else speakInt(int, isSimple) + '元'
-		cent =
-			if dec is 0 # remark: zero will return ''
-				if options is 'cheque' then '整' else ''
-			else
-				speakN1 = if isSimple then n1Simple else n1
-				dp1 = Math.floor(dec/10)
-				dp2 = dec % 10
-				cent1 =
-					if dp1 is 0 then ''
-					else if dp1 is 2 and options isnt 'cheque' then '两角'
-					else speakN1[dp1] + '角'
-				cent2 =
-					if dp2 is 0 then ''
-					else if dp2 is 2 and options isnt 'cheque' then '两分'
-					else speakN1[dp2] + '分'
-				cent = cent1 + cent2
-		dollar + cent
+		return '零元'
+	# else
+	isSimple = if options is 'cheque' then false else true
+	dollar =
+		if int is '0' then ''
+		else if int is '2' and options isnt 'cheque' then '两元'
+		else speakInt(int, isSimple) + '元'
+	cent =
+		if dec is 0 # remark: zero will return ''
+			if options is 'cheque' then '整' else ''
+		else
+			speakN1 = if isSimple then n1Simple else n1
+			dp1 = Math.floor(dec/10)
+			dp2 = dec % 10
+			cent1 =
+				if dp1 is 0 then ''
+				else if dp1 is 2 and options isnt 'cheque' then '两角'
+				else speakN1[dp1] + '角'
+			cent2 =
+				if dp2 is 0 then ''
+				else if dp2 is 2 and options isnt 'cheque' then '两分'
+				else speakN1[dp2] + '分'
+			cent = cent1 + cent2
+	return dollar + cent
 
 
 ###*
