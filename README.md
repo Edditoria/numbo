@@ -30,10 +30,12 @@ numbo.convert('100', { lang: 'zhTW', type: 'check' }); // '壹佰元正'
 
 Numbo can be installed via npm or Bower, or run in browser directly.
 
+**Important:** This README is based on v3.0.0-rc.0. For `numbo@latest`, please see [Numbo v2.5](https://github.com/Edditoria/numbo/tree/v2.5.0)
+
 ### npm
 
 ```shell
-npm install numbo
+npm install numbo@next
 ```
 
 For node.js
