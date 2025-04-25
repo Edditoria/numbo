@@ -1,29 +1,35 @@
-export default function (topic) {
-	var content;
-	content = (function () {
-		switch (topic) {
-			case 'startTest':
-				return `Starting Test
+/*
+ * decaffeinate suggestions:
+ * DS205: Consider reworking code to avoid use of IIFEs
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+export default (function(topic) {
+	const content = (() => { switch (topic) {
+		case 'startTest': return `\
+Starting Test
 =============
 
 The following error logs may be expected (true negatives):
+\
 `;
-			case 'summary':
-				return `
+		case 'summary': return `\
+
 Summary
 =======
+\
 `;
-			case 'failResults':
-				return `
+		case 'failResults': return `\
+
 Fail Results
 ============
+\
 `;
-			case 'testDone':
-				return `
+		case 'testDone': return `\
+
 Test Done
 =========
+\
 `;
-		}
-	})();
+	} })();
 	console.log(content);
-}
+});

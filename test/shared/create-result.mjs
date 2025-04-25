@@ -1,22 +1,17 @@
-var createSummary, initResult, updateResult;
-
-initResult = function (jobType, dataLen, lang, type) {
-	var jobDesc;
-	jobDesc =
-		jobType === 'numbo'
-			? `numbo.convert(input, { ${lang}, ${type} })`
-			: `${lang}(input, { ${type} })`;
+const initResult = function(jobType, dataLen, lang, type) {
+	const jobDesc =
+		jobType === 'numbo' ? `numbo.convert(input, { ${lang}, ${type} })`
+		: `${lang}(input, { ${type} })`;
 	return {
-		jobDesc: jobDesc,
+		jobDesc,
 		summary: 'Waiting...',
 		total: dataLen,
 		success: 0,
 		fail: 0,
-		failCases: [],
+		failCases: []
 	};
 };
-
-updateResult = function (eachData, testResult) {
+const updateResult = function(eachData, testResult) {
 	if (eachData.ans === eachData.expect) {
 		testResult.success++;
 	} else {
@@ -26,9 +21,7 @@ updateResult = function (eachData, testResult) {
 	return testResult;
 };
 
-createSummary = function (total, success, fail) {
-	return `${total} tests, ${success} success, ${fail} fail`;
-};
+const createSummary = (total, success, fail) => `${total} tests, ${success} success, ${fail} fail`;
 
 /**
 @param jobType {string} - Either 'numbo', 'enUS', 'zhTW' or 'zhCN'.
@@ -36,21 +29,17 @@ createSummary = function (total, success, fail) {
                              Don't import numbo-like objects in this file,
                              so this module file can be re-usable.
 */
-export default function (jobType, callbackFn, dataList, lang, type) {
-	var eachData, i, len, options, testResult;
-	testResult = initResult(jobType, dataList.length, lang, type);
-	for (i = 0, len = dataList.length; i < len; i++) {
-		eachData = dataList[i];
-		options = {
-			lang: lang,
-			type: type,
-		};
+export default (function(jobType, callbackFn, dataList, lang, type) {
+	let testResult = initResult(jobType, dataList.length, lang, type);
+	for (var eachData of dataList) {
+		var options = { lang, type };
 		// note: eachData has { input, expect }; Now adds { ans }
-		// Only numbo object has .convert() method
 		eachData.ans =
-			jobType === 'numbo'
-				? callbackFn.convert(eachData.input, options)
-				: callbackFn(eachData.input, options);
+			jobType === 'numbo' ?
+				// Only numbo object has .convert() method
+				callbackFn.convert(eachData.input, options)
+			:
+				callbackFn(eachData.input, options);
 		testResult = updateResult(eachData, testResult);
 	}
 	testResult.summary = createSummary(
@@ -59,4 +48,4 @@ export default function (jobType, callbackFn, dataList, lang, type) {
 		testResult.fail
 	);
 	return testResult;
-}
+});
