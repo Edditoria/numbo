@@ -1,93 +1,93 @@
 {
-  "name": "numbo",
-  "version": "3.0.0-rc.0",
-  "description": "Convert number and monetary amount to written text. Also helpful for writing cheques (checks). Supports English, and 支援中文.",
-  "license": "MIT",
-  "private": true,
-  "//main": "UMD format; Bundle in one file; Minified; Act as fallback",
-  "main": "./bundles/numbo.min.js",
-  "//module": "ESM format; Entry point of modules; Not minified; Consume using import",
-  "module": "./esm/index.mjs",
-  "//exports": "Experimental. Require node >=13.2. Recommend >=14.0",
-  "exports": {
-    ".": {
-      "require": "./bundles/numbo.min.js",
-      "default": "./esm/index.mjs"
-    },
-    "./en-us": {
-      "require": "./bundles/numbo.en-us.min.js",
-      "default": "./esm/en-us.mjs"
-    },
-    "./zh-cn": {
-      "require": "./bundles/numbo.zh-cn.min.js",
-      "default": "./esm/zh-cn.mjs"
-    },
-    "./zh-tw": {
-      "require": "./bundles/numbo.zh-tw.min.js",
-      "default": "./esm/zh-tw.mjs"
-    },
-    "./utils/*": {
-      "default": "./esm/utils/*.mjs"
-    }
-  },
-  "files": [
-    "/bundles/**/*",
-    "/esm/**/*",
-    "package.json",
-    "LICENSE.txt",
-    "README.md"
-  ],
-  "engines": {
-    "//devNode": "Recommend >=20.9. Require node >=18.0 to build properly.",
-    "node": ">=6"
-  },
-  "scripts": {
-    "clean": "gulp -f gulpfile.coffee clean",
-    "build": "npm run build:esm && npm run build:bundles",
-    "build:esm": "gulp -f gulpfile.coffee",
-    "build:bundles": "rollup --config rollup.config.js",
-    "testOnly": "npm run testOnly:esm && npm run testOnly:bundles",
-    "testOnly:esm": "node ./test/test-options.mjs && node ./test/test-esm.mjs",
-    "testOnly:bundles": "node ./test/test-bundles.js",
-    "test": "npm run build && npm run testOnly",
-    "test:esm": "npm run build:esm && npm run testOnly:esm",
-    "test:bundles": "npm run build:bundles && npm run testOnly:bundles",
-    "prepublishOnly": "npm run test",
-    "prepack": "npm run test"
-  },
-  "author": "Edditoria <edditoria@gmail.com>",
-  "homepage": "https://edditoria.github.io/numbo",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Edditoria/numbo.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Edditoria/numbo/issues"
-  },
-  "keywords": [
-    "convert",
-    "number",
-    "cheque",
-    "amount",
-    "English",
-    "Chinese",
-    "number to text",
-    "speak number"
-  ],
-  "devDependencies": {
-    "@babel/core": "^7.26.10",
-    "@babel/preset-env": "^7.26.9",
-    "@rollup/plugin-babel": "^5.3.1",
-    "coffeescript": "^2.7.0",
-    "del": "^5.1.0",
-    "gulp": "^4.0.2",
-    "gulp-coffee": "^3.0.3",
-    "gulp-prettier": "^3.0.0",
-    "gulp-rename": "^2.0.0",
-    "gulp-replace": "^1.1.4",
-    "rollup": "^2.79.2",
-    "rollup-plugin-banner": "^0.2.1",
-    "rollup-plugin-coffee-script": "^2.0.0",
-    "rollup-plugin-terser": "^6.1.0"
-  }
+	"name": "numbo",
+	"version": "3.0.0-rc.0",
+	"description": "Convert number and monetary amount to written text. Also helpful for writing cheques (checks). Supports English, and 支援中文.",
+	"license": "MIT",
+	"private": true,
+	"//main": "UMD format; Bundle in one file; Minified; Act as fallback",
+	"main": "./bundles/numbo.min.js",
+	"//module": "ESM format; Entry point of modules; Not minified; Consume using import",
+	"module": "./esm/index.mjs",
+	"//exports": "Experimental. Require node >=13.2. Recommend >=14.0",
+	"exports": {
+		".": {
+			"require": "./bundles/numbo.min.js",
+			"default": "./esm/index.mjs"
+		},
+		"./en-us": {
+			"require": "./bundles/numbo.en-us.min.js",
+			"default": "./esm/en-us.mjs"
+		},
+		"./zh-cn": {
+			"require": "./bundles/numbo.zh-cn.min.js",
+			"default": "./esm/zh-cn.mjs"
+		},
+		"./zh-tw": {
+			"require": "./bundles/numbo.zh-tw.min.js",
+			"default": "./esm/zh-tw.mjs"
+		},
+		"./utils/*": {
+			"default": "./esm/utils/*.mjs"
+		}
+	},
+	"files": [
+		"/bundles/**/*",
+		"/esm/**/*",
+		"package.json",
+		"LICENSE.txt",
+		"README.md"
+	],
+	"engines": {
+		"//devNode": "Recommend >=20.9. Require node >=18.0 to build properly.",
+		"node": ">=6"
+	},
+	"scripts": {
+		"clean": "gulp -f gulpfile.coffee clean",
+		"build": "npm run build:esm && npm run build:bundles",
+		"build:esm": "gulp -f gulpfile.coffee",
+		"build:bundles": "rollup --config rollup.config.js",
+		"testOnly": "npm run testOnly:esm && npm run testOnly:bundles",
+		"testOnly:esm": "node ./test/test-options.mjs && node ./test/test-esm.mjs",
+		"testOnly:bundles": "node ./test/test-bundles.js",
+		"test": "npm run build && npm run testOnly",
+		"test:esm": "npm run build:esm && npm run testOnly:esm",
+		"test:bundles": "npm run build:bundles && npm run testOnly:bundles",
+		"prepublishOnly": "npm run test",
+		"prepack": "npm run test"
+	},
+	"author": "Edditoria <edditoria@gmail.com>",
+	"homepage": "https://edditoria.github.io/numbo",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Edditoria/numbo.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Edditoria/numbo/issues"
+	},
+	"keywords": [
+		"convert",
+		"number",
+		"cheque",
+		"amount",
+		"English",
+		"Chinese",
+		"number to text",
+		"speak number"
+	],
+	"devDependencies": {
+		"@babel/core": "^7.26.10",
+		"@babel/preset-env": "^7.26.9",
+		"@rollup/plugin-babel": "^5.3.1",
+		"coffeescript": "^2.7.0",
+		"del": "^5.1.0",
+		"gulp": "^4.0.2",
+		"gulp-coffee": "^3.0.3",
+		"gulp-prettier": "^3.0.0",
+		"gulp-rename": "^2.0.0",
+		"gulp-replace": "^1.1.4",
+		"rollup": "^2.79.2",
+		"rollup-plugin-banner": "^0.2.1",
+		"rollup-plugin-coffee-script": "^2.0.0",
+		"rollup-plugin-terser": "^6.1.0"
+	}
 }
