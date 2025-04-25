@@ -28,7 +28,6 @@ buildESM = (cb) ->
 		.pipe coffee()
 		.pipe prettier(
 			editorconfig: true
-			singleQuote: true
 		)
 		# Replace extension name from .coffee to .mjs in import statements
 		.pipe replace(regex, extname + '$2')
@@ -42,7 +41,6 @@ buildTestESM = (cb) ->
 		.pipe coffee()
 		.pipe prettier(
 			editorconfig: true
-			singleQuote: true
 		)
 		.pipe replace(regex, extname + '$2')
 		.pipe rename({ extname: extname })
