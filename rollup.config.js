@@ -84,23 +84,9 @@ const files = [
 ];
 const configs = files.map(file => createConfig(file));
 
-// Add test-bundles to configs
-configs.push({
-	input: 'src/test/test-bundles.coffee',
-	output: {
-		file: 'test/test-bundles.js',
-		format: 'cjs',
-		// name: packageName
-	},
-	// context: 'this',
-	plugins: [
-		coffee()
-	]
-});
-
 // Add all-data.js to configs
 configs.push({
-	input: 'src/test/data/all-data.coffee',
+	input: 'test/data/all-data.mjs',
 	output: {
 		file: 'test/data/all-data.js',
 		format: 'cjs',
@@ -108,14 +94,11 @@ configs.push({
 		exports: 'auto'
 	},
 	// context: 'this',
-	plugins: [
-		coffee()
-	]
 });
 
 // Add all-tools.js to configs
 configs.push({
-	input: 'src/test/shared/all-tools.coffee',
+	input: 'test/shared/all-tools.mjs',
 	output: {
 		file: 'test/shared/all-tools.js',
 		format: 'cjs',
@@ -123,9 +106,6 @@ configs.push({
 		exports: 'auto'
 	},
 	// context: 'this',
-	plugins: [
-		coffee()
-	]
 });
 
 export default configs;

@@ -8,10 +8,6 @@ srcGlobs = [
 	'src/**/*.coffee'
 	'!src/test/**'
 ]
-testGlobs = [
-	'src/test/**/*.coffee'
-	'!src/test/test-bundles.coffee'
-]
 
 # $1: Extension name to be replaced; $2: Two characters "';" to be reserved
 regex = /(.coffee)(['"];\s*)$/gm
@@ -30,18 +26,4 @@ buildESM = (cb) ->
 	cb()
 	return
 
-buildTestESM = (cb) ->
-	gulp.src(testGlobs)
-		.pipe coffee()
-		.pipe prettier(
-			editorconfig: true
-		)
-		.pipe replace(regex, extname + '$2')
-		.pipe rename({ extname: extname })
-		.pipe gulp.dest('test/')
-	cb()
-	return
-
-exports.default = gulp.parallel(buildESM, buildTestESM)
-exports.buildESM = buildESM
-exports.buildTestESM = buildTestESM
+exports.default = buildESM
