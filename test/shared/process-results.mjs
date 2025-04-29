@@ -1,6 +1,6 @@
 import printMsg from './print-msg.mjs';
 
-export default (function(testResults) {
+export default (function (testResults) {
 	let total = 0;
 	let success = 0;
 	let fail = 0;
@@ -15,7 +15,7 @@ export default (function(testResults) {
 		if (result.failCases.length > 0) {
 			failCasesList.push({
 				jobDesc: result.jobDesc,
-				failCases: result.failCases
+				failCases: result.failCases,
 			});
 		}
 		console.log(`${result.jobDesc}: ${result.summary}`);

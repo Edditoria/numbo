@@ -16,20 +16,20 @@ import zhCNNumber from './zh-cn.number.mjs';
 @typedef {Object} Type - One of { amount, cheque, number } as property of Lang
 */
 
-export default ({
+export default {
 	enUS: {
 		amount: enUSAmount,
 		cheque: enUSCheque,
-		number: enUSNumber
+		number: enUSNumber,
 	},
 	zhTW: {
 		amount: zhTWAmount,
 		cheque: zhTWCheque,
-		number: zhTWNumber
+		number: zhTWNumber,
 	},
 	zhCN: {
 		amount: zhCNAmount,
 		cheque: zhCNCheque,
-		number: zhCNNumber
-	}
-});
+		number: zhCNNumber,
+	},
+};

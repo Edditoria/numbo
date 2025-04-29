@@ -16,21 +16,11 @@ const allData = require('./data/all-data.js');
 // because rollup packs all tools into one single file.
 const tools = require('./shared/all-tools.js');
 
-const {
-    langs
-} = tools;
-const {
-    types
-} = tools;
-const {
-    createResult
-} = tools;
-const {
-    printMsg
-} = tools;
-const {
-    processResults
-} = tools;
+const { langs } = tools;
+const { types } = tools;
+const { createResult } = tools;
+const { printMsg } = tools;
+const { processResults } = tools;
 
 printMsg('startTest');
 
@@ -44,9 +34,7 @@ const numbo = new Numbo();
 for (lang of langs) {
 	for (type of types) {
 		dataList = allData[lang][type];
-		eachTestResult = createResult(
-			'numbo', numbo, dataList, lang, type
-		);
+		eachTestResult = createResult('numbo', numbo, dataList, lang, type);
 		testResults.push(eachTestResult);
 	}
 }
@@ -56,14 +44,12 @@ for (lang of langs) {
 const langMods = [
 	{ lang: 'enUS', mod: enUS },
 	{ lang: 'zhTW', mod: zhTW },
-	{ lang: 'zhCN', mod: zhCN }
+	{ lang: 'zhCN', mod: zhCN },
 ];
 for (var langMod of langMods) {
 	for (type of types) {
 		dataList = allData[langMod.lang][type];
-		eachTestResult = createResult(
-			langMod.lang, langMod.mod, dataList, langMod.lang, type
-		);
+		eachTestResult = createResult(langMod.lang, langMod.mod, dataList, langMod.lang, type);
 		testResults.push(eachTestResult);
 	}
 }

@@ -7,7 +7,7 @@ const input = '10';
 const defaultOptions = numbo.getDefaultOptions();
 
 // Simple version of node.util.isDeepStrictEqual()
-const compareEqObject = function(obj1, obj2) {
+const compareEqObject = function (obj1, obj2) {
 	const keys1 = Object.keys(obj1);
 	const keys2 = Object.keys(obj2);
 	if (keys1.length !== keys2.length) {
@@ -23,48 +23,56 @@ const compareEqObject = function(obj1, obj2) {
 	return true;
 };
 
-
 // Results of getOptions() should remain unchanged
 const dataWhenConvert = [
 	{
 		options: null,
-		expectOutput: 'ten'
-	}, {
+		expectOutput: 'ten',
+	},
+	{
 		options: { lang: 'zhTW', type: 'amount' },
-		expectOutput: '十元'
-	}, {
+		expectOutput: '十元',
+	},
+	{
 		options: { lang: 'zhCN' },
-		expectOutput: '十'
-	}, {
+		expectOutput: '十',
+	},
+	{
 		options: { lang: 'enUS', type: 'cheque' },
-		expectOutput: 'Ten Dollars and No Cent Only'
-	}, {
+		expectOutput: 'Ten Dollars and No Cent Only',
+	},
+	{
 		options: { type: 'cheque', zeroCent: true },
-		expectOutput: 'Ten Dollars and Zero Cent Only'
-	}, {
+		expectOutput: 'Ten Dollars and Zero Cent Only',
+	},
+	{
 		options: { lang: 'enUS', type: 'cheque' },
-		expectOutput: 'Ten Dollars and No Cent Only'
-	}, {
+		expectOutput: 'Ten Dollars and No Cent Only',
+	},
+	{
 		options: { lang: 'zhTW', type: 'check' },
-		expectOutput: '拾元正'
-	}
+		expectOutput: '拾元正',
+	},
 ];
 
 // Results of getOptions() will change step-by-step
 const dataWhenSetOptions = [
 	{
 		options: null,
-		expectGetOptions: { lang: 'enUS', type: 'number' }
-	}, {
+		expectGetOptions: { lang: 'enUS', type: 'number' },
+	},
+	{
 		options: { type: 'cheque' },
-		expectGetOptions: { lang: 'enUS', type: 'cheque' }
-	}, {
+		expectGetOptions: { lang: 'enUS', type: 'cheque' },
+	},
+	{
 		options: { lang: 'zhTW' },
-		expectGetOptions: { lang: 'zhTW', type: 'cheque' }
-	}, {
+		expectGetOptions: { lang: 'zhTW', type: 'cheque' },
+	},
+	{
 		options: { lang: 'enUS', zeroCent: true },
-		expectGetOptions: { lang: 'enUS', type: 'cheque', zeroCent: true }
-	}
+		expectGetOptions: { lang: 'enUS', type: 'cheque', zeroCent: true },
+	},
 ];
 
 console.log('Mini-test: Get/Set Options');
@@ -84,7 +92,7 @@ for (eachData of dataWhenConvert) {
 			expectOutput: eachData.expectOutput,
 			output,
 			isEqOutput,
-			isEqOptions
+			isEqOptions,
 		});
 	}
 }
@@ -98,7 +106,7 @@ for (eachData of dataWhenSetOptions) {
 			desc: 'Unexpected .getOptions() during .setOptions()',
 			inputOptions: eachData.options,
 			expectGetOptions: eachData.expectGetOptions,
-			isEqOptions
+			isEqOptions,
 		});
 	}
 }
